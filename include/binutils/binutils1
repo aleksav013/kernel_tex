@@ -1,0 +1,14 @@
+    mkdir build
+    cd build
+
+    ../configure \
+	--target=i686-elf \
+	--with-sysroot \
+	--prefix=/usr \
+	--bindir=/usr/bin \
+	--libdir=/usr/lib/i686-elf \
+	--disable-nls \
+	--disable-werror
+
+    make
+    make install

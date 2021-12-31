@@ -1,0 +1,480 @@
+\documentclass[a4paper,fleqn,12pt]{JMThesis}
+\usepackage{listings}
+\lstset{
+    language=make,
+    basicstyle=\footnotesize,
+    frame=single,
+    showstringspaces=false,
+    tabsize=8,
+    escapeinside={<@}{@>},
+}
+
+\usepackage[OT2]{fontenc}
+\newcommand\eng{\fontencoding{OT1}\fontfamily{\rmdefault}\selectfont}
+\newcommand\srb{\fontencoding{OT2}\fontfamily{\rmdefault}\selectfont}
+
+% \usepackage[serbian,english]{babel}
+
+\renewcommand{\baselinestretch}{1}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
+
+\oddsidemargin 1cm
+\evensidemargin 0cm
+\textwidth 15cm
+
+\pagestyle{headings}
+
+\font \matematicka=wncsc10 scaled 1600
+\font \maturski=wncyb10 scaled 2500
+\font \naslov=wncyb10 scaled 1900
+\font \naslovlat=cmr10 scaled 1900
+\font \imen=wncyr10 scaled 1600
+
+
+\def\zn{,\kern-0.09em,}
+\def\zng{'\kern-0.09em'}
+\pagenumbering{roman}
+\begin{document}
+
+
+\thispagestyle{empty}
+
+\begin{center}
+{\matematicka Matematichka gimnazija}
+\end{center}
+\vspace*{50mm}
+
+\begin{center}
+{\maturski MATURSKI RAD}
+
+\vspace*{8pt}
+{\naslov - iz rachunarstva i informatike -}
+\end{center}
+
+\vspace*{10pt}
+\begin{center}
+    {\naslov Izrada \textbf{\eng\Large X86 32bit i686} jezgra operativnog sistema}
+\end{center}
+
+\vspace*{70mm}
+\setlength{\columnsep}{50pt}
+\begin{multicols}{2}
+ {\noindent \imen Uchenik:
+\\Aleksa Vuchkovic1  $\operatorname{IV}$d}
+
+
+{ \noindent \hfill \imen Mentor:\\
+\hfill \phantom{aaaaaaaa} Milosh Arsic1}
+\end{multicols}
+
+\vfill
+\begin{center}
+{\imen Beograd, jun 2021.}
+\end{center}
+\clearpage
+
+\thispagestyle{empty}
+\mbox{}
+\clearpage
+
+
+\renewcommand{\contentsname}{Sadrzhaj}
+\thispagestyle{empty}
+
+\pagenumbering{gobble}
+
+\tableofcontents \clearpage
+
+\thispagestyle{empty}
+\mbox{}
+\clearpage
+
+\pagenumbering{arabic}
+\renewcommand{\chaptername}{}
+\setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Uvod}
+\bigskip
+Ideja za ovaj rad prozishla je iz ekstenzivnog korish\/c1enja {\eng GNU/Linux}
+sistema, kao i zhelja za razumevanjem rada rachunara na najnizhem nivou.
+
+Ceo kod je pisan u {\eng GNU Asembler}-u i {\eng C}-u i mozhe se nac1i na
+{\eng GitHub-u} na stranici {\eng\url{https://github.com/aleksav013/mykernel}}.
+Sav kod je dostupan pod {\eng GPLv3} licencom.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Teorija}
+\bigskip
+
+\section{{\eng X86} arhitektura}
+\medskip
+{\eng X86} arhitektura je probitno bila 8bitna (sadrzhala je registre duzhine 8
+bitova), 16bitna, zatim 32bitna i na kraju 64bitna. Danas 64bitnu {\eng X86}
+arhitekturu znamo kao i {\eng{} AMD64}, {\eng X86-64} ili {\eng X86\_64}.
+
+Zajedno sa {\eng ARM}-om jedna od najkorish\/c1enijih arhitektura.
+
+\subsection{Registri procesora}
+\smallskip
+Postoji vishe vrsta registara procesora:
+16bitni registri opshte namene: {\eng ax,bx,cx,dx}.
+
+{\eng\url{https://wiki.osdev.org/CPU_Registers_x86}}
+
+\subsection{{\eng 32bit i686}}
+\smallskip
+32bitni registri opshte namene: {\eng eax,ebx,ecx,edx}.
+64bitni registri opshte namene: {\eng rax,rbx,rcx,rdx}.
+
+\subsection{{\eng Real mode}}
+\smallskip
+Realni mod je stanje procesora u kojem nam je dozvoljeno adresiranje samo prvih
+20mb memorije. Prelazak iz realnog u zasticeni mod postizhe se dalekim skokom
+{\eng "far jump"}.
+
+{\eng\url{https://wiki.osdev.org/Real_Mode}}
+
+\subsection{Segmentacija}
+\smallskip
+Segmentacija je reshenje kojim se omoguc1ava adresiranje vishe memorije nego
+shto je to hardverski predvidjeno.
+
+{\eng\url{https://wiki.osdev.org/Segmentation}}
+
+\subsection{{\eng Protected mode}}
+\smallskip
+Zashtic1en mod je stanje procesora u kojem procesor ima pun pristup celom opsegu
+memorije za razliku od realnog moda.
+
+{\eng\url{https://wiki.osdev.org/Protected_Mode}}
+
+\section{Redosled pokretanja}
+\smallskip
+Od pritiska dugmeta za paljenje rachunara, pa do uchitavanja operativnog sitema
+postoji ceo jedan proces. Nakon pritiska dugmeta rachunar prvo izvrshava {\eng
+POST (Power On Self Test)} koji je jedna od pochetnih faza {\eng BIOS (Basic
+Input Output System)}. U {\eng POST}-u rachunar pokushava da incijalizuje
+komponente rachunarskog sistema i proverava da li one ispunjavaju sve uslove za
+startovanje rachunara. Ukoliko je ceo proces proshao bez greshaka nastavlja se
+dalje izvrshavanje {\eng BIOS}-a. {\eng BIOS} sada ima ulogu da pronadje
+medijum koji sadrzhi program koji c1e uchitati jezgro operativnog sistema u ram
+memoriju rachunara. Taj program se naziva {\eng Bootloader}.
+
+{\eng\url{https://wiki.osdev.org/Boot_Sequence}}
+
+\subsection{{\eng Bootloader}}
+\smallskip
+{\eng Bootloader} je program koji se nalazi u prvih 512bitova medijuma, i
+njegov zadatak je da uchita jezgro operativnog sistema u ram memoriju i preda
+mu dalje upravljanje.
+
+{\eng\url{https://wiki.osdev.org/Bootloader}}
+
+\section{{\eng ELF}}
+\medskip
+{\eng ELF} je format binarni fajl koji se sastoji od tachno odredjenih sekcija
+i koji mozhe da se pokrene.
+
+{\eng\url{https://wiki.osdev.org/ELF}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Korish\/c1eni alati}
+\bigskip
+U daljem tekstu se mogu videti neki od alata korish\/c1enih u kreiranju ovog rada.
+
+Svi korish\/c1eni alati poseduju {\eng GPLv2} ili {\eng GPLv3} licencu. {\eng
+GNU Public Licence} je licenca otvorenog koda koja dozvoljava modifikovanje i
+distribuiranje koda sve dok taj je taj kod javno dostupan.
+
+Jedini program sa liste koji nije {\eng GNU}-ov je {\eng QEMU} virtualna mashina.
+
+Operativni sistem korish\/c1en u izradi ovog projekta je {\eng Artix Linux}.
+{\eng Artix Linux} je {\eng GNU/Linux} distribucija bazirana na {\eng Arch Linux}-u.
+Vec1ina korish\/c1enih programa je vec1 kompajlovana i spremna za upotrebu i
+nalazi se u oficijalnim repozitorijima.
+
+Za programe koji su morali biti manuelno kompajlovani date su instrukcije u
+daljem tekstu.
+
+\section{{\eng Binutils}}
+\medskip
+Izvorni kod softvera se mozhe nac1i na stranici
+{\eng\url{https://www.gnu.org/software/binutils/}},
+zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
+
+Ovaj paket sadrzhi programe neophodne za kompajlovanje kao shto su asembler i linker.
+
+\subsection{Pre dodavanja {\eng LIBC}}
+\smallskip
+Iz razloga shto se ne koristi standardna biblioteka vec1 samostalno napisana
+specificno za ovaj projekat, potrebno je manuelno kompajlovati {\eng GNU Binutils}.
+Medjutim, postoji moguc1nost korish\/c1enja vec1 spremnog paketa koji se za
+distribucije bazirane na {\eng Arch Linux}-u mozhe nac1i na stanici
+{\eng\url{https://aur.archlinux.org/packages/i686-elf-binutils/}}. Pojedine distribucije
+vec1 imaju ovaj paket kompajlovan, ali je preporuka manuelno kompajlovati da bi
+se izbegla nekompatibilnost, a i prosto iz razloga shto c1e nakon formiranja
+nashe {\eng C} biblioteke biti neophodno kompajlovati ovaj program za svaki
+sistem posebno.
+
+Za one koje zhele sami da kompajluju dat je deo instrukcija koji se razlikuje
+od uput\/stva datog na zvanichnom sajtu a tiche se konfigurisanja pre kompilacije.
+
+\begin{minipage}{\textwidth}\eng\lstinputlisting[]{include/binutils/binutils1}\srb\end{minipage}
+\subsection{Posle dodavanja {\eng LIBC}}
+\smallskip
+Nakon dodavanja nashe {\eng C} biblioteke potrebno je kompajlovati {\eng GNU
+Binutils} tako da tu biblioteku i koristi prilikom kompajlovanja nasheg
+operativnog sistema.
+\textbf{Napomena:} Potrebno je postaviti {\eng \$SYSROOT} na lokaciju gde se biblioteka nalazi.
+To je moguc1e uraditi na sledec1i nachin:
+
+\begin{minipage}{\textwidth}\eng\lstinputlisting[]{include/binutils/exportsysroot}\srb\end{minipage}
+
+Instukcije za kompajlovanje date su u nastavku:
+
+\begin{minipage}{\textwidth}\eng\lstinputlisting[]{include/binutils/binutils2}\srb\end{minipage}
+
+\subsection{{\eng GNU Asembler}}
+\smallskip
+Iako trenutno postoje mnogo popularnije alternative poput {\eng
+NASM(Netwide Assembler)} i {\eng MASM(Microsoft Assembler )} koji koriste
+noviju Intelovu sintaksu, ipak sam izabrao {\eng GASM} zbog kompatibilnosti sa
+{\eng GCC} kompajlerom. {\eng GASM} kosristi stariju {\eng AT\&T} sintaksu koju
+karakterishe: obrnut poredak parametara, prefiks pre imena registara i
+vrednosti konstanti, a i velichina parametara mora biti definisana. Zbog toga
+c1e mozhda nekim chitaocima biti koristan program {\eng "intel2gas"} koji se za
+{\eng Arch Linux} mozhe nac1i na stanici {\eng\url{https://aur.archlinux.org/packages/intel2gas/}}.
+
+Ovaj program je korish\/c1en za kompajlovanje dela koda napisanog u asembleru.
+
+\subsection{{\eng GNU Linker}}
+\smallskip
+Ovaj program je korish\/c1en za linkovanje("spajanje") svog komapjlovanog koda
+u jednu binarnu datoteku koja predstavlja kernel.
+
+\section{{\eng GCC}}
+\medskip
+Izvorni kod softvera se mozhe nac1i na stranici
+{\eng\url{https://gcc.gnu.org/}},
+zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
+
+
+{\eng\url{https://aur.archlinux.org/packages/i686-elf-gcc/}}
+
+{\eng GCC}  je {\eng GNU}-ov set kompajlera.
+
+\subsection{Pre dodavanja {\eng LIBC}}
+\smallskip
+\begin{minipage}{\textwidth}\eng\lstinputlisting[]{include/gcc/gcc1}\srb\end{minipage}
+\subsection{Posle dodavanja {\eng LIBC}}
+\smallskip
+\begin{minipage}{\textwidth}\eng\lstinputlisting[]{include/gcc/gcc2}\srb\end{minipage}
+
+\section{{\eng GRUB}}
+\medskip
+Izvorni kod softvera se mozhe nac1i na stranici
+{\eng\url{https://www.gnu.org/software/grub/}},
+zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
+
+{\eng GRUB} je {\eng bootloader} koji je korish\/c1en na ovom projektu. Plan je
+da u buduc1nosti {\eng GRUB} bude zamenjen sa mojim {\eng bootloader}-om, i da
+se kompletan kod bude moj.
+
+\section{{\eng QEMU}}
+\medskip
+Izvorni kod softvera se mozhe nac1i na stranici
+{\eng\url{https://www.qemu.org/}},
+zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
+
+{\eng QEMU} je virtualna mashina u kojoj c1e jezgro biti testirano i
+prikazano zarad praktichnih razloga. {\eng QEMU} je odabran za ovaj projekat
+jer za razliku od drugih virutalnih mashina poseduje {\eng cli (command line
+interface)} iz koga se lako mozhe pozivati iz skripti kao shto su {\eng Makefile}-ovi.
+
+\section{{\eng Make}}
+\medskip
+Izvorni kod softvera se mozhe nac1i na stranici
+{\eng\url{https://www.gnu.org/software/make/}}
+zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
+
+{\eng Make} nam omoguc1ava da sa lakoc1om odrzhavamo i manipulishemo izvornim
+fajlovima. Moguc1e je sve kompajlovati, obrisati, kreirati {\eng iso} fajl kao
+i pokrenuti {\eng QEMU} virtuelnu mashinu sa samo jednom kljchnom rechi u
+terminalu. Kreirani {\eng Makefile} za potrebe ovog projekta bic1e detaljno
+objasnjen u daljem tekstu.
+
+\section{Manje bitni alati}
+\medskip
+
+\subsection{{\eng git}}
+\smallskip
+Izvorni kod softvera se mozhe nac1i na stranici
+{\eng\url{https://git.kernel.org/pub/scm/git/git.git}}.
+
+{\eng Git} je program koji nam pomazhe da odrzhavamo izvodne fajlove i 
+
+\subsection{{\eng xorriso(libisoburn)}}
+\smallskip
+{\eng\url{https://www.gnu.org/software/xorriso/}}
+
+Sluzhi za kreiranje {\eng ISO} fajlova koji se mogu "narezati" na  {\eng CD}
+ili {\eng USB} flesh sa kojih se kasnije dizhe sistem.
+
+\subsection{{\eng GDB}}
+\smallskip
+{\eng\url{https://www.sourceware.org/gdb/}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Jezgro operativnog sistema}
+\bigskip
+
+\section{Pochetak}
+\medskip
+{\eng\url{https://wiki.osdev.org/Bare_Bones}}
+
+\subsection{Teorija}
+\smallskip
+\subsection{Implementacija}
+\smallskip
+
+\section{Ispis na ekran - {\eng VGA}}
+\medskip
+
+\subsection{Teorija}
+\smallskip
+\subsection{Implementacija}
+\smallskip
+
+\section{{\eng LIBC} pochetak}
+\medskip
+
+\subsection{Teorija}
+\smallskip
+\subsection{Implementacija}
+\smallskip
+
+\section{Globalni konstruktori, zashtita steka}
+\medskip
+{\eng\url{https://wiki.osdev.org/Calling_Global_Constructors}}
+
+{\eng\url{https://wiki.osdev.org/Stack_Smashing_Protector}}
+
+\subsection{Teorija}
+\smallskip
+\subsection{Implementacija}
+\smallskip
+
+\section{{\eng Global Desctiptor Table}}
+\medskip
+{\eng\url{https://wiki.osdev.org/GDT}}
+
+\subsection{Teorija}
+\smallskip
+\subsection{Implementacija}
+\smallskip
+
+\section{{\eng Interrupt Desctiptor Table}}
+\medskip
+{\eng\url{https://wiki.osdev.org/IDT}}
+
+\subsection{Teorija}
+\smallskip
+\subsection{Implementacija}
+\smallskip
+
+\section{{\eng IRQ} i {\eng PIC}}
+\medskip
+{\eng\url{https://wiki.osdev.org/IRQ}}
+{\eng\url{https://wiki.osdev.org/PIC}}
+
+\subsection{Teorija}
+\smallskip
+\subsection{Implementacija}
+\smallskip
+
+\section{Tastatura}
+\medskip
+
+\subsection{Teorija}
+\smallskip
+\subsection{Implementacija}
+\smallskip
+
+\section{{\eng PIT - Programmable Interval Timer}}
+\medskip
+{\eng\url{https://wiki.osdev.org/PIT}}
+
+\subsection{Teorija}
+\smallskip
+\subsection{Implementacija}
+\smallskip
+
+\section{{\eng Heap}}
+\medskip
+{\eng\url{https://wiki.osdev.org/Heap}}
+
+\subsection{Teorija}
+\smallskip
+\subsection{Implementacija}
+\smallskip
+
+\section{{\eng Paging}}
+\medskip
+{\eng\url{https://wiki.osdev.org/Paging}}
+
+\subsection{Teorija}
+\smallskip
+\subsection{Implementacija}
+\smallskip
+
+\section{Moj {\eng LIBC}}
+\medskip
+{\eng\url{https://wiki.osdev.org/Creating_a_C_Library}}
+
+\subsection{Teorija}
+\smallskip
+\subsection{Implementacija}
+\smallskip
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Zakljuchak}
+Ovaj projekat je bio sjajna prilika da testiram granice svog znanja.
+
+\thispagestyle{empty}
+\mbox{}
+\clearpage
+
+\renewcommand\bibname{Literatura}
+\begin{thebibliography}{}
+\vspace*{15mm}
+\rm
+\bibitem{} {\eng\url{https://wiki.osdev.org/Expanded_Main_Page}}
+\bibitem{} {\eng\url{http://jamesmolloy.co.uk/tutorial_html/}}
+\end{thebibliography}
+\addcontentsline{toc}{chapter}{Literatura}
+
+
+\end{document}

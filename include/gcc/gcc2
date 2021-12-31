@@ -1,0 +1,7 @@
+    ../configure \
+	--target=i686-elf \
+	--prefix=/usr \
+	--with-sysroot=$SYSROOT \
+	--disable-nls \
+	--disable-plugin \
+	--enable-languages=c,c++

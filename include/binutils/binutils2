@@ -1,0 +1,8 @@
+    ../configure \
+	--target=i686-elf \
+	--with-sysroot=$SYSROOT \
+	--prefix=/usr \
+	--bindir=/usr/bin \
+	--libdir=/usr/lib/i686-elf \
+	--disable-nls \
+	--disable-werror

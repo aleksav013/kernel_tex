@@ -1,0 +1,18 @@
+    mkdir build
+    cd build
+
+    ../configure \
+	--target=i686-elf \
+	--prefix=/usr \
+	--disable-nls \
+	--disable-plugin \
+	--enable-languages=c,c++ \
+	--without-headers
+
+    make all-gcc
+    make all-target-libgcc
+    
+    make -k check || true
+
+    make install-gcc
+    make install-target-libgcc
