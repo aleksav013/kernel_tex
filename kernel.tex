@@ -22,6 +22,16 @@
 \usepackage{multicol}
 \usepackage{hyperref}
 \usepackage{tocloft}
+\usepackage[
+    backend=bibtex,
+    natbib=true,
+    style=numeric,
+    block=ragged,
+    sorting=none
+]{biblatex}
+\bibliography{kernel}
+\renewcommand*{\bibfont}{\eng}
+\nocite{*}
 
 \newlength\tindent
 \setlength{\tindent}{\parindent}
@@ -108,6 +118,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Uvod}
 \bigskip
+%\cite{book:1412}
+%\cite{book:2759472}
+%\cite{book:1309309}
+%\cite{book:917849}
+%\cite{book:2535395}
+%\cite{book:915673}
+%\cite{book:2560474}
+%\cite{book:821745}
+%\cite{book:924556}
+%\cite{book:748936}
+%\cite{book:2398655}
+%\cite{book:658757}
+%\cite{book:1400099}
+%\cite{book:1310096}
+%\cite{book:441007}
+%\cite{book:690930}
+%\cite{book:2751214}
+%\cite{book:78583}
+%\cite{book:78575}
+%\cite{book:1505234}
 Ideja za ovaj rad prozishla je iz ekstenzivnog korish\/c1enja {\eng GNU/Linux}
 sistema, kao i zhelja za razumevanjem rada rachunara na najnizhem nivou.
 
@@ -467,14 +497,7 @@ Ovaj projekat je bio sjajna prilika da testiram granice svog znanja.
 \mbox{}
 \clearpage
 
-\renewcommand\bibname{Literatura}
-\begin{thebibliography}{}
-\vspace*{15mm}
-\rm
-\bibitem{} {\eng\url{https://wiki.osdev.org/Expanded_Main_Page}}
-\bibitem{} {\eng\url{http://jamesmolloy.co.uk/tutorial_html/}}
-\end{thebibliography}
-\addcontentsline{toc}{chapter}{Literatura}
+\printbibliography[heading=bibintoc,title={Literatura}]
 
 
 \end{document}
