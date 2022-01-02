@@ -1,13 +1,13 @@
 \documentclass[a4paper,fleqn,12pt]{JMThesis}
 \usepackage{listings}
 \lstset{
-    language=make,
     basicstyle=\footnotesize,
     frame=single,
     showstringspaces=false,
     tabsize=8,
     escapeinside={<@}{@>},
 }
+\lstset{defaultdialect=[x86masm]Assembler}
 
 \usepackage[OT2]{fontenc}
 \newcommand\eng{\fontencoding{OT1}\fontfamily{\rmdefault}\selectfont}
@@ -31,11 +31,13 @@
 ]{biblatex}
 \bibliography{kernel}
 \renewcommand*{\bibfont}{\eng}
-\nocite{*}
 
 \newlength\tindent
 \setlength{\tindent}{\parindent}
 \setlength{\parindent}{0pt}
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
 \renewcommand{\indent}{\hspace*{\tindent}}
 
 \oddsidemargin 1cm
@@ -118,26 +120,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Uvod}
 \bigskip
-%\cite{book:1412}
-%\cite{book:2759472}
-%\cite{book:1309309}
-%\cite{book:917849}
-%\cite{book:2535395}
-%\cite{book:915673}
-%\cite{book:2560474}
-%\cite{book:821745}
-%\cite{book:924556}
-%\cite{book:748936}
-%\cite{book:2398655}
-%\cite{book:658757}
-%\cite{book:1400099}
-%\cite{book:1310096}
-%\cite{book:441007}
-%\cite{book:690930}
-%\cite{book:2751214}
-%\cite{book:78583}
-%\cite{book:78575}
-%\cite{book:1505234}
+
 Ideja za ovaj rad prozishla je iz ekstenzivnog korish\/c1enja {\eng GNU/Linux}
 sistema, kao i zhelja za razumevanjem rada rachunara na najnizhem nivou.
 
@@ -148,67 +131,180 @@ Sav kod je dostupan pod {\eng GPLv3} licencom.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Teorija}
+\chapter{{\eng X86} arhitektura}
 \bigskip
 
-\section{{\eng X86} arhitektura}
-\medskip
-{\eng X86} arhitektura je probitno bila 8bitna (sadrzhala je registre duzhine 8
+{\eng X86} arhitektura je probitno bila osmobitna (sadrzhala je registre duzhine 8
 bitova), 16bitna, zatim 32bitna i na kraju 64bitna. Danas 64bitnu {\eng X86}
-arhitekturu znamo kao i {\eng{} AMD64}, {\eng X86-64} ili {\eng X86\_64}.
+arhitekturu znamo kao i {\eng{} AMD64}, {\eng X86-64} ili {\eng X86\_64}.\\
 
-Zajedno sa {\eng ARM}-om jedna od najkorish\/c1enijih arhitektura.
+Zajedno sa {\eng ARM}-om jedna od najkorish\/c1enijih arhitektura danashnjice.
 
-\subsection{Registri procesora}
-\smallskip
-Postoji vishe vrsta registara procesora:
-16bitni registri opshte namene: {\eng ax,bx,cx,dx}.
+\section{Registri procesora}
+\medskip
 
-{\eng\url{https://wiki.osdev.org/CPU_Registers_x86}}
+Postoji vishe vrsta registara procesora\cite[75]{misc:1}. Neki od osnovnih
+registara koje je potrebno pomenuti dati su u tekstu koji sledi. Razlog zbog
+kojeg su navedena i imena registara prethodnih verzija {\eng X86} arhitekture
+je zbog toga sto je moguc1e adresirati prvih {\eng x} bitova ako se koristi ime
+registra za {\eng x}-tobitnu verziju te arhitekture. Naravno, ovo vazhi samo
+ukoliko je duzhina registra vec1a ili jednaka duzhini registra chiju notaciju
+koristimo.\\
 
-\subsection{{\eng 32bit i686}}
-\smallskip
-32bitni registri opshte namene: {\eng eax,ebx,ecx,edx}.
-64bitni registri opshte namene: {\eng rax,rbx,rcx,rdx}.
+Registri opshte namene:\\[1mm]
+{\eng\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+8bit & al & bl & cl & dl & sil & dil & spl & bpl \\
+\hline
+16bit & ax & bx & cx & dx & si & di & sp & bp \\
+\hline
+32bit & eax & ebx & ecx & edx & esi & edi & esp & ebp \\
+\hline
+64bit & rax & rbx & rcx & rdx & rsi & rdi & rsp & rdp \\
+\hline
+\end{tabular}}\\
 
-\subsection{{\eng Real mode}}
-\smallskip
+Segmentni registri:\\[1mm]
+{\eng\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+cs & ds & ss & es & fs & gs \\
+\hline
+\end{tabular}}\\
+
+Kontrolni registri:\\[1mm]
+{\eng\begin{tabular}{|c|c|c|c|c|}
+\hline
+cr0 & cr2 & cr3 & cr4 & cr8 \\
+\hline
+\end{tabular}}\\
+
+Sistemski registri koji su pokazivachi na tabele:\\[1mm]
+{\eng\begin{tabular}{|c|c|c|}
+\hline
+gdtr & ldtr & idtr \\
+\hline
+\end{tabular}}\\
+
+Osim pomenutih, pochev od 16bit-ne {\eng X86} arhitekture postoje i registri
+{\eng ah, bh, ch, dh (h-higher)} koji predstavljaju gornju polovinu (od 9. do
+16. bita) {\eng ax,bx,cx,dx} registara redom. U daljem tekstu bic1e prikazan
+odnos izmedju registara o kome je ranije bilo rechi, kao i prikaz i na to od
+kog do kog bita se odnosi data notacija.\\
+
+{\eng\begin{tabular}{|c|c|c|c|c|c|c|c|}
+63-56 & 55-48 & 47-40 & 39-32 & 31-24 & 23-16 & 15-8 & 7-0 \\
+\hline
+&&&&&& ah & al \\
+\hline
+&&&&&& \multicolumn{2}{|c|}{ax} \\
+\hline
+&&&& \multicolumn{4}{|c|}{eax} \\
+\hline
+\multicolumn{8}{|c|}{rax} \\
+\hline
+\end{tabular}}\\
+
+Primetimo da ukoliko nas interesuje vrednost drugog bajta u 64bitnoj {\eng X86}
+arhitekturi, do nje mozhemo doc1i na 4 nachina:
+{\eng ah, ax\&0xFF00, eax\&0x0000FF00} ili {\eng rax\&0x000000000000FF00}.
+
+
+\section{Registri opshte namene}
+\medskip
+
+Registri opshte namene imaju ulogu u chuvanju operandi i pokazivacha:
+\begin{itemize}
+\item Operandi za logichke i aritmeticke operacije
+\item Operandi za adresne kalkulacije
+\item Pokazivace na memorijsku lokaciju
+\end{itemize}
+
+Specifichna uloga registara opshte namene:
+\begin{itemize}
+\item {\eng eax} - akumulator za operande i podatke rezultata
+\item {\eng ebx} - pokazivach na podatke u {\eng ds} segmentu
+\item {\eng ecx} - brojach za petlje i operacije nad stringovima
+\item {\eng edx} - pokazivach na U/I
+\item {\eng esi} - pokazivach na podatke na koji pokazuje {\eng ds} registar;
+    pochetni pokazivach za operacije nad stringovima
+\item {\eng edi} - pokazivach na podatke u segmentu na koji pokazuje {\eng es}
+    registar; krajnji pokazivach za operacije nad stringovima
+\item {\eng esp} - pokazivach na pochetak steka
+\item {\eng ebp} - pokazivach na podatke u steku
+
+\end{itemize}
+
+\section{Segmentni registri}
+\medskip
+
+Segmentni registri sadrzhe 16bitne selektore segmenta. Selektor segmenta je
+specijalan pokazivach koji identifikuje segment u memoriji. Da bi pristupili
+odredjenom segmentu u memoriji, selektor segmenta koji pokazuje na taj segment
+mora biti dostupan u odgovarajuc1em segmentnom registru.
+
+Specifichna uloga segmentnih registara:
+\begin{itemize}
+\item {\eng cs - code segment}. {\eng cs} registar sadrzhi selektor segmenta
+    koji pokazuje na segment koda u kome se nalaze instrukcije koje se
+    izvrshavaju.
+\item {\eng ds - data segment}. Osim {\eng ds}, segmentni registri za segmente
+    podataka su i {\eng es, fs}, kao i {\eng gs}.
+\item {\eng ss - stack segment} {\eng ss} registar sadrzhi selektor segmenta
+    koji pokazuje na segment steka gde se chuva stek programa koji se trenutno
+    izvrshava. Za razliku od registra za segment koda, {\eng ss} registar
+    se mozhe eksplicitno postaviti shto dozvoljava aplikacijama da postave
+    vishe stekova i da alterniraju izmedju njih.
+\end{itemize}
+
+
+\section{{\eng Real mode}}
+\medskip
+
 Realni mod je stanje procesora u kojem nam je dozvoljeno adresiranje samo prvih
 20mb memorije. Prelazak iz realnog u zasticeni mod postizhe se dalekim skokom
 {\eng "far jump"}.
 
 {\eng\url{https://wiki.osdev.org/Real_Mode}}
 
-\subsection{Segmentacija}
-\smallskip
+\section{Segmentacija}
+\medskip
+
 Segmentacija je reshenje kojim se omoguc1ava adresiranje vishe memorije nego
 shto je to hardverski predvidjeno.
 
 {\eng\url{https://wiki.osdev.org/Segmentation}}
 
-\subsection{{\eng Protected mode}}
-\smallskip
+\section{{\eng Protected mode}}
+\medskip
+
 Zashtic1en mod je stanje procesora u kojem procesor ima pun pristup celom opsegu
 memorije za razliku od realnog moda.
 
 {\eng\url{https://wiki.osdev.org/Protected_Mode}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{{\eng Boot}}
+
 \section{Redosled pokretanja}
-\smallskip
+\medskip
+
 Od pritiska dugmeta za paljenje rachunara, pa do uchitavanja operativnog sitema
 postoji ceo jedan proces. Nakon pritiska dugmeta rachunar prvo izvrshava {\eng
-POST (Power On Self Test)} koji je jedna od pochetnih faza {\eng BIOS (Basic
-Input Output System)}. U {\eng POST}-u rachunar pokushava da incijalizuje
-komponente rachunarskog sistema i proverava da li one ispunjavaju sve uslove za
-startovanje rachunara. Ukoliko je ceo proces proshao bez greshaka nastavlja se
-dalje izvrshavanje {\eng BIOS}-a. {\eng BIOS} sada ima ulogu da pronadje
-medijum koji sadrzhi program koji c1e uchitati jezgro operativnog sistema u ram
-memoriju rachunara. Taj program se naziva {\eng Bootloader}.
+POST (Power On Self Test)} koji je jedna od pochetnih faza {\eng BIOS}-a {\eng
+(Basic Input Output System)}. U {\eng POST}-u rachunar pokushava da
+incijalizuje komponente rachunarskog sistema i proverava da li one ispunjavaju
+sve uslove za startovanje rachunara. Ukoliko je ceo proces proshao bez greshaka
+nastavlja se dalje izvrshavanje {\eng BIOS}-a. {\eng BIOS} sada ima ulogu da
+pronadje medijum koji sadrzhi program koji c1e uchitati jezgro operativnog
+sistema u ram memoriju rachunara. Taj program se naziva {\eng Bootloader}.
 
 {\eng\url{https://wiki.osdev.org/Boot_Sequence}}
 
-\subsection{{\eng Bootloader}}
-\smallskip
+\section{{\eng Bootloader}}
+\medskip
+
 {\eng Bootloader} je program koji se nalazi u prvih 512bitova medijuma, i
 njegov zadatak je da uchita jezgro operativnog sistema u ram memoriju i preda
 mu dalje upravljanje.
@@ -217,6 +313,7 @@ mu dalje upravljanje.
 
 \section{{\eng ELF}}
 \medskip
+
 {\eng ELF} je format binarni fajl koji se sastoji od tachno odredjenih sekcija
 i koji mozhe da se pokrene.
 
@@ -227,32 +324,40 @@ i koji mozhe da se pokrene.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Korish\/c1eni alati}
 \bigskip
-U daljem tekstu se mogu videti neki od alata korish\/c1enih u kreiranju ovog rada.
 
-Svi korish\/c1eni alati poseduju {\eng GPLv2} ili {\eng GPLv3} licencu. {\eng
-GNU Public Licence} je licenca otvorenog koda koja dozvoljava modifikovanje i
-distribuiranje koda sve dok taj je taj kod javno dostupan.
-
-Jedini program sa liste koji nije {\eng GNU}-ov je {\eng QEMU} virtualna mashina.
+U daljem tekstu se mogu videti neki od alata korish\/c1enih u kreiranju ovog
+rada. Svi korish\/c1eni alati poseduju {\eng GPLv2} ili {\eng GPLv3} licencu.
+{\eng GNU Public Licence} je licenca otvorenog koda koja dozvoljava
+modifikovanje i distribuiranje koda sve dok taj je taj kod javno dostupan.
+Jedini program sa liste koji nije {\eng GNU}-ov je {\eng QEMU} virtualna
+mashina.\\
 
 Operativni sistem korish\/c1en u izradi ovog projekta je {\eng Artix Linux}.
 {\eng Artix Linux} je {\eng GNU/Linux} distribucija bazirana na {\eng Arch Linux}-u.
 Vec1ina korish\/c1enih programa je vec1 kompajlovana i spremna za upotrebu i
-nalazi se u oficijalnim repozitorijima.
+nalazi se u oficijalnim repozitorijima.\\
 
 Za programe koji su morali biti manuelno kompajlovani date su instrukcije u
-daljem tekstu.
+njihovoj podsekciji. Jedini programi koji su morali biti kompajlovani su {\eng
+binutils} i {\eng gcc} i to da ne bi koristili standardnu biblioteku koju nam
+je obezbedio operativni sistem domac1in (onaj na kome se kompajluje ovaj
+projekat). Za ostale programe koji su korisc1eni preporuka je koristiti one
+koji su dostupni kao spremni paketi u izvorima odabrane distrubucije {\eng
+GNU/Linux}-a.
 
 \section{{\eng Binutils}}
 \medskip
+
 Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://www.gnu.org/software/binutils/}},
 zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
 
-Ovaj paket sadrzhi programe neophodne za kompajlovanje kao shto su asembler i linker.
+Ovaj softverski paket sadrzhi programe neophodne za kompajlovanje kao shto su
+asembler i linker.
 
-\subsection{Pre dodavanja {\eng LIBC}}
+\subsection{Pre dodavanja {\eng C} biblioteke}
 \smallskip
+
 Iz razloga shto se ne koristi standardna biblioteka vec1 samostalno napisana
 specificno za ovaj projekat, potrebno je manuelno kompajlovati {\eng GNU Binutils}.
 Medjutim, postoji moguc1nost korish\/c1enja vec1 spremnog paketa koji se za
@@ -264,40 +369,44 @@ nashe {\eng C} biblioteke biti neophodno kompajlovati ovaj program za svaki
 sistem posebno.
 
 Za one koje zhele sami da kompajluju dat je deo instrukcija koji se razlikuje
-od uput\/stva datog na zvanichnom sajtu a tiche se konfigurisanja pre kompilacije.
+od uput\/stva datog na zvanichnom sajtu a tiche se konfigurisanja pre kompilacije.\\
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[]{include/binutils/binutils1}\srb\end{minipage}
-\subsection{Posle dodavanja {\eng LIBC}}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/binutils/binutils1}\srb\end{minipage}
+
+\subsection{Nakon dodavanja  {\eng C} biblioteke}
 \smallskip
+
 Nakon dodavanja nashe {\eng C} biblioteke potrebno je kompajlovati {\eng GNU
 Binutils} tako da tu biblioteku i koristi prilikom kompajlovanja nasheg
 operativnog sistema.
 \textbf{Napomena:} Potrebno je postaviti {\eng \$SYSROOT} na lokaciju gde se biblioteka nalazi.
-To je moguc1e uraditi na sledec1i nachin:
+To je moguc1e uraditi na sledec1i nachin:\\
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[]{include/binutils/exportsysroot}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/binutils/exportsysroot}\srb\end{minipage}
 
 Instukcije za kompajlovanje date su u nastavku:
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[]{include/binutils/binutils2}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/binutils/binutils2}\srb\end{minipage}
 
 \subsection{{\eng GNU Asembler}}
 \smallskip
-Iako trenutno postoje mnogo popularnije alternative poput {\eng
-NASM(Netwide Assembler)} i {\eng MASM(Microsoft Assembler )} koji koriste
-noviju Intelovu sintaksu, ipak sam izabrao {\eng GASM} zbog kompatibilnosti sa
-{\eng GCC} kompajlerom. {\eng GASM} kosristi stariju {\eng AT\&T} sintaksu koju
+Iako trenutno postoje mnogo popularnije alternative poput {\eng NASM (Netwide
+Assembler)} i {\eng MASM (Microsoft Assembler)} koji koriste noviju Intelovu
+sintaksu, autor se ipak odluchio za {\eng GASM} zbog kompatibilnosti sa {\eng
+GCC} kompajlerom. {\eng GASM} kosristi stariju {\eng AT\&T} sintaksu koju
 karakterishe: obrnut poredak parametara, prefiks pre imena registara i
 vrednosti konstanti, a i velichina parametara mora biti definisana. Zbog toga
 c1e mozhda nekim chitaocima biti koristan program {\eng "intel2gas"} koji se za
-{\eng Arch Linux} mozhe nac1i na stanici {\eng\url{https://aur.archlinux.org/packages/intel2gas/}}.
+{\eng Arch Linux} mozhe nac1i na stanici
+{\eng\url{https://aur.archlinux.org/packages/intel2gas/}}.\\
 
 Ovaj program je korish\/c1en za kompajlovanje dela koda napisanog u asembleru.
 
 \subsection{{\eng GNU Linker}}
 \smallskip
-Ovaj program je korish\/c1en za linkovanje("spajanje") svog komapjlovanog koda
-u jednu binarnu datoteku koja predstavlja kernel.
+
+Ovaj program je korish\/c1en za linkovanje, tj. "spajanje" svog komapjlovanog koda
+u jednu binarnu datoteku tipa {\eng ELF} koja predstavlja kernel.
 
 \section{{\eng GCC}}
 \medskip
@@ -312,10 +421,10 @@ zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
 
 \subsection{Pre dodavanja {\eng LIBC}}
 \smallskip
-\begin{minipage}{\textwidth}\eng\lstinputlisting[]{include/gcc/gcc1}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/gcc/gcc1}\srb\end{minipage}
 \subsection{Posle dodavanja {\eng LIBC}}
 \smallskip
-\begin{minipage}{\textwidth}\eng\lstinputlisting[]{include/gcc/gcc2}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/gcc/gcc2}\srb\end{minipage}
 
 \section{{\eng GRUB}}
 \medskip
@@ -343,6 +452,7 @@ interface)} iz koga se lako mozhe pozivati iz skripti kao shto su {\eng Makefile
 Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://www.gnu.org/software/make/}}
 zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
+\cite{book:78575}.
 
 {\eng Make} nam omoguc1ava da sa lakoc1om odrzhavamo i manipulishemo izvornim
 fajlovima. Moguc1e je sve kompajlovati, obrisati, kreirati {\eng iso} fajl kao
@@ -352,6 +462,10 @@ objasnjen u daljem tekstu.
 
 \section{Manje bitni alati}
 \medskip
+
+\subsection{{\eng NeoVim}}
+{\eng NeoVim} je tekst editor nastao od {\eng Vim}-a ({\eng Vi improved}).
+\cite{book:78583}.
 
 \subsection{{\eng git}}
 \smallskip
@@ -382,121 +496,184 @@ ili {\eng USB} flesh sa kojih se kasnije dizhe sistem.
 \medskip
 {\eng\url{https://wiki.osdev.org/Bare_Bones}}
 
-\subsection{Teorija}
-\smallskip
-\subsection{Implementacija}
-\smallskip
+{\eng as/boot.s}:\\
+
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot00.s}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot01.s}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot02.s}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot03.s}\srb\end{minipage}
 
 \section{Ispis na ekran - {\eng VGA}}
 \medskip
 
-\subsection{Teorija}
-\smallskip
-\subsection{Implementacija}
-\smallskip
+{\eng c/vga.c}:\\
 
-\section{{\eng LIBC} pochetak}
-\medskip
-
-\subsection{Teorija}
-\smallskip
-\subsection{Implementacija}
-\smallskip
-
-\section{Globalni konstruktori, zashtita steka}
-\medskip
-{\eng\url{https://wiki.osdev.org/Calling_Global_Constructors}}
-
-{\eng\url{https://wiki.osdev.org/Stack_Smashing_Protector}}
-
-\subsection{Teorija}
-\smallskip
-\subsection{Implementacija}
-\smallskip
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga00.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga01.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga02.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga03.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga04.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga05.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga06.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga07.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga08.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga09.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga10.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga11.c}\srb\end{minipage}
 
 \section{{\eng Global Desctiptor Table}}
 \medskip
-{\eng\url{https://wiki.osdev.org/GDT}}
 
-\subsection{Teorija}
-\smallskip
-\subsection{Implementacija}
-\smallskip
+{\eng c/gdt.c}:\\
+
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt00.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt01.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt02.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt03.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt04.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt05.c}\srb\end{minipage}
+
+{\eng\url{https://wiki.osdev.org/GDT}}
 
 \section{{\eng Interrupt Desctiptor Table}}
 \medskip
-{\eng\url{https://wiki.osdev.org/IDT}}
 
-\subsection{Teorija}
-\smallskip
-\subsection{Implementacija}
-\smallskip
+{\eng c/idt.c}:\\
+
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt00.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt01.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt02.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt03.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt04.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt05.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt06.c}\srb\end{minipage}
+
+{\eng\url{https://wiki.osdev.org/IDT}}
 
 \section{{\eng IRQ} i {\eng PIC}}
 \medskip
+{\eng c/idt.c}:\\
+
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt07.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt08.c}\srb\end{minipage}
+
 {\eng\url{https://wiki.osdev.org/IRQ}}
 {\eng\url{https://wiki.osdev.org/PIC}}
-
-\subsection{Teorija}
-\smallskip
-\subsection{Implementacija}
-\smallskip
 
 \section{Tastatura}
 \medskip
 
-\subsection{Teorija}
-\smallskip
-\subsection{Implementacija}
-\smallskip
+{\eng c/keyboard.c}:\\
+
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard00.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard01.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard02.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard03.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard04.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard05.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard06.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard07.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard08.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard09.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard10.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard11.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard12.c}\srb\end{minipage}
 
 \section{{\eng PIT - Programmable Interval Timer}}
 \medskip
-{\eng\url{https://wiki.osdev.org/PIT}}
 
-\subsection{Teorija}
-\smallskip
-\subsection{Implementacija}
-\smallskip
+{\eng c/timer.c}:\\
+
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/pit00.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/pit01.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/pit02.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/pit03.c}\srb\end{minipage}
+{\eng\url{https://wiki.osdev.org/PIT}}
 
 \section{{\eng Heap}}
 \medskip
-{\eng\url{https://wiki.osdev.org/Heap}}
 
-\subsection{Teorija}
-\smallskip
-\subsection{Implementacija}
-\smallskip
+{\eng c/heap.c}:\\
+
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap00.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap01.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap02.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap03.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap04.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap05.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap06.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap07.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap08.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap09.c}\srb\end{minipage}
+{\eng\url{https://wiki.osdev.org/Heap}}
 
 \section{{\eng Paging}}
 \medskip
-{\eng\url{https://wiki.osdev.org/Paging}}
 
-\subsection{Teorija}
-\smallskip
-\subsection{Implementacija}
-\smallskip
+{\eng c/paging.c}:\\
+
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging00.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging01.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging02.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging03.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging04.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging05.c}\srb\end{minipage}
+
+{\eng\url{https://wiki.osdev.org/Paging}}
 
 \section{Moj {\eng LIBC}}
 \medskip
 {\eng\url{https://wiki.osdev.org/Creating_a_C_Library}}
 
-\subsection{Teorija}
-\smallskip
-\subsection{Implementacija}
-\smallskip
+{\eng include/asm.h}:\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/asm.h}\srb\end{minipage}
+
+{\eng include/errno.h}:\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/errno.h}\srb\end{minipage}
+
+{\eng include/heap.h}:\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/heap.h}\srb\end{minipage}
+
+{\eng include/irq.h}:\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/irq.h}\srb\end{minipage}
+
+{\eng include/stdio.h}:\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/stdio.h}\srb\end{minipage}
+
+{\eng include/stdlib.h}:\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/stdlib.h}\srb\end{minipage}
+
+{\eng include/string.h}:\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/string.h}\srb\end{minipage}
+
+{\eng include/time.h}:\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/time.h}\srb\end{minipage}
+
+{\eng include/types.h}:\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/types.h}\srb\end{minipage}
+
+{\eng include/unistd.h}:\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/unistd.h}\srb\end{minipage}
+
+{\eng include/vga.h}:\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/vga.h}\srb\end{minipage}
+
+{\eng include/sys/types.h}:\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/sys/types.h}\srb\end{minipage}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Zakljuchak}
-Ovaj projekat je bio sjajna prilika da testiram granice svog znanja.
+Ovaj projekat je bio sjajan pokazatelj koliko je zapravo kompleksno.
 
 \thispagestyle{empty}
 \mbox{}
 \clearpage
 
+\nocite{*}
 \printbibliography[heading=bibintoc,title={Literatura}]
 
 
