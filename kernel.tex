@@ -311,6 +311,9 @@ mu dalje upravljanje.
 
 {\eng\url{https://wiki.osdev.org/Bootloader}}
 
+\section{{\eng Multiboot2}}
+\medskip
+
 \section{{\eng ELF}}
 \medskip
 
@@ -498,9 +501,15 @@ ili {\eng USB} flesh sa kojih se kasnije dizhe sistem.
 
 {\eng as/boot.s}:\\
 
+U prvom delu postavljamo promenljive na vrednosti koje su odredjene {\eng Multiboot2} standardom.\\
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot00.s}\srb\end{minipage}
+Nakon toga postavljamo prvih 512 bitova na prethodno pomenute vrednosti ali
+tako da za svaku promenljivu ostavljamo 32 bita prostora.\\
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot01.s}\srb\end{minipage}
+Definisemo sekciju {\eng bss} u kojoj kreiramo stek i dodeljujem mu 16 kilobajta.\\
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot02.s}\srb\end{minipage}
+I na kraju postavljamo registar esp na vrh steka i pozivamo {\eng kernel\_main}
+funkciju koja je napisana u {\eng C}-u.\\
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot03.s}\srb\end{minipage}
 
 \section{Ispis na ekran - {\eng VGA}}
@@ -508,7 +517,10 @@ ili {\eng USB} flesh sa kojih se kasnije dizhe sistem.
 
 {\eng c/vga.c}:\\
 
+Primetimo da u {\eng C}-u koristimo {\eng uintX_t} promenljive. To je zbog toga
+shto nam je sada vrlo bitno da pazimo na velichinu koju zauzimaju promenljive.
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga00.c}\srb\end{minipage}
+Prvih 4 bita oznacavaju boju pozadine, a poslednjih 4 bita boju 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga01.c}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga02.c}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga03.c}\srb\end{minipage}
@@ -667,7 +679,12 @@ ili {\eng USB} flesh sa kojih se kasnije dizhe sistem.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Zakljuchak}
-Ovaj projekat je bio sjajan pokazatelj koliko je zapravo kompleksno.
+Ovaj projekat je bio sjajan pokazatelj koliko je zapravo kompleksna izrada
+jezgra operativnog sistema koji treba da predstavlja most izmedju hardvera i
+softvera. Drago mi je shto sam odabrao ovako tezhak projekat za maturski rad iz
+razloga shto mi je to pomoglo da probijem barijeru i ulozhim puno truda da bih
+zapravo razumeo kako rade operativni sistemi i koliko je sofisticiran njihov
+dizajn.
 
 \thispagestyle{empty}
 \mbox{}
