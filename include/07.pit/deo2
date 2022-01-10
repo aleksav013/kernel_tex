@@ -1,0 +1,1 @@
+void add_idt_entry(size_t num,uint32_t offset);

@@ -502,48 +502,62 @@ ili {\eng USB} flesh sa kojih se kasnije dizhe sistem.
 {\eng as/boot.s}:\\
 
 U prvom delu postavljamo promenljive na vrednosti koje su odredjene {\eng Multiboot2} standardom.\\
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot00.s}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo1}\srb\end{minipage}
 Nakon toga postavljamo prvih 512 bitova na prethodno pomenute vrednosti ali
 tako da za svaku promenljivu ostavljamo 32 bita prostora.\\
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot01.s}\srb\end{minipage}
-Definisemo sekciju {\eng bss} u kojoj kreiramo stek i dodeljujem mu 16 kilobajta.\\
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot02.s}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo2}\srb\end{minipage}
+Definishemo sekciju {\eng bss} u kojoj kreiramo stek i dodeljujem mu 16 kilobajta.\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo3}\srb\end{minipage}
 I na kraju postavljamo registar esp na vrh steka i pozivamo {\eng kernel\_main}
 funkciju koja je napisana u {\eng C}-u.\\
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot03.s}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo4}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo5}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo6}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo7}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo8}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo9}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo10}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo11}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo12}\srb\end{minipage}
 
 \section{Ispis na ekran - {\eng VGA}}
 \medskip
 
 {\eng c/vga.c}:\\
 
-Primetimo da u {\eng C}-u koristimo {\eng uintX_t} promenljive. To je zbog toga
-shto nam je sada vrlo bitno da pazimo na velichinu koju zauzimaju promenljive.
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga00.c}\srb\end{minipage}
-Prvih 4 bita oznacavaju boju pozadine, a poslednjih 4 bita boju 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga01.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga02.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga03.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga04.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga05.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga06.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga07.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga08.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga09.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga10.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga11.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo1}\srb\end{minipage}
+Primetimo da u {\eng C}-u koristimo {\eng uintX\_t} promenljive. To je zbog toga
+shto nam je sada vrlo bitno da pazimo na velichinu koju zauzimaju promenljive.\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo2}\srb\end{minipage}
+4 znachajnija bita oznachavaju boju pozadine, dok ostala 4 bita oznachavaju boju karaktera.\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo3}\srb\end{minipage}
+Na {\eng VGA} pisemo tako shto\\
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo4}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo5}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo6}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo7}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo8}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo9}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo10}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo11}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo12}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo13}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo14}\srb\end{minipage}
 
 \section{{\eng Global Desctiptor Table}}
 \medskip
 
 {\eng c/gdt.c}:\\
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt00.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt01.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt02.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt03.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt04.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt05.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo1}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo2}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo3}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo4}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo5}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo6}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo7}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo8}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo9}\srb\end{minipage}
 
 {\eng\url{https://wiki.osdev.org/GDT}}
 
@@ -552,13 +566,17 @@ Prvih 4 bita oznacavaju boju pozadine, a poslednjih 4 bita boju
 
 {\eng c/idt.c}:\\
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt00.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt01.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt02.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt03.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt04.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt05.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt06.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo1}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo2}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo3}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo4}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo5}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo6}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo7}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo8}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo9}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo10}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo11}\srb\end{minipage}
 
 {\eng\url{https://wiki.osdev.org/IDT}}
 
@@ -566,8 +584,10 @@ Prvih 4 bita oznacavaju boju pozadine, a poslednjih 4 bita boju
 \medskip
 {\eng c/idt.c}:\\
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt07.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt08.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo12}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo13}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo14}\srb\end{minipage}
+
 
 {\eng\url{https://wiki.osdev.org/IRQ}}
 {\eng\url{https://wiki.osdev.org/PIC}}
@@ -577,29 +597,42 @@ Prvih 4 bita oznacavaju boju pozadine, a poslednjih 4 bita boju
 
 {\eng c/keyboard.c}:\\
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard00.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard01.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard02.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard03.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard04.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard05.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard06.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard07.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard08.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard09.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard10.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard11.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard12.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo1}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo2}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo3}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo4}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo5}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo6}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo7}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo8}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo9}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo10}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo11}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo12}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo13}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo14}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo15}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo16}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo17}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo18}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo19}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo20}\srb\end{minipage}
 
 \section{{\eng PIT - Programmable Interval Timer}}
 \medskip
 
 {\eng c/timer.c}:\\
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/pit00.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/pit01.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/pit02.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/pit03.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo1}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo2}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo3}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo4}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo5}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo6}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo7}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo8}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo9}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo10}\srb\end{minipage}
 {\eng\url{https://wiki.osdev.org/PIT}}
 
 \section{{\eng Heap}}
@@ -607,16 +640,37 @@ Prvih 4 bita oznacavaju boju pozadine, a poslednjih 4 bita boju
 
 {\eng c/heap.c}:\\
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap00.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap01.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap02.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap03.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap04.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap05.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap06.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap07.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap08.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap09.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo1}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo2}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo3}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo4}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo5}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo6}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo7}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo8}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo9}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo10}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo11}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo12}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo13}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo14}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo15}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo16}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo17}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo18}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo19}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo20}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo21}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo22}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo23}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo24}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo25}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo26}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo27}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo28}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo29}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo30}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo31}\srb\end{minipage}
 {\eng\url{https://wiki.osdev.org/Heap}}
 
 \section{{\eng Paging}}
@@ -624,12 +678,15 @@ Prvih 4 bita oznacavaju boju pozadine, a poslednjih 4 bita boju
 
 {\eng c/paging.c}:\\
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging00.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging01.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging02.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging03.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging04.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging05.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo1}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo2}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo3}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo4}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo5}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo6}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo7}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo8}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo9}\srb\end{minipage}
 
 {\eng\url{https://wiki.osdev.org/Paging}}
 
@@ -692,6 +749,5 @@ dizajn.
 
 \nocite{*}
 \printbibliography[heading=bibintoc,title={Literatura}]
-
 
 \end{document}

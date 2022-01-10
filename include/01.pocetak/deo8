@@ -1,0 +1,2 @@
+.set CODE_SEGMENT, 0x08
+.set DATA_SEGMENT, 0x10

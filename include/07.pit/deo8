@@ -1,0 +1,2 @@
+    // Send the command byte.
+    ioport_out(0x43, 0x36);

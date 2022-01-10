@@ -1,0 +1,3 @@
+    // Divisor has to be sent byte-wise, so split here into upper/lower bytes.
+    uint8_t l = (uint8_t)(divisor & 0xFF);
+    uint8_t h = (uint8_t)( (divisor>>8) & 0xFF );
