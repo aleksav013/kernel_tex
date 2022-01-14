@@ -125,8 +125,29 @@ Ideja za ovaj rad prozishla je iz ekstenzivnog korish\/c1enja {\eng GNU/Linux}
 sistema, kao i zhelja za razumevanjem rada rachunara na najnizhem nivou.
 
 Ceo kod je pisan u {\eng GNU Asembler}-u i {\eng C}-u i mozhe se nac1i na
-{\eng GitHub-u} na stranici {\eng\url{https://github.com/aleksav013/mykernel}}.
-Sav kod je dostupan pod {\eng GPLv3} licencom.
+{\eng GitHub}-u na stranici {\eng\url{https://github.com/aleksav013/mykernel}}.
+Kod, zajedno sa svim alatima za njegovo korishenje i upotrebu, je dostupan pod
+{\eng GPLv3} licencom.
+
+Ovaj projakat se konstantno unapredjuje i nemoguc1e je odrzhavati
+sinhronizovanim fajlove koji sachinjavaju operativni sistem, a koji se
+istovremeno pominju u ovom radu. Iz tog razloga rad c1e biti napisan za verziju
+operativnog sistema 1.0.0. Na stranici {\eng GitHub}-a ova verzija se mozhe
+nac1i pod {\eng tag/s} sekcijom na stranici projekta.
+
+Radi laksheg kompajlovanja koda od strane chitaoca, kreiran je {\eng toolchain}
+- set alata specifichno za kompajlovanje ovog operativnog sistema koji se mozhe
+nac1i na stranici {\eng\url{https://github.com/aleksav013/aleksa-toolchain}},
+takodje dostupan pod {\eng GPLv3} licencom otvorenog koda. Set alata {\eng
+aleksa-toolchain} kreiran je takodje i iz razloga shto je zapravo neizbezhan
+proces kreiranja {\eng cross-compilera} - kompajlera koji kompapajluje kod za
+drugi sistem/arhitekturu na trenutnom sistemu/arhitekturi. Na taj nachin i
+drugi ljudi osim autora mogu doprineti izradi i pobojshanju ovog operativnog
+sistema u buduc1nosti.\\
+
+Ovaj projakat ima za cilj da prikazhe postupak kreiranja jednog za sada
+vrlo jednostavnog operativnog sistema, kao i da potkrepi chitaoce teorijom
+potrebnom za njegovo razumevanje.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -147,7 +168,7 @@ Postoji vishe vrsta registara procesora\cite[75]{misc:1}. Neki od osnovnih
 registara koje je potrebno pomenuti dati su u tekstu koji sledi. Razlog zbog
 kojeg su navedena i imena registara prethodnih verzija {\eng X86} arhitekture
 je zbog toga sto je moguc1e adresirati prvih {\eng x} bitova ako se koristi ime
-registra za {\eng x}-tobitnu verziju te arhitekture. Naravno, ovo vazhi samo
+registra za {\eng x}-tobitnu verziju {\eng X86} arhitekture. Naravno, ovo vazhi samo
 ukoliko je duzhina registra vec1a ili jednaka duzhini registra chiju notaciju
 koristimo.\\
 
@@ -178,7 +199,7 @@ cr0 & cr2 & cr3 & cr4 & cr8 \\
 \hline
 \end{tabular}}\\
 
-Sistemski registri koji su pokazivachi na tabele:\\[1mm]
+Sistemski registri (pokazivachi na tabele):\\[1mm]
 {\eng\begin{tabular}{|c|c|c|}
 \hline
 gdtr & ldtr & idtr \\
@@ -264,7 +285,7 @@ Realni mod je stanje procesora u kojem nam je dozvoljeno adresiranje samo prvih
 20mb memorije. Prelazak iz realnog u zasticeni mod postizhe se dalekim skokom
 {\eng "far jump"}.
 
-{\eng\url{https://wiki.osdev.org/Real_Mode}}
+%{\eng\url{https://wiki.osdev.org/Real_Mode}}
 
 \section{Segmentacija}
 \medskip
@@ -272,7 +293,7 @@ Realni mod je stanje procesora u kojem nam je dozvoljeno adresiranje samo prvih
 Segmentacija je reshenje kojim se omoguc1ava adresiranje vishe memorije nego
 shto je to hardverski predvidjeno.
 
-{\eng\url{https://wiki.osdev.org/Segmentation}}
+%{\eng\url{https://wiki.osdev.org/Segmentation}}
 
 \section{{\eng Protected mode}}
 \medskip
@@ -280,7 +301,7 @@ shto je to hardverski predvidjeno.
 Zashtic1en mod je stanje procesora u kojem procesor ima pun pristup celom opsegu
 memorije za razliku od realnog moda.
 
-{\eng\url{https://wiki.osdev.org/Protected_Mode}}
+%{\eng\url{https://wiki.osdev.org/Protected_Mode}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -300,7 +321,7 @@ nastavlja se dalje izvrshavanje {\eng BIOS}-a. {\eng BIOS} sada ima ulogu da
 pronadje medijum koji sadrzhi program koji c1e uchitati jezgro operativnog
 sistema u ram memoriju rachunara. Taj program se naziva {\eng Bootloader}.
 
-{\eng\url{https://wiki.osdev.org/Boot_Sequence}}
+%{\eng\url{https://wiki.osdev.org/Boot_Sequence}}
 
 \section{{\eng Bootloader}}
 \medskip
@@ -309,7 +330,7 @@ sistema u ram memoriju rachunara. Taj program se naziva {\eng Bootloader}.
 njegov zadatak je da uchita jezgro operativnog sistema u ram memoriju i preda
 mu dalje upravljanje.
 
-{\eng\url{https://wiki.osdev.org/Bootloader}}
+%{\eng\url{https://wiki.osdev.org/Bootloader}}
 
 \section{{\eng Multiboot2}}
 \medskip
@@ -320,7 +341,7 @@ mu dalje upravljanje.
 {\eng ELF} je format binarni fajl koji se sastoji od tachno odredjenih sekcija
 i koji mozhe da se pokrene.
 
-{\eng\url{https://wiki.osdev.org/ELF}}
+%{\eng\url{https://wiki.osdev.org/ELF}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -344,7 +365,7 @@ Za programe koji su morali biti manuelno kompajlovani date su instrukcije u
 njihovoj podsekciji. Jedini programi koji su morali biti kompajlovani su {\eng
 binutils} i {\eng gcc} i to da ne bi koristili standardnu biblioteku koju nam
 je obezbedio operativni sistem domac1in (onaj na kome se kompajluje ovaj
-projekat). Za ostale programe koji su korisc1eni preporuka je koristiti one
+projekat). Za ostale programe koji su korish\/c1eni preporuka je koristiti one
 koji su dostupni kao spremni paketi u izvorima odabrane distrubucije {\eng
 GNU/Linux}-a.
 
@@ -355,8 +376,9 @@ Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://www.gnu.org/software/binutils/}},
 zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
 
-Ovaj softverski paket sadrzhi programe neophodne za kompajlovanje kao shto su
-asembler i linker.
+Ovaj softverski paket sadrzhi programe neophodne za izradu programa od kojih su
+najkorisheniji asembler ({\eng as}), linker ({\eng ld}), kao i program za
+kreiranje biblioteka ({\eng ar}).
 
 \subsection{Pre dodavanja {\eng C} biblioteke}
 \smallskip
@@ -382,6 +404,7 @@ od uput\/stva datog na zvanichnom sajtu a tiche se konfigurisanja pre kompilacij
 Nakon dodavanja nashe {\eng C} biblioteke potrebno je kompajlovati {\eng GNU
 Binutils} tako da tu biblioteku i koristi prilikom kompajlovanja nasheg
 operativnog sistema.
+
 \textbf{Napomena:} Potrebno je postaviti {\eng \$SYSROOT} na lokaciju gde se biblioteka nalazi.
 To je moguc1e uraditi na sledec1i nachin:\\
 
@@ -413,6 +436,7 @@ u jednu binarnu datoteku tipa {\eng ELF} koja predstavlja kernel.
 
 \section{{\eng GCC}}
 \medskip
+
 Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://gcc.gnu.org/}},
 zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
@@ -420,27 +444,36 @@ zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
 
 {\eng\url{https://aur.archlinux.org/packages/i686-elf-gcc/}}
 
-{\eng GCC}  je {\eng GNU}-ov set kompajlera.
+{\eng GCC} je {\eng GNU}-ov set kompajlera.
 
 \subsection{Pre dodavanja {\eng LIBC}}
 \smallskip
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/gcc/gcc1}\srb\end{minipage}
+
 \subsection{Posle dodavanja {\eng LIBC}}
+
 \smallskip
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/gcc/gcc2}\srb\end{minipage}
 
 \section{{\eng GRUB}}
 \medskip
+
 Izvorni kod softvera se mozhe nac1i na stranici
+
 {\eng\url{https://www.gnu.org/software/grub/}},
+
 zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
 
 {\eng GRUB} je {\eng bootloader} koji je korish\/c1en na ovom projektu. Plan je
-da u buduc1nosti {\eng GRUB} bude zamenjen sa mojim {\eng bootloader}-om, i da
-se kompletan kod bude moj.
+da u buduc1nosti {\eng GRUB} bude zamenjen sa {\eng bootloader}-om izradjenim
+specificno za ovaj operativni sistem i da sve komponente ovog operativnog
+sistema na taj nachin budu delo jednog autora.
 
 \section{{\eng QEMU}}
 \medskip
+
 Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://www.qemu.org/}},
 zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
@@ -452,8 +485,11 @@ interface)} iz koga se lako mozhe pozivati iz skripti kao shto su {\eng Makefile
 
 \section{{\eng Make}}
 \medskip
+
 Izvorni kod softvera se mozhe nac1i na stranici
+
 {\eng\url{https://www.gnu.org/software/make/}}
+
 zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
 \cite{book:78575}.
 
@@ -467,15 +503,21 @@ objasnjen u daljem tekstu.
 \medskip
 
 \subsection{{\eng NeoVim}}
-{\eng NeoVim} je tekst editor nastao od {\eng Vim}-a ({\eng Vi improved}).
-\cite{book:78583}.
+{\eng NeoVim} je uredjivach teksta nastao od {\eng Vim}-a ({\eng Vi improved}).
+\cite{book:78583}. Konfiguracijski fajlovi autora, mogu se nac1i na
+{\eng\url{https;//github.com/aleksav013/nvim}}, i imaju za cilj da stvore
+okruzhenje pogodno za rad na ovom projektu.
 
 \subsection{{\eng git}}
 \smallskip
 Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://git.kernel.org/pub/scm/git/git.git}}.
 
-{\eng Git} je program koji nam pomazhe da odrzhavamo izvodne fajlove i 
+{\eng Git} je program koji nam pomazhe da odrzhavamo izvodne fajlove
+sinhronizovanim sa repozitorijimom. Osim toga znachajan je i njegov sistem
+"kontrole" verzija - moguc1nost da se za svaki {\eng commit}(promenu) vidi
+tachno koji su se fajlovi izmenili i koja je razlika izmedju neke dve verzije
+projekta.
 
 \subsection{{\eng xorriso(libisoburn)}}
 \smallskip
@@ -488,6 +530,9 @@ ili {\eng USB} flesh sa kojih se kasnije dizhe sistem.
 \smallskip
 {\eng\url{https://www.sourceware.org/gdb/}}
 
+{\eng GNU}-ov {\eng debugger} koji sluzhi uglavnom za pronalazhenje greshaka u
+kodu.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -497,74 +542,181 @@ ili {\eng USB} flesh sa kojih se kasnije dizhe sistem.
 
 \section{Pochetak}
 \medskip
-{\eng\url{https://wiki.osdev.org/Bare_Bones}}
+%{\eng\url{https://wiki.osdev.org/Bare_Bones}}
 
-{\eng as/boot.s}:\\
+{\eng as/boot.s}:
 
-U prvom delu postavljamo promenljive na vrednosti koje su odredjene {\eng Multiboot2} standardom.\\
+U prvom delu postavljamo promenljive na vrednosti koje su odredjene {\eng
+Multiboot2} standardom da bi {\eng bootloader} prepoznao nashe jezgro.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo1}\srb\end{minipage}
+
 Nakon toga postavljamo prvih 512 bitova na prethodno pomenute vrednosti ali
-tako da za svaku promenljivu ostavljamo 32 bita prostora.\\
+tako da za svaku promenljivu ostavljamo 32 bita prostora.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo2}\srb\end{minipage}
-Definishemo sekciju {\eng bss} u kojoj kreiramo stek i dodeljujem mu 16 kilobajta.\\
+
+Postavljamo funkcije koje cemo definisati u ovom fajlu za globalne da bi smo
+kasnije mogli da ih pozivamo iz {\eng C}-a.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo3}\srb\end{minipage}
-I na kraju postavljamo registar esp na vrh steka i pozivamo {\eng kernel\_main}
-funkciju koja je napisana u {\eng C}-u.\\
+
+Funkcija za uchitavanje {\eng gdt} tabele.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo4}\srb\end{minipage}
+
+Funkcija za uchitavanje {\eng idt} tabele.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo5}\srb\end{minipage}
+
+Funkcije koje su zaduzene za razmenu informacija preko magistrale za
+ulaz/izlaz. Koristi se pri inicijalizaciji {\eng IRQ}-a i korish\/c1enju
+tastature.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo6}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo7}\srb\end{minipage}
+
+Segmenti za kod i podatke koji su postavljeni u {\eng gdt} tabeli.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo8}\srb\end{minipage}
+
+Definishemo sekciju {\eng bss} u kojoj kreiramo stek i dodeljujemo mu 16
+kilobajta.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo9}\srb\end{minipage}
+
+Definishemo pochetnu funkciju {\eng \_start} pozivajuc1i funkciju za
+inicijalizaciju {\eng gdt} tabele i "skachemo" na segment koda. Ovaj postupak
+ima naziv {\eng "far jump"} jer skachemo van tekuc1eg segmenta.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo10}\srb\end{minipage}
+
+U segmentu koda postavljamo segmentne registre na adresu segmenta podataka.
+Zatim postavljamo {\eng esp} registar na pochetak steka koji smo inicijalizovali
+u {\eng bss} sekciji i predajemo upravljanje {\eng kernel\_main} funkciji.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo11}\srb\end{minipage}
+
+Postavljamo velichinu funkcije {\eng \_start} shto nam kasnije mozhe biti
+korisno pri {\eng debug}-ovanju.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo12}\srb\end{minipage}
+
+
 
 \section{Ispis na ekran - {\eng VGA}}
 \medskip
 
-{\eng c/vga.c}:\\
+{\eng c/vga.c}:
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo1}\srb\end{minipage}
+
 Primetimo da u {\eng C}-u koristimo {\eng uintX\_t} promenljive. To je zbog toga
-shto nam je sada vrlo bitno da pazimo na velichinu koju zauzimaju promenljive.\\
+shto nam je u ovakvom okruzhenju vrlo bitno da pazimo na velichinu koju
+zauzimaju promenljive.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo2}\srb\end{minipage}
-4 znachajnija bita oznachavaju boju pozadine, dok ostala 4 bita oznachavaju boju karaktera.\\
+
+4 znachajnija bita oznachavaju boju pozadine, dok ostala 4 bita oznachavaju boju karaktera.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo3}\srb\end{minipage}
-Na {\eng VGA} pisemo tako shto\\
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo4}\srb\end{minipage}
+
+Na {\eng VGA} izlaz ispisujemo tako shto pochev od adrese {\eng 0xB80000}
+pishemo shesnaestobitne vrednosti koje se prevode u karaktere i njihovu boju. 8
+znachajnijih bitova odredjuju boju karaktera dok preostalih 8 bitova oznachavaju
+karakter.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo5}\srb\end{minipage}
+
+Funkcija koja ispisuje karakter na monitoru.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo6}\srb\end{minipage}
+
+Fukcija koja pomera sve do sada ispisano za jedan red na dole i oslobadja novi
+red kada ponestane mesta na ekranu.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo7}\srb\end{minipage}
+
+Funkfija koja postavlja brojache kolone i reda na sledec1e, uglavnom prazno, polje na ekranu.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo8}\srb\end{minipage}
+
+Funkfija koja postavlja brojache kolone i reda na proshlo polje na ekranu.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo9}\srb\end{minipage}
+
+Funkcija koja ispisuje jedan karakter na ekran. Proverava da li je potrebno
+ispisati novi red umesto karaktera {\eng '$\backslash$n'}, kao i da li je
+potrebno osloboditi novi red ukoliko se ekran popunio.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo10}\srb\end{minipage}
+
+Funkcija koja ispisuje niz karaktera na ekran.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo11}\srb\end{minipage}
+
+Funcija koja ispisuje celobrojnu vrednost na ekran tako shto je prvo pretvori u niz
+karaktera a zatim iskoristi prethodnu funkciju.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo12}\srb\end{minipage}
+
+Funcija koja ispisuje realnu vrednost na ekran tako shto je prvo pretvori u niz
+karaktera a zatim iskoristi funkciju za ispis niza karaktera.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo13}\srb\end{minipage}
+
+Funkcija koja brishe sve sa ekrana i postavlja brojache kolone i reda na pochetnu poziciju.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo14}\srb\end{minipage}
+
 
 \section{{\eng Global Desctiptor Table}}
 \medskip
 
-{\eng c/gdt.c}:\\
+{\eng c/gdt.c}:
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo1}\srb\end{minipage}
+
+Format u kom rachunar prihvata unos pojedinachnih definicija segmenata.
+Primetimo {\eng \_\_attribute\_\_((packed))}, na kraju definicije strukture. To
+nam oznachava da se nece ostavljati mesta u memoriji izmedju promenljivih
+unutar strukture, vec1 c1e se "pakovati" jedna do druge u memoriji.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo2}\srb\end{minipage}
+
+Format koji rachunar prihvata za tabelu svih definicija segmenata.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo3}\srb\end{minipage}
+
+Funcija iz asemblera koja uchitava tabelu segmenata, kreiranu u sledec1ih
+nekoliko funcija, u odgovarajuc1i registar. Ovu funciju smo imali priliku
+videti u pochetnom fajlu.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo4}\srb\end{minipage}
+
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo5}\srb\end{minipage}
+
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo6}\srb\end{minipage}
+
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo7}\srb\end{minipage}
+
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo8}\srb\end{minipage}
+
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo9}\srb\end{minipage}
 
-{\eng\url{https://wiki.osdev.org/GDT}}
+%{\eng\url{https://wiki.osdev.org/GDT}}
 
 \section{{\eng Interrupt Desctiptor Table}}
 \medskip
 
-{\eng c/idt.c}:\\
+{\eng c/idt.c}:
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo1}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo2}\srb\end{minipage}
@@ -578,24 +730,24 @@ Na {\eng VGA} pisemo tako shto\\
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo10}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo11}\srb\end{minipage}
 
-{\eng\url{https://wiki.osdev.org/IDT}}
+%{\eng\url{https://wiki.osdev.org/IDT}}
 
 \section{{\eng IRQ} i {\eng PIC}}
 \medskip
-{\eng c/idt.c}:\\
+{\eng c/idt.c}:
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo12}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo13}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo14}\srb\end{minipage}
 
 
-{\eng\url{https://wiki.osdev.org/IRQ}}
-{\eng\url{https://wiki.osdev.org/PIC}}
+%{\eng\url{https://wiki.osdev.org/IRQ}}
+%{\eng\url{https://wiki.osdev.org/PIC}}
 
 \section{Tastatura}
 \medskip
 
-{\eng c/keyboard.c}:\\
+{\eng c/keyboard.c}:
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo1}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo2}\srb\end{minipage}
@@ -621,7 +773,7 @@ Na {\eng VGA} pisemo tako shto\\
 \section{{\eng PIT - Programmable Interval Timer}}
 \medskip
 
-{\eng c/timer.c}:\\
+{\eng c/timer.c}:
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo1}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo2}\srb\end{minipage}
@@ -633,12 +785,12 @@ Na {\eng VGA} pisemo tako shto\\
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo8}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo9}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo10}\srb\end{minipage}
-{\eng\url{https://wiki.osdev.org/PIT}}
+%{\eng\url{https://wiki.osdev.org/PIT}}
 
 \section{{\eng Heap}}
 \medskip
 
-{\eng c/heap.c}:\\
+{\eng c/heap.c}:
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo1}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo2}\srb\end{minipage}
@@ -671,12 +823,12 @@ Na {\eng VGA} pisemo tako shto\\
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo29}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo30}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo31}\srb\end{minipage}
-{\eng\url{https://wiki.osdev.org/Heap}}
+%{\eng\url{https://wiki.osdev.org/Heap}}
 
 \section{{\eng Paging}}
 \medskip
 
-{\eng c/paging.c}:\\
+{\eng c/paging.c}:
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo1}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo2}\srb\end{minipage}
@@ -688,46 +840,58 @@ Na {\eng VGA} pisemo tako shto\\
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo8}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo9}\srb\end{minipage}
 
-{\eng\url{https://wiki.osdev.org/Paging}}
+%{\eng\url{https://wiki.osdev.org/Paging}}
 
 \section{Moj {\eng LIBC}}
 \medskip
-{\eng\url{https://wiki.osdev.org/Creating_a_C_Library}}
+%{\eng\url{https://wiki.osdev.org/Creating_a_C_Library}}
 
-{\eng include/asm.h}:\\
+{\eng include/asm.h}:
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/asm.h}\srb\end{minipage}
 
-{\eng include/errno.h}:\\
+{\eng include/errno.h}:
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/errno.h}\srb\end{minipage}
 
-{\eng include/heap.h}:\\
+{\eng include/heap.h}:
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/heap.h}\srb\end{minipage}
 
-{\eng include/irq.h}:\\
+{\eng include/irq.h}:
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/irq.h}\srb\end{minipage}
 
-{\eng include/stdio.h}:\\
+{\eng include/stdio.h}:
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/stdio.h}\srb\end{minipage}
 
-{\eng include/stdlib.h}:\\
+{\eng include/stdlib.h}:
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/stdlib.h}\srb\end{minipage}
 
-{\eng include/string.h}:\\
+{\eng include/string.h}:
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/string.h}\srb\end{minipage}
 
-{\eng include/time.h}:\\
+{\eng include/time.h}:
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/time.h}\srb\end{minipage}
 
-{\eng include/types.h}:\\
+{\eng include/types.h}:
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/types.h}\srb\end{minipage}
 
-{\eng include/unistd.h}:\\
+{\eng include/unistd.h}:
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/unistd.h}\srb\end{minipage}
 
-{\eng include/vga.h}:\\
+{\eng include/vga.h}:
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/vga.h}\srb\end{minipage}
 
-{\eng include/sys/types.h}:\\
+{\eng include/sys/types.h}:
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/sys/types.h}\srb\end{minipage}
 
 
