@@ -4,8 +4,9 @@
     basicstyle=\footnotesize,
     frame=single,
     showstringspaces=false,
-    tabsize=8,
+    tabsize=4,
     escapeinside={<@}{@>},
+%    numbers=left
 }
 \lstset{defaultdialect=[x86masm]Assembler}
 
@@ -131,12 +132,12 @@ Kod, zajedno sa svim alatima za njegovo korishenje i upotrebu, je dostupan pod
 
 Ovaj projakat se konstantno unapredjuje i nemoguc1e je odrzhavati
 sinhronizovanim fajlove koji sachinjavaju operativni sistem, a koji se
-istovremeno pominju u ovom radu. Iz tog razloga rad c1e biti napisan za verziju
+istovremeno pominju u ovom radu. Iz tog razloga, rad c1e biti napisan za verziju
 operativnog sistema 1.0.0. Na stranici {\eng GitHub}-a ova verzija se mozhe
 nac1i pod {\eng tag/s} sekcijom na stranici projekta.
 
 Radi laksheg kompajlovanja koda od strane chitaoca, kreiran je {\eng toolchain}
-- set alata specifichno za kompajlovanje ovog operativnog sistema koji se mozhe
+- set alata, specifichno za kompajlovanje ovog operativnog sistema, koji se mozhe
 nac1i na stranici {\eng\url{https://github.com/aleksav013/aleksa-toolchain}},
 takodje dostupan pod {\eng GPLv3} licencom otvorenog koda. Set alata {\eng
 aleksa-toolchain} kreiran je takodje i iz razloga shto je zapravo neizbezhan
@@ -167,7 +168,7 @@ Zajedno sa {\eng ARM}-om jedna od najkorish\/c1enijih arhitektura danashnjice.
 Postoji vishe vrsta registara procesora\cite[75]{misc:1}. Neki od osnovnih
 registara koje je potrebno pomenuti dati su u tekstu koji sledi. Razlog zbog
 kojeg su navedena i imena registara prethodnih verzija {\eng X86} arhitekture
-je zbog toga sto je moguc1e adresirati prvih {\eng x} bitova ako se koristi ime
+je zbog toga shto je moguc1e adresirati prvih {\eng x} bitova ako se koristi ime
 registra za {\eng x}-tobitnu verziju {\eng X86} arhitekture. Naravno, ovo vazhi samo
 ukoliko je duzhina registra vec1a ili jednaka duzhini registra chiju notaciju
 koristimo.\\
@@ -208,9 +209,9 @@ gdtr & ldtr & idtr \\
 
 Osim pomenutih, pochev od 16bit-ne {\eng X86} arhitekture postoje i registri
 {\eng ah, bh, ch, dh (h-higher)} koji predstavljaju gornju polovinu (od 9. do
-16. bita) {\eng ax,bx,cx,dx} registara redom. U daljem tekstu bic1e prikazan
+16. bita) {\eng ax, bx, cx, dx} registara redom. U daljem tekstu bic1e prikazan
 odnos izmedju registara o kome je ranije bilo rechi, kao i prikaz i na to od
-kog do kog bita se odnosi data notacija.\\
+kog do kog bita registra se odnosi data notacija.\\
 
 {\eng\begin{tabular}{|c|c|c|c|c|c|c|c|}
 63-56 & 55-48 & 47-40 & 39-32 & 31-24 & 23-16 & 15-8 & 7-0 \\
@@ -237,8 +238,17 @@ Registri opshte namene imaju ulogu u chuvanju operandi i pokazivacha:
 \begin{itemize}
 \item Operandi za logichke i aritmeticke operacije
 \item Operandi za adresne kalkulacije
-\item Pokazivace na memorijsku lokaciju
+\item Pokazivache na memorijsku lokaciju
 \end{itemize}
+
+Registri opshte namene se mogu koristiti proizvoljno prema potrebi. Medjutim,
+dizajneri hardvera su uvideli da postoji moguc1nost daljih optimizacija ukoliko
+se svakom od ovih registara dodeli neka specifichna uloga u kojoj je malo bolji
+od ostalih registara opshte namene.\\
+
+Na taj nachin kompajleri vec1inu vremena kreiraju bolji asemblerski kod nego
+ljudi, prosto iz razloga jer svaki od registara opshte namene takodje koriste i
+za njihovu specificnu funkciju svaki put gde je to moguc1e.
 
 Specifichna uloga registara opshte namene:
 \begin{itemize}
@@ -282,7 +292,7 @@ Specifichna uloga segmentnih registara:
 \medskip
 
 Realni mod je stanje procesora u kojem nam je dozvoljeno adresiranje samo prvih
-20mb memorije. Prelazak iz realnog u zasticeni mod postizhe se dalekim skokom
+20 megabajta memorije. Prelazak iz realnog u zastic1eni mod postizhe se dalekim skokom
 {\eng "far jump"}.
 
 %{\eng\url{https://wiki.osdev.org/Real_Mode}}
@@ -326,9 +336,9 @@ sistema u ram memoriju rachunara. Taj program se naziva {\eng Bootloader}.
 \section{{\eng Bootloader}}
 \medskip
 
-{\eng Bootloader} je program koji se nalazi u prvih 512bitova medijuma, i
-njegov zadatak je da uchita jezgro operativnog sistema u ram memoriju i preda
-mu dalje upravljanje.
+{\eng Bootloader} je program koji se nalazi u prvih 512bitova medijuma u {\eng
+MBR} odeljku, i njegov zadatak je da uchita jezgro operativnog sistema u ram
+memoriju i preda mu dalje upravljanje.
 
 %{\eng\url{https://wiki.osdev.org/Bootloader}}
 
@@ -350,11 +360,11 @@ i koji mozhe da se pokrene.
 \bigskip
 
 U daljem tekstu se mogu videti neki od alata korish\/c1enih u kreiranju ovog
-rada. Svi korish\/c1eni alati poseduju {\eng GPLv2} ili {\eng GPLv3} licencu.
+rada. Vec1ina korish\/c1enih alata poseduje {\eng GPLv3} licencu.
 {\eng GNU Public Licence} je licenca otvorenog koda koja dozvoljava
 modifikovanje i distribuiranje koda sve dok taj je taj kod javno dostupan.
-Jedini program sa liste koji nije {\eng GNU}-ov je {\eng QEMU} virtualna
-mashina.\\
+Jedini programi sa ove liste koji nije kreirao {\eng GNU} su {\eng QEMU}
+virtualna mashina, {\eng git} i {\eng NeoVim}.\\
 
 Operativni sistem korish\/c1en u izradi ovog projekta je {\eng Artix Linux}.
 {\eng Artix Linux} je {\eng GNU/Linux} distribucija bazirana na {\eng Arch Linux}-u.
@@ -362,7 +372,7 @@ Vec1ina korish\/c1enih programa je vec1 kompajlovana i spremna za upotrebu i
 nalazi se u oficijalnim repozitorijima.\\
 
 Za programe koji su morali biti manuelno kompajlovani date su instrukcije u
-njihovoj podsekciji. Jedini programi koji su morali biti kompajlovani su {\eng
+njihovoj podsekciji. Programi koji su morali biti kompajlovani su {\eng
 binutils} i {\eng gcc} i to da ne bi koristili standardnu biblioteku koju nam
 je obezbedio operativni sistem domac1in (onaj na kome se kompajluje ovaj
 projekat). Za ostale programe koji su korish\/c1eni preporuka je koristiti one
@@ -421,9 +431,9 @@ Assembler)} i {\eng MASM (Microsoft Assembler)} koji koriste noviju Intelovu
 sintaksu, autor se ipak odluchio za {\eng GASM} zbog kompatibilnosti sa {\eng
 GCC} kompajlerom. {\eng GASM} kosristi stariju {\eng AT\&T} sintaksu koju
 karakterishe: obrnut poredak parametara, prefiks pre imena registara i
-vrednosti konstanti, a i velichina parametara mora biti definisana. Zbog toga
-c1e mozhda nekim chitaocima biti koristan program {\eng "intel2gas"} koji se za
-{\eng Arch Linux} mozhe nac1i na stanici
+vrednosti konstanti, a i velichina parametara mora biti eksplicitno definisana.
+Zbog toga c1e mozhda nekim chitaocima biti koristan program {\eng "intel2gas"}
+koji se za {\eng Arch Linux} mozhe nac1i na stanici
 {\eng\url{https://aur.archlinux.org/packages/intel2gas/}}.\\
 
 Ovaj program je korish\/c1en za kompajlovanje dela koda napisanog u asembleru.
@@ -497,7 +507,7 @@ zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
 fajlovima. Moguc1e je sve kompajlovati, obrisati, kreirati {\eng iso} fajl kao
 i pokrenuti {\eng QEMU} virtuelnu mashinu sa samo jednom kljchnom rechi u
 terminalu. Kreirani {\eng Makefile} za potrebe ovog projekta bic1e detaljno
-objasnjen u daljem tekstu.
+objashnjen u daljem tekstu.
 
 \section{Manje bitni alati}
 \medskip
@@ -505,11 +515,14 @@ objasnjen u daljem tekstu.
 \subsection{{\eng NeoVim}}
 {\eng NeoVim} je uredjivach teksta nastao od {\eng Vim}-a ({\eng Vi improved}).
 \cite{book:78583}. Konfiguracijski fajlovi autora, mogu se nac1i na
-{\eng\url{https;//github.com/aleksav013/nvim}}, i imaju za cilj da stvore
+{\eng\url{https://github.com/aleksav013/nvim}}, i imaju za cilj da stvore
 okruzhenje pogodno za rad na ovom projektu.
 
 \subsection{{\eng git}}
 \smallskip
+
+Kreator ovog programa je {\eng Linus Torvalds}, chovek koji je kreirao {\eng
+Linux kernel}.
 Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://git.kernel.org/pub/scm/git/git.git}}.
 
@@ -533,12 +546,50 @@ ili {\eng USB} flesh sa kojih se kasnije dizhe sistem.
 {\eng GNU}-ov {\eng debugger} koji sluzhi uglavnom za pronalazhenje greshaka u
 kodu.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Inspiracija}
+\bigskip
+
+\section{{\eng Minix}}
+\medskip
+\cite{book:821745}\\
+\cite{book:1400099}
+Takodje je napisao i \cite{book:915673}.
+
+\section{{\eng Linux}}
+\medskip
+
+\section{{\eng BSD}}
+\medskip
+\cite{book:1310096}
+
+\section{{\eng Mmurtl}}
+\medskip
+
+\cite{book:658757}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{{\eng Build system}}
+\bigskip
+
+\section{{\eng aleksa-toolchain}}
+\medskip
+
+\section{{\eng Makefile}}
+\medskip
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Jezgro operativnog sistema}
 \bigskip
+
+Rad je prvobitno bio zamisljen kao postupno izlaganje nastajanja ovog
+operativnog sistema, ali se kasnije autor odluchio da ipak izlozhi samo
+trenutnu verziju rada, s obrzirom na to da bi rad bio nepotrebno duzhi.
 
 \section{Pochetak}
 \medskip
@@ -792,6 +843,8 @@ videti u pochetnom fajlu.
 
 {\eng c/heap.c}:
 
+\cite{book:1412}\\
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo1}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo2}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo3}\srb\end{minipage}
@@ -860,7 +913,7 @@ videti u pochetnom fajlu.
 
 {\eng include/irq.h}:
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/irq.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C,linerange={1-5,36-40}]{include/10.libc/irq.h}\srb\end{minipage}
 
 {\eng include/stdio.h}:
 
