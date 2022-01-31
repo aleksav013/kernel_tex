@@ -1,7 +1,0 @@
-char charcode[256];
-char shift_charcode[256];
-bool ispressed[128];
-#define lshift 0x2A
-#define rshift 0x36
-#define lctrl 0x1D
-#define rctrl 0x1D

@@ -76,7 +76,8 @@
 
 \vspace*{10pt}
 \begin{center}
-    {\naslov Izrada \textbf{\eng\Large X86 32bit i686} jezgra operativnog sistema}
+    {\naslov Izrada \textbf{\eng\Large X86 32bit i686} jezgra operativnog
+    	sistema}
 \end{center}
 
 \vspace*{70mm}
@@ -132,13 +133,14 @@ Kod, zajedno sa svim alatima za njegovo korishenje i upotrebu, je dostupan pod
 
 Ovaj projakat se konstantno unapredjuje i nemoguc1e je odrzhavati
 sinhronizovanim fajlove koji sachinjavaju operativni sistem, a koji se
-istovremeno pominju u ovom radu. Iz tog razloga, rad c1e biti napisan za verziju
-operativnog sistema 1.0.0. Na stranici {\eng GitHub}-a ova verzija se mozhe
-nac1i pod {\eng tag/s} sekcijom na stranici projekta.
+istovremeno pominju u ovom radu. Iz tog razloga, rad c1e biti napisan za
+verziju operativnog sistema 1.0.0. Na stranici {\eng GitHub}-a ova verzija se
+mozhe nac1i pod {\eng tag/s} sekcijom na stranici projekta.
 
 Radi laksheg kompajlovanja koda od strane chitaoca, kreiran je {\eng toolchain}
-- set alata, specifichno za kompajlovanje ovog operativnog sistema, koji se mozhe
-nac1i na stranici {\eng\url{https://github.com/aleksav013/aleksa-toolchain}},
+- set alata, specifichno za kompajlovanje ovog operativnog sistema, koji se
+mozhe nac1i na stranici
+{\eng\url{https://github.com/aleksav013/aleksa-toolchain}},
 takodje dostupan pod {\eng GPLv3} licencom otvorenog koda. Set alata {\eng
 aleksa-toolchain} kreiran je takodje i iz razloga shto je zapravo neizbezhan
 proces kreiranja {\eng cross-compilera} - kompajlera koji kompapajluje kod za
@@ -156,9 +158,10 @@ potrebnom za njegovo razumevanje.
 \chapter{{\eng X86} arhitektura}
 \bigskip
 
-{\eng X86} arhitektura je probitno bila osmobitna (sadrzhala je registre duzhine 8
-bitova), 16bitna, zatim 32bitna i na kraju 64bitna. Danas 64bitnu {\eng X86}
-arhitekturu znamo kao i {\eng{} AMD64}, {\eng X86-64} ili {\eng X86\_64}.\\
+{\eng X86} arhitektura je probitno bila osmobitna (sadrzhala je registre
+duzhine 8 bitova), 16bitna, zatim 32bitna i na kraju 64bitna. Danas 64bitnu
+{\eng X86} arhitekturu znamo kao i {\eng{} AMD64}, {\eng X86-64} ili {\eng
+X86\_64}.\\
 
 Zajedno sa {\eng ARM}-om jedna od najkorish\/c1enijih arhitektura danashnjice.
 
@@ -168,8 +171,10 @@ Zajedno sa {\eng ARM}-om jedna od najkorish\/c1enijih arhitektura danashnjice.
 Postoji vishe vrsta registara procesora\cite[75]{misc:1}. Neki od osnovnih
 registara koje je potrebno pomenuti dati su u tekstu koji sledi. Razlog zbog
 kojeg su navedena i imena registara prethodnih verzija {\eng X86} arhitekture
-je zbog toga shto je moguc1e adresirati prvih {\eng x} bitova ako se koristi ime
-registra za {\eng x}-tobitnu verziju {\eng X86} arhitekture. Naravno, ovo vazhi samo
+je zbog toga shto je moguc1e adresirati prvih {\eng x} bitova ako se koristi
+ime
+registra za {\eng x}-tobitnu verziju {\eng X86} arhitekture. Naravno, ovo vazhi
+samo
 ukoliko je duzhina registra vec1a ili jednaka duzhini registra chiju notaciju
 koristimo.\\
 
@@ -292,7 +297,8 @@ Specifichna uloga segmentnih registara:
 \medskip
 
 Realni mod je stanje procesora u kojem nam je dozvoljeno adresiranje samo prvih
-20 megabajta memorije. Prelazak iz realnog u zastic1eni mod postizhe se dalekim skokom
+20 megabajta memorije. Prelazak iz realnog u zastic1eni mod postizhe se dalekim
+skokom
 {\eng "far jump"}.
 
 %{\eng\url{https://wiki.osdev.org/Real_Mode}}
@@ -308,7 +314,8 @@ shto je to hardverski predvidjeno.
 \section{{\eng Protected mode}}
 \medskip
 
-Zashtic1en mod je stanje procesora u kojem procesor ima pun pristup celom opsegu
+Zashtic1en mod je stanje procesora u kojem procesor ima pun pristup celom
+opsegu
 memorije za razliku od realnog moda.
 
 %{\eng\url{https://wiki.osdev.org/Protected_Mode}}
@@ -367,7 +374,8 @@ Jedini programi sa ove liste koji nije kreirao {\eng GNU} su {\eng QEMU}
 virtualna mashina, {\eng git} i {\eng NeoVim}.\\
 
 Operativni sistem korish\/c1en u izradi ovog projekta je {\eng Artix Linux}.
-{\eng Artix Linux} je {\eng GNU/Linux} distribucija bazirana na {\eng Arch Linux}-u.
+{\eng Artix Linux} je {\eng GNU/Linux} distribucija bazirana na {\eng Arch
+Linux}-u.
 Vec1ina korish\/c1enih programa je vec1 kompajlovana i spremna za upotrebu i
 nalazi se u oficijalnim repozitorijima.\\
 
@@ -394,17 +402,20 @@ kreiranje biblioteka ({\eng ar}).
 \smallskip
 
 Iz razloga shto se ne koristi standardna biblioteka vec1 samostalno napisana
-specificno za ovaj projekat, potrebno je manuelno kompajlovati {\eng GNU Binutils}.
+specificno za ovaj projekat, potrebno je manuelno kompajlovati {\eng GNU
+Binutils}.
 Medjutim, postoji moguc1nost korish\/c1enja vec1 spremnog paketa koji se za
 distribucije bazirane na {\eng Arch Linux}-u mozhe nac1i na stanici
-{\eng\url{https://aur.archlinux.org/packages/i686-elf-binutils/}}. Pojedine distribucije
+{\eng\url{https://aur.archlinux.org/packages/i686-elf-binutils/}}. Pojedine
+distribucije
 vec1 imaju ovaj paket kompajlovan, ali je preporuka manuelno kompajlovati da bi
 se izbegla nekompatibilnost, a i prosto iz razloga shto c1e nakon formiranja
 nashe {\eng C} biblioteke biti neophodno kompajlovati ovaj program za svaki
 sistem posebno.
 
 Za one koje zhele sami da kompajluju dat je deo instrukcija koji se razlikuje
-od uput\/stva datog na zvanichnom sajtu a tiche se konfigurisanja pre kompilacije.\\
+od uput\/stva datog na zvanichnom sajtu a tiche se konfigurisanja pre
+kompilacije.\\
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/binutils/binutils1}\srb\end{minipage}
 
@@ -415,7 +426,8 @@ Nakon dodavanja nashe {\eng C} biblioteke potrebno je kompajlovati {\eng GNU
 Binutils} tako da tu biblioteku i koristi prilikom kompajlovanja nasheg
 operativnog sistema.
 
-\textbf{Napomena:} Potrebno je postaviti {\eng \$SYSROOT} na lokaciju gde se biblioteka nalazi.
+\textbf{Napomena:} Potrebno je postaviti {\eng \$SYSROOT} na lokaciju gde se
+biblioteka nalazi.
 To je moguc1e uraditi na sledec1i nachin:\\
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/binutils/exportsysroot}\srb\end{minipage}
@@ -441,7 +453,8 @@ Ovaj program je korish\/c1en za kompajlovanje dela koda napisanog u asembleru.
 \subsection{{\eng GNU Linker}}
 \smallskip
 
-Ovaj program je korish\/c1en za linkovanje, tj. "spajanje" svog komapjlovanog koda
+Ovaj program je korish\/c1en za linkovanje, tj. "spajanje" svog komapjlovanog
+koda
 u jednu binarnu datoteku tipa {\eng ELF} koja predstavlja kernel.
 
 \section{{\eng GCC}}
@@ -491,7 +504,8 @@ zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
 {\eng QEMU} je virtualna mashina u kojoj c1e jezgro biti testirano i
 prikazano zarad praktichnih razloga. {\eng QEMU} je odabran za ovaj projekat
 jer za razliku od drugih virutalnih mashina poseduje {\eng cli (command line
-interface)} iz koga se lako mozhe pozivati iz skripti kao shto su {\eng Makefile}-ovi.
+interface)} iz koga se lako mozhe pozivati iz skripti kao shto su {\eng
+Makefile}-ovi.
 
 \section{{\eng Make}}
 \medskip
@@ -600,58 +614,53 @@ trenutnu verziju rada, s obrzirom na to da bi rad bio nepotrebno duzhi.
 U prvom delu postavljamo promenljive na vrednosti koje su odredjene {\eng
 Multiboot2} standardom da bi {\eng bootloader} prepoznao nashe jezgro.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo1}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot1.s}\srb\end{minipage}
 
 Nakon toga postavljamo prvih 512 bitova na prethodno pomenute vrednosti ali
 tako da za svaku promenljivu ostavljamo 32 bita prostora.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo2}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot2.s}\srb\end{minipage}
 
 Postavljamo funkcije koje cemo definisati u ovom fajlu za globalne da bi smo
 kasnije mogli da ih pozivamo iz {\eng C}-a.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo3}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot3.s}\srb\end{minipage}
 
 Funkcija za uchitavanje {\eng gdt} tabele.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo4}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot4.s}\srb\end{minipage}
 
 Funkcija za uchitavanje {\eng idt} tabele.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo5}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot5.s}\srb\end{minipage}
 
 Funkcije koje su zaduzene za razmenu informacija preko magistrale za
 ulaz/izlaz. Koristi se pri inicijalizaciji {\eng IRQ}-a i korish\/c1enju
 tastature.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo6}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo7}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot6.s}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot7.s}\srb\end{minipage}
 
 Segmenti za kod i podatke koji su postavljeni u {\eng gdt} tabeli.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo8}\srb\end{minipage}
 
 Definishemo sekciju {\eng bss} u kojoj kreiramo stek i dodeljujemo mu 16
 kilobajta.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo9}\srb\end{minipage}
 
 Definishemo pochetnu funkciju {\eng \_start} pozivajuc1i funkciju za
 inicijalizaciju {\eng gdt} tabele i "skachemo" na segment koda. Ovaj postupak
 ima naziv {\eng "far jump"} jer skachemo van tekuc1eg segmenta.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo10}\srb\end{minipage}
 
 U segmentu koda postavljamo segmentne registre na adresu segmenta podataka.
-Zatim postavljamo {\eng esp} registar na pochetak steka koji smo inicijalizovali
+Zatim postavljamo {\eng esp} registar na pochetak steka koji smo
+inicijalizovali
 u {\eng bss} sekciji i predajemo upravljanje {\eng kernel\_main} funkciji.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo11}\srb\end{minipage}
 
 Postavljamo velichinu funkcije {\eng \_start} shto nam kasnije mozhe biti
 korisno pri {\eng debug}-ovanju.
-
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/deo12}\srb\end{minipage}
 
 
 
@@ -660,126 +669,134 @@ korisno pri {\eng debug}-ovanju.
 
 {\eng c/vga.c}:
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo1}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga1.c}\srb\end{minipage}
 
-Primetimo da u {\eng C}-u koristimo {\eng uintX\_t} promenljive. To je zbog toga
+Primetimo da u {\eng C}-u koristimo {\eng uintX\_t} promenljive. To je zbog
+toga
 shto nam je u ovakvom okruzhenju vrlo bitno da pazimo na velichinu koju
 zauzimaju promenljive.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo2}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga2.c}\srb\end{minipage}
 
-4 znachajnija bita oznachavaju boju pozadine, dok ostala 4 bita oznachavaju boju karaktera.
+4 znachajnija bita oznachavaju boju pozadine, dok ostala 4 bita oznachavaju
+boju karaktera.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo3}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga3.c}\srb\end{minipage}
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo4}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga4.c}\srb\end{minipage}
 
 Na {\eng VGA} izlaz ispisujemo tako shto pochev od adrese {\eng 0xB80000}
 pishemo shesnaestobitne vrednosti koje se prevode u karaktere i njihovu boju. 8
-znachajnijih bitova odredjuju boju karaktera dok preostalih 8 bitova oznachavaju
+znachajnijih bitova odredjuju boju karaktera dok preostalih 8 bitova
+oznachavaju
 karakter.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo5}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga5.c}\srb\end{minipage}
 
 Funkcija koja ispisuje karakter na monitoru.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo6}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga6.c}\srb\end{minipage}
 
 Fukcija koja pomera sve do sada ispisano za jedan red na dole i oslobadja novi
 red kada ponestane mesta na ekranu.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo7}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga7.c}\srb\end{minipage}
 
-Funkfija koja postavlja brojache kolone i reda na sledec1e, uglavnom prazno, polje na ekranu.
+Funkfija koja postavlja brojache kolone i reda na sledec1e, uglavnom prazno,
+polje na ekranu.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo8}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga8.c}\srb\end{minipage}
 
 Funkfija koja postavlja brojache kolone i reda na proshlo polje na ekranu.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo9}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga9.c}\srb\end{minipage}
 
 Funkcija koja ispisuje jedan karakter na ekran. Proverava da li je potrebno
 ispisati novi red umesto karaktera {\eng '$\backslash$n'}, kao i da li je
 potrebno osloboditi novi red ukoliko se ekran popunio.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo10}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga10.c}\srb\end{minipage}
 
 Funkcija koja ispisuje niz karaktera na ekran.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo11}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga11.c}\srb\end{minipage}
 
-Funcija koja ispisuje celobrojnu vrednost na ekran tako shto je prvo pretvori u niz
+Funcija koja ispisuje celobrojnu vrednost na ekran tako shto je prvo pretvori u
+niz
 karaktera a zatim iskoristi prethodnu funkciju.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo12}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga12.c}\srb\end{minipage}
 
 Funcija koja ispisuje realnu vrednost na ekran tako shto je prvo pretvori u niz
 karaktera a zatim iskoristi funkciju za ispis niza karaktera.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo13}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga13.c}\srb\end{minipage}
 
-Funkcija koja brishe sve sa ekrana i postavlja brojache kolone i reda na pochetnu poziciju.
+Funkcija koja brishe sve sa ekrana i postavlja brojache kolone i reda na
+pochetnu poziciju.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/deo14}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga14.c}\srb\end{minipage}
 
 
 \section{{\eng Global Desctiptor Table}}
 \medskip
 
+{\eng include/source/gdt.h}:
+
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt1.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt2.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt3.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt4.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt5.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt6.h}\srb\end{minipage}
+
 {\eng c/gdt.c}:
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo1}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt1.c}\srb\end{minipage}
 
 Format u kom rachunar prihvata unos pojedinachnih definicija segmenata.
 Primetimo {\eng \_\_attribute\_\_((packed))}, na kraju definicije strukture. To
 nam oznachava da se nece ostavljati mesta u memoriji izmedju promenljivih
 unutar strukture, vec1 c1e se "pakovati" jedna do druge u memoriji.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo2}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt2.c}\srb\end{minipage}
 
 Format koji rachunar prihvata za tabelu svih definicija segmenata.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo3}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt3.c}\srb\end{minipage}
 
 Funcija iz asemblera koja uchitava tabelu segmenata, kreiranu u sledec1ih
 nekoliko funcija, u odgovarajuc1i registar. Ovu funciju smo imali priliku
 videti u pochetnom fajlu.
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo4}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt4.c}\srb\end{minipage}
 
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo5}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt5.c}\srb\end{minipage}
 
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo6}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt6.c}\srb\end{minipage}
 
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo7}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt7.c}\srb\end{minipage}
 
-
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo8}\srb\end{minipage}
-
-
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/deo9}\srb\end{minipage}
 
 %{\eng\url{https://wiki.osdev.org/GDT}}
 
 \section{{\eng Interrupt Desctiptor Table}}
 \medskip
 
-{\eng c/idt.c}:
+{\eng include/source/idt.h}:
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo1}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo2}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo3}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo4}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo5}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo6}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo7}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo8}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo9}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo10}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo11}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt1.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt2.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt3.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt4.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt5.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt6.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt7.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt8.h}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt9.h}\srb\end{minipage}
 
 %{\eng\url{https://wiki.osdev.org/IDT}}
 
@@ -787,9 +804,15 @@ videti u pochetnom fajlu.
 \medskip
 {\eng c/idt.c}:
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo12}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo13}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/deo14}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt1.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt2.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt3.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt4.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt5.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt6.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt7.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt8.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt9.c}\srb\end{minipage}
 
 
 %{\eng\url{https://wiki.osdev.org/IRQ}}
@@ -800,42 +823,37 @@ videti u pochetnom fajlu.
 
 {\eng c/keyboard.c}:
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo1}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo2}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo3}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo4}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo5}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo6}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo7}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo8}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo9}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo10}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo11}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo12}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo13}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo14}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo15}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo16}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo17}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo18}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo19}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/deo20}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard1.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard2.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard3.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard4.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard5.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard6.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard7.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard8.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard9.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard10.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard11.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard12.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard13.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard14.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard15.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard16.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard17.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard18.c}\srb\end{minipage}
 
 \section{{\eng PIT - Programmable Interval Timer}}
 \medskip
 
 {\eng c/timer.c}:
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo1}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo2}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo3}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo4}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo5}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo6}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo7}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo8}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo9}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/deo10}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer1.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer2.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer3.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer4.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer5.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer6.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer7.c}\srb\end{minipage}
 %{\eng\url{https://wiki.osdev.org/PIT}}
 
 \section{{\eng Heap}}
@@ -845,37 +863,35 @@ videti u pochetnom fajlu.
 
 \cite{book:1412}\\
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo1}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo2}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo3}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo4}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo5}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo6}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo7}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo8}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo9}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo10}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo11}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo12}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo13}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo14}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo15}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo16}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo17}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo18}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo19}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo20}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo21}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo22}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo23}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo24}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo25}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo26}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo27}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo28}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo29}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo30}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/deo31}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap1.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap2.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap3.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap4.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap5.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap6.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap7.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap8.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap9.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap10.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap11.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap12.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap13.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap14.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap15.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap16.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap17.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap18.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap19.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap20.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap21.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap22.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap23.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap24.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap25.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap26.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap27.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap28.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap29.c}\srb\end{minipage}
 %{\eng\url{https://wiki.osdev.org/Heap}}
 
 \section{{\eng Paging}}
@@ -883,37 +899,29 @@ videti u pochetnom fajlu.
 
 {\eng c/paging.c}:
 
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo1}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo2}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo3}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo4}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo5}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo6}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo7}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo8}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/deo9}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging1.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging2.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging3.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging4.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging5.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging6.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging7.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging8.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging9.c}\srb\end{minipage}
 
 %{\eng\url{https://wiki.osdev.org/Paging}}
 
-\section{Moj {\eng LIBC}}
+\section{Minimalna \eng{C} biblioteka}
 \medskip
 %{\eng\url{https://wiki.osdev.org/Creating_a_C_Library}}
-
-{\eng include/asm.h}:
-
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/asm.h}\srb\end{minipage}
+%
+%{\eng include/asm.h}:
+%
+%\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/asm.h}\srb\end{minipage}
 
 {\eng include/errno.h}:
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/errno.h}\srb\end{minipage}
-
-{\eng include/heap.h}:
-
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/heap.h}\srb\end{minipage}
-
-{\eng include/irq.h}:
-
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C,linerange={1-5,36-40}]{include/10.libc/irq.h}\srb\end{minipage}
 
 {\eng include/stdio.h}:
 
@@ -931,17 +939,9 @@ videti u pochetnom fajlu.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/time.h}\srb\end{minipage}
 
-{\eng include/types.h}:
-
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/types.h}\srb\end{minipage}
-
 {\eng include/unistd.h}:
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/unistd.h}\srb\end{minipage}
-
-{\eng include/vga.h}:
-
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/vga.h}\srb\end{minipage}
 
 {\eng include/sys/types.h}:
 

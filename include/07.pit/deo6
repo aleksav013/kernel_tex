@@ -1,3 +1,0 @@
-void init_timer(uint32_t frequency)
-{
-    // Firstly, register our timer callback.

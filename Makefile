@@ -13,4 +13,5 @@ $(PDF_FILE): $(TEX_FILE) $(BIB_FILE)
 	pdflatex $(TEX_FILE)
 
 clean:
-	rm $(PDF_FILE)
+	git clean -dfx
+	rm -f $(PDF_FILE)

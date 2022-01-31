@@ -1,4 +1,0 @@
-ioport_in:
-    movl 4(%esp),%edx
-    in %dx,%al
-    ret

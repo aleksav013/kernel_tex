@@ -1,6 +1,0 @@
-.global _start
-.global load_gdt
-.global load_idt
-.global enable_interrupts
-.global ioport_in
-.global ioport_out
