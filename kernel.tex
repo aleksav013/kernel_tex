@@ -77,7 +77,7 @@
 
 \vspace*{10pt}
 \begin{center}
-    {\naslov Izrada \textbf{\eng\Large 32bit X86} jezgra operativnog sistema}
+    {\naslov \textbf{\eng\Large 32bit X86} jezgro operativnog sistema}
 \end{center}
 
 \vspace*{70mm}
@@ -431,7 +431,7 @@ rada. Vec1ina korish\/c1enih alata poseduje {\eng GPLv3} licencu.
 {\eng GNU Public Licence} je licenca otvorenog koda koja dozvoljava
 modifikovanje i distribuiranje koda sve dok taj je taj kod javno dostupan.
 Jedini programi sa ove liste koji nije kreirao {\eng GNU} su {\eng QEMU}
-virtualna mashina, {\eng git} i {\eng NeoVim}.\\
+virtuelna mashina, {\eng git} i {\eng NeoVim}.\\
 
 Operativni sistem korish\/c1en u izradi ovog projekta je {\eng Artix Linux}.
 {\eng Artix Linux} je {\eng GNU/Linux} distribucija bazirana na {\eng Arch
@@ -440,22 +440,22 @@ Vec1ina korish\/c1enih programa je vec1 kompajlovana i spremna za upotrebu i
 nalazi se u oficijalnim repozitorijima.\\
 
 Za programe koji su morali biti manuelno kompajlovani date su instrukcije u
-njihovoj podsekciji. Programi koji su morali biti kompajlovani su {\eng
-binutils} i {\eng gcc} i to da ne bi koristili standardnu biblioteku koju nam
-je obezbedio operativni sistem domac1in (onaj na kome se kompajluje ovaj
-projekat). Za ostale programe koji su korish\/c1eni preporuka je koristiti one
-koji su dostupni kao spremni paketi u izvorima odabrane distrubucije {\eng
-GNU/Linux}-a.
+njihovoj podsekciji. Programi koji su morali biti naknadno kompajlovani su
+{\eng binutils} i {\eng gcc} i to da ne bi koristili standardnu biblioteku koju
+nam je obezbedio operativni sistem domac1in (onaj na kome se kompajluje ovaj
+projekat) vec1 posebnu bibloteku kreiranu za ovo jezgro. Za ostale programe
+koji su korish\/c1eni preporuka je koristiti one koji su dostupni kao spremni
+paketi u izvorima odabrane distrubucije {\eng GNU/Linux}-a.
 
 \section{{\eng Binutils}}
 \medskip
 
 Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://www.gnu.org/software/binutils/}},
-zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
+zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.\\
 
 Ovaj softverski paket sadrzhi programe neophodne za izradu programa od kojih su
-najkorisheniji asembler ({\eng as}), linker ({\eng ld}), kao i program za
+najkorish\/c1eniji asembler ({\eng as}), linker ({\eng ld}), kao i program za
 kreiranje biblioteka ({\eng ar}).
 
 \subsection{Pre dodavanja {\eng C} biblioteke}
@@ -463,15 +463,13 @@ kreiranje biblioteka ({\eng ar}).
 
 Iz razloga shto se ne koristi standardna biblioteka vec1 samostalno napisana
 specificno za ovaj projekat, potrebno je manuelno kompajlovati {\eng GNU
-Binutils}.
-Medjutim, postoji moguc1nost korish\/c1enja vec1 spremnog paketa koji se za
-distribucije bazirane na {\eng Arch Linux}-u mozhe nac1i na stanici
+Binutils}. Medjutim, postoji moguc1nost korish\/c1enja vec1 spremnog paketa
+koji se za distribucije bazirane na {\eng Arch Linux}-u mozhe nac1i na stanici
 {\eng\url{https://aur.archlinux.org/packages/i686-elf-binutils/}}. Pojedine
-distribucije
-vec1 imaju ovaj paket kompajlovan, ali je preporuka manuelno kompajlovati da bi
-se izbegla nekompatibilnost, a i prosto iz razloga shto c1e nakon formiranja
-nashe {\eng C} biblioteke biti neophodno kompajlovati ovaj program za svaki
-sistem posebno.
+distribucije vec1 imaju ovaj paket kompajlovan, ali je preporuka manuelno
+kompajlovati da bi se izbegla nekompatibilnost, a i prosto iz razloga shto c1e
+nakon formiranja nashe {\eng C} biblioteke biti neophodno kompajlovati ovaj
+program za svaki sistem posebno.\\
 
 Za one koje zhele sami da kompajluju dat je deo instrukcija koji se razlikuje
 od uput\/stva datog na zvanichnom sajtu a tiche se konfigurisanja pre
@@ -486,8 +484,8 @@ Nakon dodavanja nashe {\eng C} biblioteke potrebno je kompajlovati {\eng GNU
 Binutils} tako da tu biblioteku i koristi prilikom kompajlovanja nasheg
 operativnog sistema.
 
-\textbf{Napomena:} Potrebno je postaviti {\eng \$SYSROOT} na lokaciju gde se
-biblioteka nalazi.
+\textbf{Napomena:} Potrebno je postaviti {\eng \$SYSROOT} na lokaciju koja
+sadrzhi biblioteku.
 To je moguc1e uraditi na sledec1i nachin:\\
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/binutils/exportsysroot}\srb\end{minipage}
@@ -508,33 +506,38 @@ Zbog toga c1e mozhda nekim chitaocima biti koristan program {\eng "intel2gas"}
 koji se za {\eng Arch Linux} mozhe nac1i na stanici
 {\eng\url{https://aur.archlinux.org/packages/intel2gas/}}.\\
 
-Ovaj program je korish\/c1en za kompajlovanje dela koda napisanog u asembleru.
+{\eng GNU Asembler} je korish\/c1en za kompajlovanje dela koda
+napisanog u asembleru.
 
 \subsection{{\eng GNU Linker}}
 \smallskip
 
-Ovaj program je korish\/c1en za linkovanje, tj. "spajanje" svog komapjlovanog
-koda
-u jednu binarnu datoteku tipa {\eng ELF} koja predstavlja kernel.
+{\eng GNU Linker} je korish\/c1en za linkovanje, tj. "spajanje" svog
+komapjlovanog koda u jednu binarnu datoteku tipa {\eng ELF} koja predstavlja
+kernel.
 
 \section{{\eng GCC}}
 \medskip
 
 Izvorni kod softvera se mozhe nac1i na stranici
-{\eng\url{https://gcc.gnu.org/}},
-zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
+{\eng\url{https://gcc.gnu.org/}}, zajedno sa uput\/stvom za kompajlovanje i
+korish\/c1enje.\\
 
+Isto kao i za {\eng GNU Binutils} moguc1e je pronac1i vec1 spreman paket u
+pojedinim distribucijama ali je preporuka manuelno kompajlovati iz
+prethodno navedenih razloga. Za {\eng Arch Linux} ovaj paket se mozhe nac1i na
+stanici {\eng\url{https://aur.archlinux.org/packages/i686-elf-gcc/}}.\\
 
-{\eng\url{https://aur.archlinux.org/packages/i686-elf-gcc/}}
+{\eng GCC} je {\eng GNU}-ov set kompajlera koji je korishc\/1en za kompajlovanje
+ovog operativnog sistem koji je korishc1en za kompajlovanje ovog operativnog
+sistema.
 
-{\eng GCC} je {\eng GNU}-ov set kompajlera.
-
-\subsection{Pre dodavanja {\eng LIBC}}
+\subsection{Pre dodavanja {\eng C} biblioteke}
 \smallskip
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/gcc/gcc1}\srb\end{minipage}
 
-\subsection{Posle dodavanja {\eng LIBC}}
+\subsection{Nakon dodavanja {\eng C} biblioteke}
 
 \smallskip
 
@@ -544,40 +547,31 @@ zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
 \medskip
 
 Izvorni kod softvera se mozhe nac1i na stranici
+{\eng\url{https://www.gnu.org/software/grub/}}, zajedno sa uput\/stvom za
+kompajlovanje i korish\/c1enje.\\
 
-{\eng\url{https://www.gnu.org/software/grub/}},
-
-zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
-
-{\eng GRUB} je {\eng bootloader} koji je korish\/c1en na ovom projektu. Plan je
-da u buduc1nosti {\eng GRUB} bude zamenjen sa {\eng bootloader}-om izradjenim
-specificno za ovaj operativni sistem i da sve komponente ovog operativnog
-sistema na taj nachin budu delo jednog autora.
+{\eng GRUB} je {\eng bootloader} koji je korish\/c1en na ovom projektu.
 
 \section{{\eng QEMU}}
 \medskip
 
-Izvorni kod softvera se mozhe nac1i na stranici
-{\eng\url{https://www.qemu.org/}},
-zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
+Vishe informacija o softveru se mozhe nac1i na stranici
+{\eng\url{https://www.qemu.org/}}, zajedno sa uput\/stvom za korish\/c1enje.\\
 
-{\eng QEMU} je virtualna mashina u kojoj c1e jezgro biti testirano i
+{\eng QEMU} je virtuelna mashina u kojoj c1e jezgro biti testirano i
 prikazano zarad praktichnih razloga. {\eng QEMU} je odabran za ovaj projekat
 jer za razliku od drugih virutalnih mashina poseduje {\eng cli (command line
-interface)} iz koga se lako mozhe pozivati iz skripti kao shto su {\eng
+interface)} iz koga se lako mozhe pozivati pomoc1u skripti kao shto su {\eng
 Makefile}-ovi.
 
 \section{{\eng Make}}
 \medskip
 
 Izvorni kod softvera se mozhe nac1i na stranici
-
 {\eng\url{https://www.gnu.org/software/make/}}
+zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.\\
 
-zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.
-\cite{book:78575}.
-
-{\eng Make} nam omoguc1ava da sa lakoc1om odrzhavamo i manipulishemo izvornim
+{\eng Make}\cite{book:78575} nam omoguc1ava da sa lakoc1om odrzhavamo i manipulishemo izvornim
 fajlovima. Moguc1e je sve kompajlovati, obrisati, kreirati {\eng iso} fajl kao
 i pokrenuti {\eng QEMU} virtuelnu mashinu sa samo jednom kljchnom rechi u
 terminalu. Kreirani {\eng Makefile} za potrebe ovog projekta bic1e detaljno
@@ -587,7 +581,7 @@ objashnjen u daljem tekstu.
 \medskip
 
 \subsection{{\eng NeoVim}}
-{\eng NeoVim} je uredjivach teksta nastao od {\eng Vim}-a ({\eng Vi improved}).
+{\eng NeoVim} je uredjivach teksta nastao od {\eng Vim}-a ({\eng Vi improved})
 \cite{book:78583}. Konfiguracijski fajlovi autora, mogu se nac1i na
 {\eng\url{https://github.com/aleksav013/nvim}}, i imaju za cilj da stvore
 okruzhenje pogodno za rad na ovom projektu.
@@ -598,7 +592,7 @@ okruzhenje pogodno za rad na ovom projektu.
 Kreator ovog programa je {\eng Linus Torvalds}, chovek koji je kreirao {\eng
 Linux kernel}.
 Izvorni kod softvera se mozhe nac1i na stranici
-{\eng\url{https://git.kernel.org/pub/scm/git/git.git}}.
+{\eng\url{https://git.kernel.org/pub/scm/git/git.git}}.\\
 
 {\eng Git} je program koji nam pomazhe da odrzhavamo izvodne fajlove
 sinhronizovanim sa repozitorijimom. Osim toga znachajan je i njegov sistem
@@ -608,17 +602,23 @@ projekta.
 
 \subsection{{\eng xorriso(libisoburn)}}
 \smallskip
-{\eng\url{https://www.gnu.org/software/xorriso/}}
 
-Sluzhi za kreiranje {\eng ISO} fajlova koji se mogu "narezati" na  {\eng CD}
-ili {\eng USB} flesh sa kojih se kasnije dizhe sistem.
+Izvorni kod softvera se mozhe nac1i na stranici
+{\eng\url{https://www.gnu.org/software/xorriso/}}
+zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.\\
+
+Sluzhi za kreiranje {\eng ISO} fajlova koji se mogu "narezati" na {\eng CD}
+disk ili {\eng USB} flesh i koji se kasnije mogu koristiti kao optichki disk
+koji sadrzhi sve stho je neophodno za uspeshno podizanje sistema.
 
 \subsection{{\eng GDB}}
 \smallskip
 {\eng\url{https://www.sourceware.org/gdb/}}
 
-{\eng GNU}-ov {\eng debugger} koji sluzhi uglavnom za pronalazhenje greshaka u
-kodu.
+{\eng GDB} je {\eng GNU}-ov {\eng debugger} koji sluzhi za pronalazhenje
+greshaka u kodu, kao i aktivno prac1enje izvrshavanja programa (u ovom slucaju
+jezgra). Uz pomoc1 ovog programa ustanovljeno je shta svako dugme na tastaturi
+vrac1a nakon pritiska shto je znachajno ubzalo proces mapiranja tastature.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -628,17 +628,51 @@ kodu.
 
 \section{{\eng Minix}}
 \medskip
-\cite{book:821745}\\
-\cite{book:1400099}
-Takodje je napisao i \cite{book:915673}.
+{\eng Minix} je operativni sistem baziran na {\eng UNIX}-u koji koristi
+mikrokernelsku arhitekturu. Pochev od verzije 2.0 zadovoljava {\eng POSIX
+(Portable Operating System Interface)} standard. Pochetne verzije {\eng Minix}
+operativnog sistema kreirao je Endrju S. Tanenbaum kao profesor Vrije
+univerziteta u Amsterdamu. Profesor Tanenbaum kreirao je operativni sistem kao
+primer principa koji su prikazani u njegovoj knjizi "Operativni sistemi: Dizajn
+i Implementacija" ({\eng Operating Systems: Design and
+Implementation})\cite{book:1400099}. Osim ove knjige Tanenbaum napisao je i
+mnoge druge koje mogu biti od koristi svima koji zhele da se bave dizajnom
+operativnih sistema kao shto su \cite{book:821745} \cite{book:915673}.
+Zanimljiva chinjenica je da je {\eng Minix} najpopularniji operativni sistem
+chije jezgro koristi mikrokernelsku arhitekturu.\\
+
+Spekulishe se da svi Intelovi procesori nakon {\eng Core2Duo} serije koji imaju
+chip pod nazivom {\eng Intem ME (Intel Managment Engine)}, zapravo pokrec1u
+{\eng Minix} operativni sistem. Ovo bi {\eng Minix} uchinilo najkorishenijim
+operativnim sistemom ikada.
+
 
 \section{{\eng Linux}}
 \medskip
-Svako mozhe da doprinese Linuks jezgru.
+Vec1 duzhe od dve godine koristim operativni sistem sa {\eng Linux} jezgrom
+shto je bio i glavni razlog zashto sam izabrao rad na ovu temu.
+U toku izrade ovog projekta pozheleo sam da bolje razumem kako funkcionishe
+izrada {\eng Linux} kernela i kako je to "zajednica" ona koja ga pokrec1e i
+odrzhava, a ne neka velika korporacija. Stoga sam odluchio da dam svoj doprinos 
+i poslao sam nekoliko zakrpa ({\eng "patch"}-eva) koji su primljeni i
+implemetirani u novoj 5.17 verziji {\eng Linux} kernela. Ovo iskustvo pokazalo
+mi je koliko je ozbiljna organizacija koja stoji iza celog tog projekta i
+koliko je bitno raditi na svim sferama nekog projekta kao shto su i izrada
+dokumentacije i spremnost da se edukuju i zaiteresuju mladi ljudi kojima c1e
+ovakvo iskustvo znachiti u daljem profesionalnom usavrshavanju. Drago mi je
+shto me je ovaj projekat odvazhio da nachinim taj korak i doprinesem mozhda
+najvec1em softverskom projektu ikada.
 
 \section{{\eng BSD}}
 \medskip
-\cite{book:1310096}
+Najpopularniji {\eng BSD} operativni sistemi su redom {\eng
+FreeBSD\cite{book:1310096}, OpenBSD} i {\eng NetBSD}. Svaki od njih ima
+razlichite ciljeve ali svi se slazhu u jednom: softver mora ostati minimalan.
+Svi ovi operativni sistemi svoje sistemske programe i biblioteke imaju napisano
+u duplo ako ne i nekoliko puta manje linija koda nego {\eng GNU/Linux}. To ih chini
+mnogo lakshim za odrzhavanje, ali i mnogo sigurnijim. 
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
