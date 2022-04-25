@@ -77,8 +77,7 @@
 
 \vspace*{10pt}
 \begin{center}
-    {\naslov Izrada \textbf{\eng\Large X86 32bit i686} jezgra operativnog
-    	sistema}
+    {\naslov Izrada \textbf{\eng\Large 32bit X86} jezgra operativnog sistema}
 \end{center}
 
 \vspace*{70mm}
@@ -159,12 +158,23 @@ potrebnom za njegovo razumevanje.
 \chapter{{\eng X86} arhitektura}
 \bigskip
 
-{\eng X86} arhitektura je probitno bila osmobitna (sadrzhala je registre
-duzhine 8 bitova), 16bitna, zatim 32bitna i na kraju 64bitna. Danas 64bitnu
-{\eng X86} arhitekturu znamo kao i {\eng{} AMD64}, {\eng X86-64} ili {\eng
-X86\_64}.\\
+{\eng X86} je familija arhitektura {\eng CISC} seta instrukcija razvijena od
+strane Intel-a koja je bazirana na 8086 mikroprocesoru. 8086 je nastao 1978.
+kao shesnaestobitna ekstenzija 8080 osmobitnog mikroprocesora, da bi 1985.
+godine nastao 80386 sa velichinom registra od chak 32 bita. Svi procesori iz
+ove familije nose zajednichki naziv upravo po sufiksu 86 koji se pojavljuje u
+imenima svih ovih procesora.\\
 
-Zajedno sa {\eng ARM}-om jedna od najkorish\/c1enijih arhitektura danashnjice.
+U periodu od 1999. do 2003. {\eng AMD} je proshirio velichinu registra na 64 bita
+i ta arhitektura ima vishe naziva od kojih su najkorisheniji: {\eng x86\_64,
+amd64} i {\eng x64}. Velika vec1ina uredjaja danas koristi {\eng x86\_64} arhitekturu
+procesora.\\
+
+Jezgo operativnog sistema prikazano u ovom radu bazirano je na {\eng X86}
+arhitekturi sa registrom velichine 32 bita. Konkretna verzija ove arhitekture
+je {\eng i386}. Ova verzija dobila je ime po Intelovom mikroprocesoru pod
+imenom 80386 shto oznachava trec1u generaciju {\eng X86} arhitekture.
+
 
 \section{Registri procesora}
 \medskip
@@ -173,12 +183,11 @@ Postoji vishe vrsta registara procesora\cite[75]{misc:1}. Neki od osnovnih
 registara koje je potrebno pomenuti dati su u tekstu koji sledi. Razlog zbog
 kojeg su navedena i imena registara prethodnih verzija {\eng X86} arhitekture
 je zbog toga shto je moguc1e adresirati prvih {\eng x} bitova ako se koristi
-ime
-registra za {\eng x}-tobitnu verziju {\eng X86} arhitekture. Naravno, ovo vazhi
-samo
-ukoliko je duzhina registra vec1a ili jednaka duzhini registra chiju notaciju
-koristimo.\\
+ime registra za {\eng x}-tobitnu verziju {\eng X86} arhitekture. Naravno, ovo
+vazhi samo ukoliko je duzhina registra vec1a ili jednaka duzhini registra chiju
+notaciju koristimo.
 
+\newpage
 Registri opshte namene:\\[1mm]
 {\eng\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -254,7 +263,7 @@ od ostalih registara opshte namene.\\
 
 Na taj nachin kompajleri vec1inu vremena kreiraju bolji asemblerski kod nego
 ljudi, prosto iz razloga jer svaki od registara opshte namene takodje koriste i
-za njihovu specificnu funkciju svaki put gde je to moguc1e.
+za njihovu specifichnu funkciju svaki put gde je to moguc1e.
 
 Specifichna uloga registara opshte namene:
 \begin{itemize}
@@ -297,18 +306,23 @@ Specifichna uloga segmentnih registara:
 \section{{\eng Real mode}}
 \medskip
 
-Realni mod je stanje procesora u kojem nam je dozvoljeno adresiranje samo prvih
-20 megabajta memorije. Prelazak iz realnog u zastic1eni mod postizhe se dalekim
-skokom
-{\eng "far jump"}.
+Realni mod karakterishe 20-tobitna segmentirana memorija shto znachi da se
+mozhe adresirati samo malo vishe od jednog megabajta. Svi procesori pochev od
+80286 zapochinju u ovom modu nakon paljenja rachunara. Da bi mogli da
+adresiramo vishe memorije potrebno je da koristimo segmentne registre.\\
 
-%{\eng\url{https://wiki.osdev.org/Real_Mode}}
+Postupak kojim iz realnoh moda prelazimo u zashtic1en mod naziva se daleki skok
+{\eng ("far jump")} gde pri postavljanju segmentnih registara "skachemo" iz
+jednog segmenta u drugi. Daleki skok najchesh\/c1e podrazumeva promenu selektora
+segmenta, koji se nalazi u segmentu koda, i koji pokazuje na segment koda u
+kome se nalaze funkcije koje se trenutno izvrshavaju.
 
 \section{Segmentacija}
 \medskip
 
 Segmentacija je reshenje kojim se omoguc1ava adresiranje vishe memorije nego
-shto je to hardverski predvidjeno.
+shto je to hardverski predvidjeno. Segmentacija se postizhe korish\/c1enjem
+offseta.
 
 %{\eng\url{https://wiki.osdev.org/Segmentation}}
 
@@ -575,15 +589,12 @@ Takodje je napisao i \cite{book:915673}.
 
 \section{{\eng Linux}}
 \medskip
+Svako mozhe da doprinese Linuks jezgru.
 
 \section{{\eng BSD}}
 \medskip
 \cite{book:1310096}
 
-\section{{\eng Mmurtl}}
-\medskip
-
-\cite{book:658757}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -602,7 +613,7 @@ Takodje je napisao i \cite{book:915673}.
 \chapter{Jezgro operativnog sistema}
 \bigskip
 
-Rad je prvobitno bio zamisljen kao postupno izlaganje nastajanja ovog
+Rad je prvobitno bio zamishljen kao postupno izlaganje nastajanja ovog
 operativnog sistema, ali se kasnije autor odluchio da ipak izlozhi samo
 trenutnu verziju rada, s obrzirom na to da bi rad bio nepotrebno duzhi.
 
@@ -610,7 +621,7 @@ trenutnu verziju rada, s obrzirom na to da bi rad bio nepotrebno duzhi.
 \medskip
 %{\eng\url{https://wiki.osdev.org/Bare_Bones}}
 
-{\eng as/boot.s}:
+{\eng as/boot.s}:\\
 
 U prvom delu postavljamo promenljive na vrednosti koje su odredjene {\eng
 Multiboot2} standardom da bi {\eng bootloader} prepoznao nashe jezgro.
@@ -622,47 +633,33 @@ tako da za svaku promenljivu ostavljamo 32 bita prostora.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot2.s}\srb\end{minipage}
 
-Postavljamo funkcije koje cemo definisati u ovom fajlu za globalne da bi smo
-kasnije mogli da ih pozivamo iz {\eng C}-a.
+Postavljamo promenljive koje chuvaju adrese na kojima pochinju segmenti koda i
+podataka, redom.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot3.s}\srb\end{minipage}
-
-Funkcija za uchitavanje {\eng gdt} tabele.
-
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot4.s}\srb\end{minipage}
-
-Funkcija za uchitavanje {\eng idt} tabele.
-
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot5.s}\srb\end{minipage}
-
-Funkcije koje su zaduzene za razmenu informacija preko magistrale za
-ulaz/izlaz. Koristi se pri inicijalizaciji {\eng IRQ}-a i korish\/c1enju
-tastature.
-
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot6.s}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot7.s}\srb\end{minipage}
-
-Segmenti za kod i podatke koji su postavljeni u {\eng gdt} tabeli.
-
 
 Definishemo sekciju {\eng bss} u kojoj kreiramo stek i dodeljujemo mu 16
 kilobajta.
 
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot4.s}\srb\end{minipage}
 
 Definishemo pochetnu funkciju {\eng \_start} pozivajuc1i funkciju za
 inicijalizaciju {\eng gdt} tabele i "skachemo" na segment koda. Ovaj postupak
 ima naziv {\eng "far jump"} jer skachemo van tekuc1eg segmenta.
 
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot5.s}\srb\end{minipage}
 
 U segmentu koda postavljamo segmentne registre na adresu segmenta podataka.
 Zatim postavljamo {\eng esp} registar na pochetak steka koji smo
-inicijalizovali
-u {\eng bss} sekciji i predajemo upravljanje {\eng kernel\_main} funkciji.
+inicijalizovali u {\eng bss} sekciji i predajemo upravljanje {\eng
+kernel\_main} funkciji.
 
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot6.s}\srb\end{minipage}
 
 Postavljamo velichinu funkcije {\eng \_start} shto nam kasnije mozhe biti
 korisno pri {\eng debug}-ovanju.
 
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot7.s}\srb\end{minipage}
 
 
 \section{Ispis na ekran - {\eng VGA}}
@@ -673,8 +670,7 @@ korisno pri {\eng debug}-ovanju.
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga1.c}\srb\end{minipage}
 
 Primetimo da u {\eng C}-u koristimo {\eng uintX\_t} promenljive. To je zbog
-toga
-shto nam je u ovakvom okruzhenju vrlo bitno da pazimo na velichinu koju
+toga shto nam je u ovakvom okruzhenju vrlo bitno da pazimo na velichinu koju
 zauzimaju promenljive.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga2.c}\srb\end{minipage}
@@ -689,17 +685,16 @@ boju karaktera.
 Na {\eng VGA} izlaz ispisujemo tako shto pochev od adrese {\eng 0xB80000}
 pishemo shesnaestobitne vrednosti koje se prevode u karaktere i njihovu boju. 8
 znachajnijih bitova odredjuju boju karaktera dok preostalih 8 bitova
-oznachavaju
-karakter.
+oznachavaju karakter.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga5.c}\srb\end{minipage}
 
-Funkcija koja ispisuje karakter na monitoru.
+Funkcija koja ispisuje odredjeni karakter na ekranu.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga6.c}\srb\end{minipage}
 
-Fukcija koja pomera sve do sada ispisano za jedan red na dole i oslobadja novi
-red kada ponestane mesta na ekranu.
+Fukcija koja pomera sve do sada ispisano za jedan red na gore i oslobadja novi
+red za ispis kada ponestane mesta na ekranu.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga7.c}\srb\end{minipage}
 
@@ -708,13 +703,14 @@ polje na ekranu.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga8.c}\srb\end{minipage}
 
-Funkfija koja postavlja brojache kolone i reda na proshlo polje na ekranu.
+Funkfija koja postavlja brojache kolone i reda na prethodno polje na ekranu i
+koristi se prilikom brisanja prethodno ispisanih karaktera.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga9.c}\srb\end{minipage}
 
-Funkcija koja ispisuje jedan karakter na ekran. Proverava da li je potrebno
-ispisati novi red umesto karaktera {\eng '$\backslash$n'}, kao i da li je
-potrebno osloboditi novi red ukoliko se ekran popunio.
+Funkcija koja ispisuje jedan karakter na ekranu. Funkcija proverava da li je
+potrebno ispisati novi red umesto karaktera {\eng '$\backslash$n'}, kao i da li
+je potrebno osloboditi novi red ukoliko se ekran popunio.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga10.c}\srb\end{minipage}
 
@@ -723,8 +719,7 @@ Funkcija koja ispisuje niz karaktera na ekran.
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga11.c}\srb\end{minipage}
 
 Funcija koja ispisuje celobrojnu vrednost na ekran tako shto je prvo pretvori u
-niz
-karaktera a zatim iskoristi prethodnu funkciju.
+niz karaktera a zatim iskoristi prethodnu funkciju.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga12.c}\srb\end{minipage}
 
@@ -733,8 +728,8 @@ karaktera a zatim iskoristi funkciju za ispis niza karaktera.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga13.c}\srb\end{minipage}
 
-Funkcija koja brishe sve sa ekrana i postavlja brojache kolone i reda na
-pochetnu poziciju.
+Funkcija koja brishe sve do sada ispisane karaktere sa ekrana i postavlja
+brojache kolone i reda na pochetnu poziciju.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga14.c}\srb\end{minipage}
 
@@ -746,7 +741,16 @@ pochetnu poziciju.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt1.h}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt2.h}\srb\end{minipage}
+
+Format u kom rachunar prihvata unos pojedinachnih definicija segmenata.
+Primetimo {\eng \_\_attribute\_\_((packed))}, na kraju definicije strukture. To
+nam oznachava da se nece ostavljati mesta u memoriji izmedju promenljivih
+unutar strukture, vec1 c1e se "pakovati" jedna do druge u memoriji.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt3.h}\srb\end{minipage}
+
+Format koji rachunar prihvata za tabelu svih definicija segmenata.
+
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt4.h}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt5.h}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt6.h}\srb\end{minipage}
@@ -755,20 +759,9 @@ pochetnu poziciju.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt1.c}\srb\end{minipage}
 
-Format u kom rachunar prihvata unos pojedinachnih definicija segmenata.
-Primetimo {\eng \_\_attribute\_\_((packed))}, na kraju definicije strukture. To
-nam oznachava da se nece ostavljati mesta u memoriji izmedju promenljivih
-unutar strukture, vec1 c1e se "pakovati" jedna do druge u memoriji.
-
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt2.c}\srb\end{minipage}
 
-Format koji rachunar prihvata za tabelu svih definicija segmenata.
-
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt3.c}\srb\end{minipage}
-
-Funcija iz asemblera koja uchitava tabelu segmenata, kreiranu u sledec1ih
-nekoliko funcija, u odgovarajuc1i registar. Ovu funciju smo imali priliku
-videti u pochetnom fajlu.
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt4.c}\srb\end{minipage}
 
