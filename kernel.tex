@@ -308,30 +308,43 @@ Specifichna uloga segmentnih registara:
 
 Realni mod karakterishe 20-tobitna segmentirana memorija shto znachi da se
 mozhe adresirati samo malo vishe od jednog megabajta. Svi procesori pochev od
-80286 zapochinju u ovom modu nakon paljenja rachunara. Da bi mogli da
-adresiramo vishe memorije potrebno je da koristimo segmentne registre.\\
+80286 zapochinju u ovom modu nakon paljenja rachunara zbog kompatibilnosti. Da
+bi mogli da adresiramo vishe memorije potrebno je da koristimo segmentne
+registre.\\
 
 Postupak kojim iz realnoh moda prelazimo u zashtic1en mod naziva se daleki skok
 {\eng ("far jump")} gde pri postavljanju segmentnih registara "skachemo" iz
 jednog segmenta u drugi. Daleki skok najchesh\/c1e podrazumeva promenu selektora
 segmenta, koji se nalazi u segmentu koda, i koji pokazuje na segment koda u
-kome se nalaze funkcije koje se trenutno izvrshavaju.
+kome se nalaze instrukcije koje se trenutno izvrshavaju.
 
 \section{Segmentacija}
 \medskip
 
 Segmentacija je reshenje kojim se omoguc1ava adresiranje vishe memorije nego
 shto je to hardverski predvidjeno. Segmentacija se postizhe korish\/c1enjem
-offseta.
-
-%{\eng\url{https://wiki.osdev.org/Segmentation}}
+{\eng offset}-a. Sa segmenatcijom smo u realnom modu da adresiramo memoriju sa
+20 umesto predvidjenih 16 bitova.
 
 \section{{\eng Protected mode}}
 \medskip
 
 Zashtic1en mod je stanje procesora u kojem procesor ima pun pristup celom
-opsegu
-memorije za razliku od realnog moda.
+opsegu memorije za razliku od realnog moda. Maksimalna velichina {\eng RAM}
+memorije koju arhitektura {\eng i386} podrzhava je {\eng 4GB} upravo zbog
+velichine registra od 32 bita ($2^{32}B = 4GB$). Neki procesori koji
+podrzhavaju {\eng PAE - Physical Address Extension} podrzhavaju i adresiranje
+memorija preko 64 bita. Kasnije je na ovom starndardu utemeljeno i adresiranje
+memorija na {\eng X86\_64}.\\
+
+Adresiranje svih 32 bita memorije postizhe se  korish\/c1enjem stranichenja
+({\eng "paging"}), koje nam dozvoljava da mapiramo fizichku memoriju na
+virtuelnu. Na taj nachin prilikom izvrshavanja svakog programa mozhe se
+zavarati program tako da misli da njegovo izvrshavanje krec1e od pocheka
+memorije. Na taj nachin znachajno nam je olakshano izvrshavanje programa jer
+nam svi programi postaju nezavisni od adrese fizichke memorije gde se oni
+zapravo nalaze, dok prilikom kreiranja programa mozhemo fiksno postaviti adresu
+prve instrukcije.
 
 %{\eng\url{https://wiki.osdev.org/Protected_Mode}}
 
@@ -345,8 +358,8 @@ memorije za razliku od realnog moda.
 
 Od pritiska dugmeta za paljenje rachunara, pa do uchitavanja operativnog sitema
 postoji ceo jedan proces. Nakon pritiska dugmeta rachunar prvo izvrshava {\eng
-POST (Power On Self Test)} koji je jedna od pochetnih faza {\eng BIOS}-a {\eng
-(Basic Input Output System)}. U {\eng POST}-u rachunar pokushava da
+POST (Power On Self Test)} rutinu koja je jedna od pochetnih faza {\eng BIOS}-a
+{\eng (Basic Input Output System)}. U {\eng POST}-u rachunar pokushava da
 incijalizuje komponente rachunarskog sistema i proverava da li one ispunjavaju
 sve uslove za startovanje rachunara. Ukoliko je ceo proces proshao bez greshaka
 nastavlja se dalje izvrshavanje {\eng BIOS}-a. {\eng BIOS} sada ima ulogu da
@@ -358,20 +371,52 @@ sistema u ram memoriju rachunara. Taj program se naziva {\eng Bootloader}.
 \section{{\eng Bootloader}}
 \medskip
 
-{\eng Bootloader} je program koji se nalazi u prvih 512bitova medijuma u {\eng
-MBR} odeljku, i njegov zadatak je da uchita jezgro operativnog sistema u ram
-memoriju i preda mu dalje upravljanje.
+{\eng Bootloader} je program koji se nalazi u prvih 512 bajtova medijuma u
+{\eng MBR} odeljku, i njegov zadatak je da uchita jezgro operativnog sistema u
+{\eng RAM} memoriju i preda mu dalje upravljanje. Zbog kompleksnosti danashnjeg
+softvera, 512 bajtova je vrlo malo za uchitavanje celog {\eng bootloader}-a. Iz
+tog razloga neki {\eng bootloader}-i razdvojeni su u vishe delova
+(najchesh\/c1e) 2. Prvi deo je vrlo mali i staje u 512 bajtova {\eng
+MBR}-a i on sluzhi samo da bi uchitao drugi deo u kome se nalazi glavni kod
+koji dalje predaje upravljanje jezgru operativnog sistema.\\
+
+Neki od najpopularnijih {\eng bootloader}-a jesu {\eng GRUB, LILO,
+systemd-boot, rEFInd}, kao i {\eng Windows Boot Manager}. Za potrebe ovog
+operativnog sistema korish\/c1en je {\eng GRUB} o kome c1e biti vishe rechi u
+odeljku Korish\/c1eni alati.
 
 %{\eng\url{https://wiki.osdev.org/Bootloader}}
 
 \section{{\eng Multiboot2}}
 \medskip
 
+{\eng Multiboot} specifikacija je otvoreni standard koji jezgrima obezbedjuje
+ujednachen nachin pokretanja od strane bootloadera usaglashenih sa ovom
+specifijkacijom. Jedna od prvih stvari koji nashe jezgro uradi je postavljanje
+konstanti definisanih {\eng multiboot} standardom da bi bilo prepoznato od
+strane {\eng bootloader}-a i da mu bilo predato dalje upravljanje.
+
 \section{{\eng ELF}}
 \medskip
 
-{\eng ELF} je format binarni fajl koji se sastoji od tachno odredjenih sekcija
-i koji mozhe da se pokrene.
+{\eng ELF} je format za skladishtenje programa ili fragmenata programa na
+disku, kreiran kao rezultat kompajlovanja i linkovanja. {\eng ELF} fajl je
+podeljen na odeljke. Za program koji mozhe da se izvrshi, postoje sledec1i
+odeljci: odeljak sa tekstom za kod, odeljak sa podacima za globalne promenljive
+i odeljak "Rodata" koji obično sadrži konstantne niske ({\eng Read only data}).
+{\eng ELF} fajl sadrzhi zaglavlja koja opisuju kako ovi odeljci treba da budu
+uskladishteni u memoriji.\\
+
+Ovaj format definisan je u {\eng System V ABI} ({\eng System V Application
+Binary Interface}) koji je set specifikacija koji definishe pozivanje funkcija,
+format objektnih fajlova, format fajlova koji mogu da se izvrshe, dinamicho
+linkovanje kao i mnoge druge.\\
+
+Funkcije arhitekture {\eng i386} po konvenciji povratne vrednosti chuvaju u
+{\eng eax} registru, dok se vrednosti koje ne staju u 32 bita {\eng eax}
+registra "prelivaju" u {\eng edx} registar. Ova informacija c1e nam biti
+kljuchna kada budemo pozivali funkcija napisane u {\eng C}-u iz {\eng
+Assembler}-a.
 
 %{\eng\url{https://wiki.osdev.org/ELF}}
 
