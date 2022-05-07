@@ -93,7 +93,7 @@
 
 \vfill
 \begin{center}
-{\imen Beograd, jun 2021.}
+{\imen Beograd, jun 2022.}
 \end{center}
 \clearpage
 
@@ -403,9 +403,9 @@ strane {\eng bootloader}-a i da mu bilo predato dalje upravljanje.
 disku, kreiran kao rezultat kompajlovanja i linkovanja. {\eng ELF} fajl je
 podeljen na odeljke. Za program koji mozhe da se izvrshi, postoje sledec1i
 odeljci: odeljak sa tekstom za kod, odeljak sa podacima za globalne promenljive
-i odeljak "Rodata" koji obično sadrži konstantne niske ({\eng Read only data}).
-{\eng ELF} fajl sadrzhi zaglavlja koja opisuju kako ovi odeljci treba da budu
-uskladishteni u memoriji.\\
+i odeljak {\eng ".rodata" (read only data)} koji obichno sadrzhi konstantne
+niske. {\eng ELF} fajl sadrzhi zaglavlja koja opisuju kako ovi odeljci treba
+da budu uskladishteni u memoriji.\\
 
 Ovaj format definisan je u {\eng System V ABI} ({\eng System V Application
 Binary Interface}) koji je set specifikacija koji definishe pozivanje funkcija,
@@ -616,7 +616,7 @@ koji sadrzhi sve stho je neophodno za uspeshno podizanje sistema.
 {\eng\url{https://www.sourceware.org/gdb/}}
 
 {\eng GDB} je {\eng GNU}-ov {\eng debugger} koji sluzhi za pronalazhenje
-greshaka u kodu, kao i aktivno prac1enje izvrshavanja programa (u ovom slucaju
+greshaka u kodu, kao i aktivno prac1enje izvrshavanja programa (u ovom sluchaju
 jezgra). Uz pomoc1 ovog programa ustanovljeno je shta svako dugme na tastaturi
 vrac1a nakon pritiska shto je znachajno ubzalo proces mapiranja tastature.
 
@@ -842,12 +842,12 @@ Funkcija koja ispisuje niz karaktera na ekran.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga11.c}\srb\end{minipage}\smallskip
 
-Funcija koja ispisuje celobrojnu vrednost na ekran tako shto je prvo pretvori u
+Funkcija koja ispisuje celobrojnu vrednost na ekran tako shto je prvo pretvori u
 niz karaktera a zatim iskoristi prethodnu funkciju.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga12.c}\srb\end{minipage}\smallskip
 
-Funcija koja ispisuje realnu vrednost na ekran tako shto je prvo pretvori u niz
+Funkcija koja ispisuje realnu vrednost na ekran tako shto je prvo pretvori u niz
 karaktera a zatim iskoristi funkciju za ispis niza karaktera.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga13.c}\srb\end{minipage}\smallskip
@@ -861,9 +861,21 @@ brojache kolone i reda na pochetnu poziciju.
 \section{{\eng Global Desctiptor Table}}
 \medskip
 
+Globalna tabela deskriptora je struktura u kojoj se chuvaju informacije o
+segmentima memorije.
+
 {\eng include/source/gdt.h}:
 
+Koristimo {\eng \#ifndef} i {\eng \#define} direktive da bi se osigurali da se
+ovaj fajl ukljuchuje ({\eng include}-uje) samo jednom u toku celog rada
+operativnog sistema. Ove direktive deluju kao osigurach koji preskache sve
+deklaracije ukoliko su one vec1 definisane pod tim imenom.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt1.h}\srb\end{minipage}\smallskip
+
+Autor je kreirao biblioteku {\eng types.h} da bi od\/jednom dodao sve
+kompajlerske biblioteke koje definishu vrste promenljivih kao shto su
+{\eng int, uint16\_t, bool,...}
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt2.h}\srb\end{minipage}\smallskip
 
@@ -874,30 +886,51 @@ unutar strukture, vec1 c1e se "pakovati" jedna do druge u memoriji.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt3.h}\srb\end{minipage}\smallskip
 
-Format koji rachunar prihvata za tabelu svih definicija segmenata.
+Format koji rachunar prihvata za tabelu svih definicija segmenata memorije.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt4.h}\srb\end{minipage}\smallskip
 
+Funkcije koje su definisane u {\eng c/gdt.c}, a tichu se inicijalizacije
+globalne tabele deskriptora.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt5.h}\srb\end{minipage}\smallskip
+
+Direktiva za zatvaranje koja se nalazi na kraju fajla i kojom se zavrshava
+segment koda predvidjen za deklaracije.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt6.h}\srb\end{minipage}\smallskip
 
-{\eng c/gdt.c}:
+{\eng c/gdt.c}:\\
+
+U {\eng source/} folderu se nalaze prototipi za funkcije istoimenog {\eng C}
+izvornog fajla.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt1.c}\srb\end{minipage}\smallskip
 
+Funkcija napisana u {\eng Assembler}-u koja uchitava tabelu deskriptora u
+predvidjeni registar.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt2.c}\srb\end{minipage}\smallskip
+
+Tabela segmenata i pokazivach na nju koji se prosledjuje prethodno pomenutoj 
+funkciji.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt3.c}\srb\end{minipage}\smallskip
 
+Funkcija koja na osnovu parameta inicijalizuje jedan globalni segment memorije.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt4.c}\srb\end{minipage}\smallskip
 
+Glavna funkcija koja postavlja velichinu pokazivacha koji se prosledjuje,
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt5.c}\srb\end{minipage}\smallskip
 
+inicijalizuje sve segmente memorije koji c1e se koristiti,
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt6.c}\srb\end{minipage}\smallskip
 
+kao i poziva fukciju kojoj prosledjuje pokazivach na globalnu tabelu segmenata
+memorije.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt7.c}\srb\end{minipage}\smallskip
 
@@ -906,6 +939,15 @@ Format koji rachunar prihvata za tabelu svih definicija segmenata.
 
 \section{{\eng Interrupt Desctiptor Table}}
 \medskip
+
+Globalna tabela prekida je struktura koja nam govori koja funkcija zapravo
+reaguje kada procesor dobije zahtev za prekid ({\eng Interrupt request}). Tada
+procesor pauzira ono shto trenutno radi i predaje upravljenje odredjenoj funkciji.\\
+
+Funkcija je duzhna da dojavi procesoru da je c1e ona preuzeti ({\eng
+handle}-ovati) taj prekid i ukoliko je prekid fatalan (deljenje nulom, {\eng
+triple fault},...) fukcija ima zadatak da ukloni novonastali problem i obezbedi
+operativnom sistemu oporavak od greshke.
 
 {\eng include/source/idt.h}:
 
@@ -919,7 +961,12 @@ Format koji rachunar prihvata za tabelu svih definicija segmenata.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt5.h}\srb\end{minipage}\smallskip
 
+Struktura u kojoj rachunar prihvata globalnu tabelu prekida.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt6.h}\srb\end{minipage}\smallskip
+
+Pokazivach na tabelu prekida koja se prosledjuje funkciji napisanoj u {\eng
+Assembler}-u koja uchitava tabelu prekida u odgovarajuc1i registar.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt7.h}\srb\end{minipage}\smallskip
 
@@ -935,7 +982,13 @@ Format koji rachunar prihvata za tabelu svih definicija segmenata.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt1.c}\srb\end{minipage}\smallskip
 
+Asemblerska fukcija koja uchitava pokazivach na tabelu prekida u
+predvidjeni registar.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt2.c}\srb\end{minipage}\smallskip
+
+Tabela segmenata i pokazivach na nju koji se prosledjuje prethodno pomenutoj
+funkciji.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt3.c}\srb\end{minipage}\smallskip
 
