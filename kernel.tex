@@ -84,7 +84,7 @@
 \setlength{\columnsep}{50pt}
 \begin{multicols}{2}
  {\noindent \imen Uchenik:
-\\Aleksa Vuchkovic1  $\operatorname{IV}$d}
+\\Aleksa Vuchkovic1  $\operatorname{IV}$c}
 
 
 { \noindent \hfill \imen Mentor:\\
@@ -131,7 +131,7 @@ Ceo kod je pisan u {\eng GNU Asembler}-u i {\eng C}-u i mozhe se nac1i na
 Kod, zajedno sa svim alatima za njegovo korishenje i upotrebu, je dostupan pod
 {\eng GPLv3} licencom.
 
-Ovaj projakat se konstantno unapredjuje i nemoguc1e je odrzhavati
+Ovaj projekat se konstantno unapredjuje i nemoguc1e je odrzhavati
 sinhronizovanim fajlove koji sachinjavaju operativni sistem, a koji se
 istovremeno pominju u ovom radu. Iz tog razloga, rad c1e biti napisan za
 verziju operativnog sistema 1.0.0. Na stranici {\eng GitHub}-a ova verzija se
@@ -148,7 +148,7 @@ drugi sistem/arhitekturu na trenutnom sistemu/arhitekturi. Na taj nachin i
 drugi ljudi osim autora mogu doprineti izradi i pobojshanju ovog operativnog
 sistema u buduc1nosti.\\
 
-Ovaj projakat ima za cilj da prikazhe postupak kreiranja jednog za sada
+Ovaj projekat ima za cilj da prikazhe postupak kreiranja jednog za sada
 vrlo jednostavnog operativnog sistema, kao i da potkrepi chitaoce teorijom
 potrebnom za njegovo razumevanje.
 
@@ -309,7 +309,7 @@ Specifichna uloga segmentnih registara:
 Realni mod karakterishe 20-tobitna segmentirana memorija shto znachi da se
 mozhe adresirati samo malo vishe od jednog megabajta. Svi procesori pochev od
 80286 zapochinju u ovom modu nakon paljenja rachunara zbog kompatibilnosti. Da
-bi smo mogli da adresiramo vishe memorije potrebno je da koristimo segmentne
+bismo mogli da adresiramo vishe memorije potrebno je da koristimo segmentne
 registre.\\
 
 Postupak kojim iz realnoh moda prelazimo u zashtic1en mod naziva se daleki skok
@@ -650,7 +650,7 @@ primer principa koji su prikazani u njegovoj knjizi "Operativni sistemi: Dizajn
 i Implementacija" ({\eng Operating Systems: Design and
 Implementation})\cite{book:1400099}. Osim ove knjige Tanenbaum napisao je i
 mnoge druge koje mogu biti od koristi svima koji zhele da se bave dizajnom
-operativnih sistema kao shto su \cite{book:821745} \cite{book:915673}.
+operativnih sistema\cite{book:821745}\cite{book:915673}.
 Zanimljiva chinjenica je da je {\eng Minix} najpopularniji operativni sistem
 chije jezgro koristi mikrokernelsku arhitekturu.\\
 
@@ -684,8 +684,26 @@ FreeBSD\cite{book:1310096}, OpenBSD} i {\eng NetBSD}. Svaki od njih ima
 razlichite ciljeve ali svi se slazhu u jednom: softver mora ostati minimalan.
 Svi ovi operativni sistemi svoje sistemske programe i biblioteke imaju napisano
 u duplo ako ne i nekoliko puta manje linija koda nego {\eng GNU/Linux}. To ih chini
-mnogo lakshim za odrzhavanje, ali i mnogo sigurnijim. 
+mnogo lakshim za odrzhavanje, ali i mnogo sigurnijim.\\
 
+{\eng BSD} oprativni sistemi razlikuju se od {\eng GNU/Linux}-a po tome shto su
+kod {\eng BSD}-a jezgro i korisnichki programi celina koje je nastala od
+strane jednog tima ljudi i odrzhavaju se uporedo, dok je kod {\eng GNU/Linux}-a
+jezgro {\eng Linux}, a {\eng GNU Coreutils} chini korisnichke programe {\eng
+(user space)} i njihov razvoj je potpuno nezavisan. Zbog te chinjenice, {\eng
+BSD} je mnogo lakshe odrzhavati i mnogo brzhe se mogu implementirati nove ideje
+i moguc1nosti, prosto iz razloga shto ne zavisi od druge strane da se pre svega
+uskladi, a potom i implementira datu promenu. \\
+
+Takodje osim gore navedenih razlika, josh jedna veoma bitna razlika je to shto
+{\eng BSD} koristi {\eng MIT} licencu dok {\eng GNU/Linux} koristi {\eng
+GPLv2/GPLv3} licencu. To znachi da za {\eng BSD} sisteme nakon modifikacije ne
+moramo uchiniti kod javno dostupnim. Ta chinjenica chini {\eng BSD}
+vrlo primamljivim za velike korporacije koje na taj nachin svoja softverska
+reshenja mogu bazirati na vec1 postojec1im. Tako na primer mnoge konzole
+pokrec1u upravo izmenjenu verziju {\eng FreeBSD}-a, dok sa druge strane imamo i
+kompanije poput {\eng Apple}-a koja takodje koristi {\eng FreeBSD}, ali kao
+podlogu za svoje operativne sisteme za rachunare i mobilne telefone.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -711,7 +729,7 @@ U tekstu koji sledi mozhe se videti koje sve funkcije skripta sadrzhi.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=sh,linerange={131-140}]{include/00.build/setup.sh}\srb\end{minipage}\smallskip
 
 Skripta prvo skida izvorni kod {\eng binutils}-a i {\eng GCC}-a, ekstraktuje iz
-arhive, a zatim je {\eng patchuje} (primenjuje skup izmena). Nakon toga
+arhive, a zatim je {\eng patch}-uje (primenjuje skup izmena). Nakon toga
 korish\/c1enjem {\eng GCC} kompajlera na {\eng host} sistemu, kompajluje se
 poseban {\eng GCC} kompajler koji sluzhi za kompajlovanje izvornog koda
 namenjenog jezgru ovog operativnog sistema. Nakon toga on se instalira na
@@ -737,9 +755,9 @@ Konkretno kod ovog jezgra postoje josh dva {\eng Makefile}-a, a tichu se koda
 napisanog u {\eng C}-u, kao i koda napisanog u {\eng GNU Assembler}-u za {\eng
 X86} arhitekturu.\\
 
-Na taj nachin bi sa lakoc1om projakat mogao biti proshiren na vishe razlichitih
+Na taj nachin bi sa lakoc1om projekat mogao biti proshiren na vishe razlichitih
 arhitektura procesora shto je i autorov plan u buduc1nosti. Biblioteke,
-interaktivan {\eng shell}, kao i drajver za tastaturu napisan za ovo jezgo se
+interaktivni {\eng shell}, kao i drajver za tastaturu napisan za ovo jezgo se
 ne bi menjali, dok bi zbog specifichnosti druge arhitekture bile promenjene
 komponente zaduzhene za pochetnu inicijalizaciju i kontolisanje hardvera na
 najnizhem nivou.
@@ -832,7 +850,7 @@ Funkcija koja ispisuje odredjeni karakter na ekranu.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga6.c}\srb\end{minipage}\smallskip
 
-Fukcija koja pomera sve do sada ispisano za jedan red na gore i oslobadja novi
+Funkcija koja pomera sve do sada ispisano za jedan red na gore i oslobadja novi
 red za ispis kada ponestane mesta na ekranu.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga7.c}\srb\end{minipage}\smallskip
@@ -923,8 +941,8 @@ izvornog fajla.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt1.c}\srb\end{minipage}\smallskip
 
-Funkcija napisana u {\eng Assembler}-u koja uchitava tabelu deskriptora u\\
-predvidjeni registar.
+Funkcija napisana u {\eng Assembler}-u koja uchitava tabelu deskriptora u
+\text predvidjeni registar.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt2.c}\srb\end{minipage}\smallskip
 
@@ -962,7 +980,7 @@ procesor pauzira ono shto trenutno radi i predaje upravljenje odredjenoj funkcij
 
 Funkcija je duzhna da dojavi procesoru da je c1e ona preuzeti ({\eng
 handle}-ovati) taj prekid i ukoliko je prekid fatalan (deljenje nulom, {\eng
-triple fault},...) fukcija ima zadatak da ukloni novonastali problem i obezbedi
+triple fault},...) funkcija ima zadatak da ukloni novonastali problem i obezbedi
 operativnom sistemu oporavak od greshke.\\
 
 {\eng include/source/idt.h}:
@@ -998,7 +1016,7 @@ Assembler}-u, a koja uchitava tabelu prekida u odgovarajuc1i registar.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt1.c}\srb\end{minipage}\smallskip
 
-Asemblerska fukcija koja uchitava pokazivach na tabelu prekida u
+Asemblerska funkcija koja uchitava pokazivach na tabelu prekida u
 predvidjeni registar.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt2.c}\srb\end{minipage}\smallskip
@@ -1091,7 +1109,7 @@ funkciji.
 
 {\eng Heap} za ovo jezgro kotisti algoritam\cite{book:1412} bitmape da bi na
 najefikasniji nachin chuvalo podatke o trenutno korishc1enim blokovima. Hip nam
-sluzhi da bi smo dinamichki alocirali memoriju, tj. da bi smo mogli da
+sluzhi da bismo dinamichki alocirali memoriju, tj. da bismo mogli da
 koristimo globalne promenljive, kao i promenljive chiji zhivotni vek mora biti
 dugotrajniji od funkcije u kojoj je ta promenljiva nastala.\\
 
