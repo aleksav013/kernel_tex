@@ -150,7 +150,41 @@ sistema u buduc1nosti.\\
 
 Ovaj projekat ima za cilj da prikazhe postupak kreiranja jednog za sada
 vrlo jednostavnog operativnog sistema, kao i da potkrepi chitaoce teorijom
-potrebnom za njegovo razumevanje.
+potrebnom za njegovo razumevanje.\\
+
+\newpage
+
+\begin{multicols}{2}
+Trenutno radi:
+\begin{itemize}
+\item {\eng Boot}
+\item {\eng VGA} izlaz
+\item {\eng GDT}
+\item {\eng IDT}
+\item {\eng IRQ \& PIC}
+\item {\eng PS/2} tastatura
+\item {\eng PIT}
+\item {\eng Heap}
+\item {\eng Paging}
+\item {\eng C} biblioteka
+\end{itemize}
+
+\columnbreak
+
+Planirano u blizhoj buduc1nosti:
+\begin{itemize}
+\item {\eng Filesystem}
+\item {\eng Framebuffer}
+\item {\eng Networking}
+\item {\eng Real User Space}
+\end{itemize}
+\end{multicols}
+
+O stvarima koje su implementirane i koje funkcionishu, moc1i c1ete da saznate
+vishe u ovom radu. Autorov plan je da predstojec1e slobodno vreme nakon
+maturiranja i tokom studija, iskoristi na unapredjenje ovog malog operativnog
+sistema, i da u mu ovaj rad kao takav bude osnova za naredni.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -341,7 +375,7 @@ Adresiranje svih 32 bita memorije postizhe se  korish\/c1enjem stranichenja
 ({\eng paging}), koje nam dozvoljava da mapiramo fizichku memoriju na
 virtuelnu. Na taj nachin prilikom izvrshavanja svakog programa mozhe se
 zavarati program tako da misli da njegovo izvrshavanje krec1e od pocheka
-memorije. Na taj nachin znachajno nam je olakshano izvrshavanje programa jer
+memorije. Iz tog razloga znachajno nam je olakshano izvrshavanje programa jer
 nam svi programi postaju nezavisni od adrese fizichke memorije gde se oni
 zapravo nalaze, dok prilikom kreiranja programa mozhemo fiksno postaviti adresu
 prve instrukcije.
@@ -361,7 +395,7 @@ sistema postoji ceo jedan proces. Nakon pritiska dugmeta, rachunar prvo
 izvrshava {\eng POST (Power On Self Test)} rutinu, koja je jedna od pochetnih
 faza {\eng BIOS}-a {\eng (Basic Input Output System)}. U {\eng POST}-u,
 rachunar pokushava da inicijalizuje komponente rachunarskog sistema jednu po
-jednu i proverava da li one ispunjavaju sve uslove za startovanje rachunara.
+jednu, i proverava da li one ispunjavaju sve uslove za startovanje rachunara.
 Ukoliko je ceo proces proshao bez greshaka, nastavlja se dalje izvrshavanje
 {\eng BIOS}-a. {\eng BIOS} sada ima ulogu da pronadje medijum koji sadrzhi
 program koji c1e uchitati jezgro operativnog sistema u ram memoriju rachunara.
@@ -377,11 +411,11 @@ Taj program se naziva {\eng Bootloader}.
 {\eng RAM} memoriju i preda mu dalje upravljanje. Zbog kompleksnosti danashnjeg
 softvera, 512 bajtova je vrlo malo za uchitavanje celog {\eng bootloader}-a. Iz
 tog razloga neki {\eng bootloader}-i razdvojeni su u vishe delova,
-najchesh\/c1e 2. Prvi deo je vrlo mali i staje u 512 bajtova {\eng MBR}-a i on
+najchesh\/c1e 2. Prvi deo je vrlo mali, staje u 512 bajtova {\eng MBR}-a i on
 sluzhi samo da bi uchitao drugi deo u kome se nalazi glavni kod koji dalje
 predaje upravljanje jezgru operativnog sistema.\\
 
-Neki od najpopularnijih {\eng bootloader}-a jesu {\eng GRUB, LILO,
+Neki od najpopularnijih {\eng bootloader}-a jesu: {\eng GRUB, LILO,
 systemd-boot, rEFInd}, kao i {\eng Windows Boot Manager}. Za potrebe ovog
 operativnog sistema korish\/c1en je {\eng GRUB} o kome c1e biti vishe rechi u
 odeljku Korish\/c1eni alati.
@@ -413,7 +447,7 @@ Binary Interface})\cite{misc:3}, koji je set specifikacija koji definishe
 pozivanje funkcija, format objektnih fajlova, format fajlova koji mogu da se
 izvrshe, dinamichno linkovanje kao i mnoge druge.\\
 
-Funkcije arhitekture {\eng i386} po konvenciji povratne vrednosti celobrojnog
+Funkcije arhitekture {\eng i386}, po konvenciji, povratne vrednosti celobrojnog
 tipa chuvaju u {\eng eax} registru, dok se vrednosti koje ne staju u 32
 bita {\eng eax} registra "prelivaju" u {\eng edx} registar. Ova informacija c1e
 nam biti kljuchna kada budemo pozivali funkcija napisane u {\eng C}-u iz {\eng
@@ -427,11 +461,11 @@ Assembler}-a.
 \chapter{Korish\/c1eni alati}
 \bigskip
 
-U daljem tekstu se mogu videti neki od alata korish\/c1enih u kreiranju ovog
+U daljem tekstu se mogu videti neki od alata korish\/c1enih pri kreiranju ovog
 rada. Vec1ina korish\/c1enih alata poseduje {\eng GPLv3} licencu.
 {\eng GNU Public Licence} je licenca otvorenog koda koja dozvoljava
 modifikovanje i distribuiranje koda sve dok je taj kod javno dostupan.
-Jedini programi sa ove liste koji nije kreirao {\eng GNU} su {\eng QEMU}
+Jedini programi sa ove liste koji nije kreirao {\eng GNU} su: {\eng QEMU}
 virtuelna mashina, {\eng git} i {\eng NeoVim} koji koriste {\eng GPLv2}
 licencu.\\
 
@@ -442,8 +476,8 @@ Vec1ina korish\/c1enih programa je vec1 kompajlovana i spremna za upotrebu i
 nalazi se u oficijalnim repozitorijima.\\
 
 Za programe koji su morali biti manuelno kompajlovani date su instrukcije u
-njihovoj podsekciji. Programi koji su morali biti naknadno kompajlovani su
-{\eng binutils} i {\eng GCC} i to da ne bi koristili standardnu biblioteku koju
+njihovoj podsekciji. {\eng Binutils} i {\eng GCC} su morali biti naknadno
+kompajlovani i to da ne bi koristili standardnu biblioteku koju
 nam je obezbedio operativni sistem domac1in (onaj na kome se kompajluje ovaj
 projekat), vec1 posebnu bibloteku kreiranu za ovo jezgro. Za ostale programe
 koji su korish\/c1eni preporuka je koristiti one koji su dostupni kao spremni
@@ -506,7 +540,8 @@ karakterishe: obrnut poredak parametara, prefiks pre imena registara i
 vrednosti konstanti, a i velichina parametara mora biti eksplicitno definisana.
 Zbog toga c1e mozhda nekim chitaocima biti koristan program {\eng intel2gas}
 koji se za {\eng Arch Linux} mozhe nac1i na stanici
-{\eng\url{https://aur.archlinux.org/packages/intel2gas/}}.\\
+{\eng\url{https://aur.archlinux.org/packages/intel2gas/}}, a koji prevodi
+rasprostranjeniju Intelovu sintaksu u {\eng AT\&T} sintaksu.\\
 
 {\eng GNU Assembler} je korish\/c1en za kompajlovanje dela koda
 napisanog u asembleru.
@@ -516,7 +551,11 @@ napisanog u asembleru.
 
 {\eng GNU Linker} je korish\/c1en za linkovanje, tj. "spajanje" svog
 kompajlovanog koda u jednu binarnu datoteku tipa {\eng ELF} koja predstavlja
-jezgro (kernel).
+jezgro (kernel). Linker koristi {\eng src/linker.ld} skriptu koja definishe na
+koji nachin se pakuju sekcije objektnih fajlova, od koje memorijske lokacije
+pochinje uchitavanje jezgra, kao i koja je pochetna funkcija od koje krec1e
+izvrshavanje. Ova skripta u stvari predstavlja recept za kreiranje navedene
+{\eng ELF} datoteke koja u nashem sluchaju chini operativni sistem.
 
 \section{{\eng GCC}}
 \medskip
@@ -525,7 +564,7 @@ Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://gcc.gnu.org/}}, zajedno sa uput\/stvom za kompajlovanje i
 korish\/c1enje.\\
 
-Isto kao i za {\eng GNU Binutils} moguc1e je pronac1i vec1 spreman paket u
+Isto kao i za {\eng GNU Binutils}, moguc1e je pronac1i vec1 spreman paket u
 pojedinim distribucijama, ali je preporuka manuelno kompajlovati iz
 prethodno navedenih razloga. Za {\eng Arch Linux} ovaj paket se mozhe nac1i na
 stanici {\eng\url{https://aur.archlinux.org/packages/i686-elf-gcc/}}.\\
@@ -560,7 +599,13 @@ Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://www.gnu.org/software/grub/}}, zajedno sa uput\/stvom za
 kompajlovanje i korish\/c1enje.\\
 
-{\eng GRUB} je {\eng bootloader} koji je korish\/c1en na ovom projektu.
+{\eng GRUB (GRand Unified Bootloader)} je {\eng bootloader} koji je
+korish\/c1en na ovom projektu. Trenutno korishc1ena verzija ovog softvera je
+{\eng GRUB 2}.
+
+Konfiguracioni fajl {\eng grub.cfg} definishe odakle ovaj {\eng bootloader} 
+uchitava jezgro i koliki je vremenski okvir izmedju izbora jezgara odnosno
+operativnih sistema.
 
 \section{{\eng QEMU}}
 \medskip
@@ -1052,15 +1097,34 @@ funkciji.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard2.c}\srb\end{minipage}\smallskip
 
+Bafer koji chuva prethodno pozvane funkcije radi implementacije istorije
+komanda, kao i brojach bafera na trenutnu komandu.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard3.c}\srb\end{minipage}\smallskip
+
+Funkcija za inicijalizaciju tastature. Ova funkcija postavlja jezik tastature i
+mapira kodove koje vrac1a {\eng handler} {\eng interrupt request}-a, na
+karatkere koji se ispisuju na ekranu.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard4.c}\srb\end{minipage}\smallskip
 
+Funkcija koja koristi prethodno definisane funkcije u drajveru za ispis na
+ekran, kako bi obrisala poslednji ispisan karakter i vratila se jedno polje
+unazad.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard5.c}\srb\end{minipage}\smallskip
+
+Funkcija koja brishe poslednji ispisan karakter pritiskom na {\eng backspace}
+pritom pazec1i da ne ispadne van okvira koji je moguc1e obrisati.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard6.c}\srb\end{minipage}\smallskip
 
+Takodje funkcija azhurira bafer koji chuva do sada pozivane komande.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard7.c}\srb\end{minipage}\smallskip
+
+Funkcija koja definishe ponashanje jezgra nakon pritiska {\eng enter} dugmeta
+na tastaturi.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard8.c}\srb\end{minipage}\smallskip
 
@@ -1070,9 +1134,9 @@ funkciji.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard11.c}\srb\end{minipage}\smallskip
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard12.c}\srb\end{minipage}\smallskip
+%\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard12.c}\srb\end{minipage}\smallskip
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard13.c}\srb\end{minipage}\smallskip
+%\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard13.c}\srb\end{minipage}\smallskip
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard14.c}\srb\end{minipage}\smallskip
 
@@ -1205,10 +1269,11 @@ dugotrajniji od funkcije u kojoj je ta promenljiva nastala.\\
 \section{Minimalna \eng{C} biblioteka}
 \medskip
 %{\eng\url{https://wiki.osdev.org/Creating_a_C_Library}}
-%
-%{\eng include/asm.h}:
-%
-%\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/asm.h}\srb\end{minipage}\smallskip
+
+Zbog vec1 do sada velike opshirnosti rada, ovde c1e biti prikazana samo
+minimalna {\eng C} biblioteka potrebna za kompajlovanje jezgra operativnog
+sistema. Primetimo da neki od fajlova moraju samo postojati, tj. mogu biti i
+prazni.\\
 
 {\eng include/errno.h}:
 
@@ -1244,6 +1309,35 @@ dugotrajniji od funkcije u kojoj je ta promenljiva nastala.\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Zakljuchak}
+
+Danas, kada postoje mnogobrojni vishi programski jezici, kreiranje operativnog
+sistema je vrlo tezhak izazov za koji se vrlo malo ljudi opredeljuje. Medjutim,
+za mene, ovo je jedno vrlo ohrabrujuc1e iskustvo sa kojim tek nekolicina mozhe
+da se pohvali. Zheleo bih da u buduc1nosti primarno programiram u nizhim
+programskim jezicima kao shto su {\eng Assembler} i {\eng C}, prosto iz razloga
+shto smatram da je to jedini nachin da se na duzhe staze izvojeva pobeda po
+pitanju performansi u odnosu na neke apstraktnije programske jezike. Osec1aj
+koji donosi chinjenica da se moj kod izvrshava direktno na hardveru bez bilo
+kakvog posrednika je meni od neprocenljivog znachaja.\\
+
+Da bih odvazhio chitaoce, kao i sve druge koje ova tema zanima, da se i sami
+oprobaju u izradi operativnog sistema, sve izvorne fajlove ovog projekta
+objavio sam pod {\eng GPLv3} licencom, kao i sve svoje dosadashnje projekte, na
+stranici {\eng\url{https://github.com/aleksav013}}. Svi moji projekti su {\eng
+open source} shto znachi da kod mozhe posluzhiti svakome ko zheli da sazna
+neshto vishe.\\
+
+U toku izrade suochio sam se sa mnogobrojnim problemima. Najtezhi deo je bio
+ispolovljavanje i zapochinjanje ove ekspedicije. More informacija i standarda
+koji su morali biti zadovoljeni samo da bi se sistem pokrenuo, a zatim i
+ispisao neku korisnu informaciju, a kamoli neshto vishe. Najtezhe je bilo to
+shto nije bilo moguc1e dodati bilo kakvu funkcionalnost bez da se u potpunosti
+razume svaka linija koda. Preduslov za svaku, makar i najsitniju izmenu, bio je
+iscrpno i do detalja ish\/chitati dokumentaciju za predvidjenu oblast, ako ta
+dokumentacija uopshte i postoji.\\
+
+\newpage
+
 Ovaj projekat je bio sjajan pokazatelj koliko je zapravo kompleksna izrada
 jezgra operativnog sistema koji treba da predstavlja most izmedju hardvera i
 softvera. Drago mi je shto sam odabrao ovako tezhak projekat za maturski rad iz

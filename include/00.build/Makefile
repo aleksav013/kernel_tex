@@ -39,7 +39,7 @@ GCC_USR_DIR=$(shell $(CC) -print-file-name=)
 
 
 # TARGET
-TARGET=aleksa_os
+TARGET=aleksa-os
 BINARY=$(BUILD_DIR)/$(TARGET).bin
 ISO=$(TARGET).iso
 
