@@ -4,7 +4,6 @@ BIB_FILE=$(NAME).bib
 PDF_FILE=$(NAME).pdf
 
 .PHONY: all clean
-
 all: $(PDF_FILE)
 
 $(PDF_FILE): $(TEX_FILE) $(BIB_FILE)

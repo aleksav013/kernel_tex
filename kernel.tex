@@ -779,7 +779,7 @@ korish\/c1enjem {\eng GCC} kompajlera na {\eng host} sistemu, kompajluje se
 poseban {\eng GCC} kompajler koji sluzhi za kompajlovanje izvornog koda
 namenjenog jezgru ovog operativnog sistema. Nakon toga on se instalira na
 put {\eng /opt/aleksa/usr/bin/}, gde se nalazi novi {\eng \$SYSROOT} koji
-koristi {\eng Makefile}.
+koristi {\eng Makefile} za izgradnju jezgra.
 
 \section{{\eng Makefile}}
 \medskip
@@ -788,9 +788,24 @@ koristi {\eng Makefile}.
 terminalu. Svaki {\eng Makefile} sadrzhi neki set pravila koji definishe proces
 koji se pokrec1e ukucavanjem komande {\eng make $<$ime\_pravila$>$}. U tekstu
 koji sledi mozhe se videti koji je to set pravila koje su definisani za ovaj
-projekat.
+projekat.\\
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make,linerange={70-200}]{include/00.build/Makefile}\srb\end{minipage}\smallskip
+{\eng Makefile}:
+
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make,linerange={68-104}]{include/00.build/Makefile}\srb\end{minipage}\smallskip
+
+\newpage
+
+Osim navedenog seta pravila, u {\eng Makefile}-u mozhemo definisati neke
+promenljive koje bi nam omoguc1ile krac1i zapis, izbegavanje ponavljanja
+konstanti, kao i znachajno lakshe menjanje istih. One funkcionishu na slichan
+nachin kao i pretprocesorske direktive u {\eng C}-u. Primetimo da ispred nekih
+linija u kojima dodeljujemo vrednosti promenljivima imamo i kljuchnu rech {\eng
+export}. To znachi da c1e se vrednost date promenljive, preneti i u rekurzivni
+poziv {\eng Makefile}-a.
+
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make,linerange={0-22}]{include/00.build/Makefile}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make,linerange={25-40}]{include/00.build/Makefile}\srb\end{minipage}\smallskip
 
 Mozhemo videti da je ovo kompleksnija forma {\eng Makefile}-a jer sadrzhi
 proces rekurzivnog pozivanja {\eng \$(MAKE)} komande. To znachi da ovaj
@@ -800,12 +815,27 @@ Konkretno kod ovog jezgra postoje josh dva {\eng Makefile}-a, a tichu se koda
 napisanog u {\eng C}-u, kao i koda napisanog u {\eng GNU Assembler}-u za {\eng
 X86} arhitekturu.\\
 
+{\eng src/as/Makefile}:
+
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.build/AS_Makefile}\srb\end{minipage}\smallskip
+
+{\eng src/c/Makefile}:
+
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.build/C_Makefile}\srb\end{minipage}\smallskip
+
 Na taj nachin bi sa lakoc1om projekat mogao biti proshiren na vishe razlichitih
-arhitektura procesora shto je i autorov plan u buduc1nosti. Biblioteke,
+arhitektura procesora, shto je i autorov plan u buduc1nosti. Biblioteke,
 interaktivni {\eng shell}, kao i drajver za tastaturu napisan za ovo jezgo se
 ne bi menjali, dok bi zbog specifichnosti druge arhitekture bile promenjene
 komponente zaduzhene za pochetnu inicijalizaciju i kontolisanje hardvera na
-najnizhem nivou.
+najnizhem nivou.\\
+
+Za svaki projekat moguc1e je automatizovati deo posla kreiranjem {\eng
+Makefile}, pa tako na primer i ovaj maturski rad koji je iskucan u {\eng
+LaTeX}-u ima svoj {\eng Makefile}:
+
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{Makefile}\srb\end{minipage}\smallskip
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -954,7 +984,8 @@ deklaracije ukoliko su one vec1 definisane pod tim imenom.
 Autor je kreirao biblioteku {\eng types.h} da bi od\/jednom dodao sve
 kompajlerske biblioteke koje definishu vrste promenljivih kao shto su
 {\eng int, uint16\_t, bool,...}, kao i konstante kao shto su {\eng true, false,
-UINT16\_MAX...}.
+UINT16\_MAX...}. Na taj nachin u jednom redu se dodaju sve biblioteke zaduzhene
+za to, dok se chitljivost rada povec1ava.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt2.h}\srb\end{minipage}\smallskip
 
@@ -1029,15 +1060,25 @@ handle}-ovati) taj prekid i ukoliko je prekid fatalan (deljenje nulom, {\eng
 triple fault},...) funkcija ima zadatak da ukloni novonastali problem i
 obezbedi operativnom sistemu oporavak od greshke.\\
 
-{\eng include/source/idt.h}:
+{\eng include/source/idt.h}:\\
+
+Direktive koje se dalje ponavljaju u svakom {\eng header} fajlu. Dalje
+pozivanje direktiva c1e biti izostavljeno, radi sushtine.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt1.h}\srb\end{minipage}\smallskip
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt2.h}\srb\end{minipage}\smallskip
+%\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt2.h}\srb\end{minipage}\smallskip
+
+Konstanta koju dalje koristimo pri definisanju prekida.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt3.h}\srb\end{minipage}\smallskip
 
+Segmenti u memoriji o kojima je u proshloj sekciji bilo rechi.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt4.h}\srb\end{minipage}\smallskip
+
+Konstante koje chuvaju vrednosti adresa preko kojih dalje komuniciramo sa {\eng
+PIC (Programmable Interrupt Controller)}-om.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt5.h}\srb\end{minipage}\smallskip
 
@@ -1050,7 +1091,12 @@ Assembler}-u}, a koja uchitava tabelu prekida u odgovarajuc1i registar.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt7.h}\srb\end{minipage}\smallskip
 
+Prototipi funkcija koji su korishc1eni u sledec1em poglavlju. 
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt8.h}\srb\end{minipage}\smallskip
+
+Direktive koje se dalje ponavljaju u svakom {\eng header} fajlu. Dalje
+pozivanje direktiva c1e biti izostavljeno, radi sushtine.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt9.h}\srb\end{minipage}\smallskip
 
@@ -1058,7 +1104,7 @@ Assembler}-u}, a koja uchitava tabelu prekida u odgovarajuc1i registar.
 
 \section{{\eng IRQ} i {\eng PIC}}
 \medskip
-{\eng c/idt.c}:
+{\eng c/idt.c}:\\
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt1.c}\srb\end{minipage}\smallskip
 
@@ -1067,20 +1113,37 @@ predvidjeni registar.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt2.c}\srb\end{minipage}\smallskip
 
-Tabela segmenata i pokazivach na nju koji se prosledjuje prethodno pomenutoj
+Tabela prekida i pokazivach na nju koji se prosledjuje prethodno pomenutoj
 funkciji.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt3.c}\srb\end{minipage}\smallskip
 
+Funkcija koja na osnovu pruzhenih parametara definishe prekid u tabeli.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt4.c}\srb\end{minipage}\smallskip
+
+Funkcija koja dodaje prekid na tabeli u niz koji sadrzhi sve prekide.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt5.c}\srb\end{minipage}\smallskip
 
+Funkcija koja inicijalizuje kontroler prekida. To je jedan od najbitnijih
+chipova koji definishe {\eng X86} arhitekturu. Bez njega ova arhitektura ne bi
+bila vodjena principima prekida.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt6.c}\srb\end{minipage}\smallskip
+
+Funkcija koja definishe sve prekide koje c1emo koristiti uz pomoc1 prethodno
+pomenutih funkcija.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C,linerange={1-6,34-37}]{include/05.irq/idt7.c}\srb\end{minipage}\smallskip
 
+Ova funkcija sve podatke o prekidima, skladishtenim u niz, prosledjuje posebno
+formiranoj strukturi pokazivacha na tabelu prekida,
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt8.c}\srb\end{minipage}\smallskip
+
+koji se zatim prosledjuje asemblerskoj funkciji koja uchitava tu tabelu
+prekida.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt9.c}\srb\end{minipage}\smallskip
 
@@ -1091,14 +1154,21 @@ funkciji.
 \section{Tastatura}
 \medskip
 
-{\eng c/keyboard.c}:
+{\eng c/keyboard.c}:\\
+
+Korish\/c1ene biblioteke:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard1.c}\srb\end{minipage}\smallskip
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard2.c}\srb\end{minipage}\smallskip
-
 Bafer koji chuva prethodno pozvane funkcije radi implementacije istorije
 komanda, kao i brojach bafera na trenutnu komandu.
+
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard2.c}\srb\end{minipage}\smallskip
+
+Tabela koja prevodi kodove koje vrac1a prekid u karaktere koje funkcija
+ispisuje. Takodje, chuva se i informacija da li je dati karakter trenutno
+pritisnut shto nam mozhe posluzhiti prilikom mapiranja pritiska vishe karaktera
+odjednom.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard3.c}\srb\end{minipage}\smallskip
 
@@ -1124,46 +1194,80 @@ Takodje funkcija azhurira bafer koji chuva do sada pozivane komande.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard7.c}\srb\end{minipage}\smallskip
 
 Funkcija koja definishe ponashanje jezgra nakon pritiska {\eng enter} dugmeta
-na tastaturi.
+na tastaturi. Primetimo da se izvrshava komanda koja je u tom trenutku u
+baferu, a nakon toga se dati bafer chuva u istoriji bafera.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard8.c}\srb\end{minipage}\smallskip
 
+Funkcija koja odredjuje ponashanje jezgra nakon pritiska {\eng space} dugmeta
+na tastaturi.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard9.c}\srb\end{minipage}\smallskip
+
+Funkcija koja odredjuje ponashanje jezgra nakon pritiska dugmeta sa strelicom
+okrenutom ka gore, na tastaturi.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard10.c}\srb\end{minipage}\smallskip
 
+Funkcija koja odredjuje ponashanje jezgra nakon pritiska dugmeta sa strelicom
+okrenutom ka dole, na tastaturi.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard11.c}\srb\end{minipage}\smallskip
 
-%\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard12.c}\srb\end{minipage}\smallskip
+Funkcija koja je postavljena u tabeli prekida da odgovori na prekide koji se
+tichu tastature.
 
+%\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard12.c}\srb\end{minipage}\smallskip
 %\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard13.c}\srb\end{minipage}\smallskip
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard14.c}\srb\end{minipage}\smallskip
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard15.c}\srb\end{minipage}\smallskip
+Ona uzima kod koji vrac1a prekid i pretvara ga u karakter ili izvrshava neku od
+prethodno navedenih funkcija u zavisnosti od toga koji karakter je pritisnut na
+tastaturi.
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard16.c}\srb\end{minipage}\smallskip
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard15.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard16.c}\srb\end{minipage}\smallskip
+
+Ovde se mozhe videti kako se na primer neka kombinacija karaktera mozhe
+iskoristiti za definisanje prechica na tastaturi.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard17.c}\srb\end{minipage}\smallskip
+
+
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard18.c}\srb\end{minipage}\smallskip
 
 \section{{\eng PIT - Programmable Interval Timer}}
 \medskip
 
-{\eng c/timer.c}:
+{\eng c/timer.c}:\\
+
+
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer1.c}\srb\end{minipage}\smallskip
 
+
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer2.c}\srb\end{minipage}\smallskip
+
+
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer3.c}\srb\end{minipage}\smallskip
 
+
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer4.c}\srb\end{minipage}\smallskip
+
+
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer5.c}\srb\end{minipage}\smallskip
 
+
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer6.c}\srb\end{minipage}\smallskip
+
+
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer7.c}\srb\end{minipage}\smallskip
 
@@ -1178,73 +1282,45 @@ nam sluzhi da bismo dinamichki alocirali memoriju, tj. da bismo mogli da
 koristimo globalne promenljive, kao i promenljive chiji zhivotni vek mora biti
 dugotrajniji od funkcije u kojoj je ta promenljiva nastala.\\
 
-{\eng c/heap.c}:
+{\eng c/heap.c}:\\
 
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap1.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap2.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap3.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap4.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap5.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap6.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap7.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap8.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap9.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap10.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap11.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap12.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap13.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap14.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap15.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap16.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap17.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap18.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap19.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap20.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap21.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap22.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap23.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap24.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap25.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap26.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap27.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap28.c}\srb\end{minipage}\smallskip
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap29.c}\srb\end{minipage}\smallskip
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap1.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap2.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap3.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap4.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap5.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap6.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap7.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap8.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap9.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap10.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap11.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap12.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap13.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap14.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap15.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap16.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap17.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap18.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap19.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap20.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap21.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap22.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap23.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap24.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap25.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap26.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap27.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap28.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap29.c}\srb\end{minipage}
 
 %{\eng\url{https://wiki.osdev.org/Heap}}
 
 \section{{\eng Paging}}
 \medskip
 
-{\eng c/paging.c}:
+{\eng c/paging.c}:\\
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging1.c}\srb\end{minipage}\smallskip
 

@@ -5,7 +5,9 @@ rm -rf "00.build" "01.pocetak" "02.vga" "03.gdt" "04.idt" "05.irq" "06.keyboard"
 mkdir "00.build" "01.pocetak" "02.vga" "03.gdt" "04.idt" "05.irq" "06.keyboard" "07.pit" "08.heap" "09.paging" "10.libc"
 
 cp ../../aleksa-toolchain/setup.sh 00.build
-cp ../../mykernel/Makefile ./00.build
+cp ../../mykernel/Makefile ./00.build/Makefile
+cp ../../mykernel/src/as/Makefile ./00.build/AS_Makefile
+cp ../../mykernel/src/c/Makefile ./00.build/C_Makefile
 
 cp ../../mykernel/src/as/boot.s ./01.pocetak
 cd 01.pocetak || exit
