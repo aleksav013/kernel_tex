@@ -180,10 +180,10 @@ Planirano u blizhoj buduc1nosti:
 \end{itemize}
 \end{multicols}
 
-O stvarima koje su implementirane i koje funkcionishu, moc1i c1ete da saznate
-vishe u ovom radu. Autorov plan je da predstojec1e slobodno vreme nakon
-maturiranja i tokom studija, iskoristi na unapredjenje ovog malog operativnog
-sistema, i da u mu ovaj rad kao takav bude osnova za naredni.
+O funkcionalnostima koje su implementirane, moc1i c1ete da saznate vishe u ovom
+radu. Autorov plan je da predstojec1e slobodno vreme nakon maturiranja i tokom
+studija, iskoristi na unapredjenje ovog malog operativnog sistema, i da u mu
+ovaj rad kao takav bude osnova za naredni.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -199,8 +199,8 @@ godine nastao 80386 sa velichinom registra od chak 32 bita. Svi procesori iz
 ove familije nose zajednichki naziv upravo po sufiksu 86 koji se pojavljuje u
 imenima svih ovih procesora.\\
 
-U periodu od 1999. do 2003. {\eng AMD} je proshirio velichinu registra na 64 bita
-i ta arhitektura ima vishe naziva od kojih su najkorish\/c1eniji: {\eng
+U periodu od 1999. do 2003. {\eng AMD} je proshirio velichinu registra na 64
+bita i ta arhitektura ima vishe naziva od kojih su najkorish\/c1eniji: {\eng
 x86\_64, amd64} i {\eng x64}. Velika vec1ina uredjaja danas koristi {\eng
 x86\_64} arhitekturu procesora.\\
 
@@ -317,10 +317,10 @@ Specifichna uloga registara opshte namene:
 \section{Segmentni registri}
 \medskip
 
-Segmentni registri sadrzhe shesnaestobitne selektore segmenta. Selektor segmenta je
-specijalan pokazivach koji identifikuje segment u memoriji. Da bi pristupili
-odredjenom segmentu u memoriji, selektor segmenta koji pokazuje na taj segment
-mora biti dostupan u odgovarajuc1em segmentnom registru.
+Segmentni registri sadrzhe shesnaestobitne selektore segmenta. Selektor
+segmenta je specijalan pokazivach koji identifikuje segment u memoriji. Da bi
+pristupili odredjenom segmentu u memoriji, selektor segmenta koji pokazuje na
+taj segment mora biti dostupan u odgovarajuc1em segmentnom registru.
 
 Specifichna uloga segmentnih registara:
 \begin{itemize}
@@ -385,13 +385,13 @@ Ovo je stanje procesora koji nashe jezgro trenutno koristi.
 \section{{\eng Long mode}}
 \medskip
 
-Sa vremenom postalo je jasno da {\eng 4GB} adresibilne memorije koju nam pruzha
-32-bitna {\eng X86} arhitektura nije dovoljno. Iz tog razloga nastao je {\eng
-long mode}. Dugacki mod je zapravo samo ekstenzija 32-bitnog seta instrukcija,
-ali za razliku od tranzicije sa 16-bitnog na 32-bitni set instrukcija,
-uklonjen je veliki deo instrukcija. Ovo ne utiche na kompatibilnost sa starijim
-verzijama izvrshnih fajlova, ali menja nachin na koji asembler i kompajleri za
-novi kod moraju da funkcionishu.\\
+Sa vremenom, postalo je jasno da {\eng 4GB} adresibilne memorije koju nam
+pruzha 32-bitna {\eng X86} arhitektura nije dovoljno. Iz tog razloga nastao je
+{\eng long mode}. Dugachki mod je zapravo samo ekstenzija 32-bitnog seta
+instrukcija, ali za razliku od tranzicije sa 16-bitnog na 32-bitni set
+instrukcija, sada je uklonjen veliki deo instrukcija. Ovo ne utiche na
+kompatibilnost sa starijim verzijama izvrshnih fajlova, ali menja nachin na
+koji asembler i kompajleri za novi kod moraju da funkcionishu.\\
 
 Kreiranjem ove ekstenzije procesora nastala je i nova {\eng AMD64} arhitektura,
 koja je dobila ime upravo po {\eng AMD} kompaniji koja je dizajnirala ovu
@@ -410,8 +410,8 @@ izvora.
 \section{Redosled pokretanja}
 \medskip
 
-Od pritiska dugmeta za paljenje rachunara, pa do uchitavanja operativnog
-sistema postoji ceo jedan proces. Nakon pritiska dugmeta, rachunar prvo
+Od pritiska tastera za paljenje rachunara, pa do uchitavanja operativnog
+sistema postoji ceo jedan proces. Nakon pritiska tastera, rachunar prvo
 izvrshava {\eng POST (Power On Self Test)} rutinu, koja je jedna od pochetnih
 faza {\eng BIOS}-a {\eng (Basic Input Output System)}. U {\eng POST}-u,
 rachunar pokushava da inicijalizuje komponente rachunarskog sistema jednu po
@@ -589,8 +589,8 @@ pojedinim distribucijama, ali je preporuka manuelno kompajlovati iz
 prethodno navedenih razloga. Za {\eng Arch Linux} ovaj paket se mozhe nac1i na
 stanici {\eng\url{https://aur.archlinux.org/packages/i686-elf-gcc/}}.\\
 
-{\eng GCC} je {\eng GNU}-ov set kompajlera koji je korish\/c1en za kompajlovanje
-ovog operativnog sistema.
+{\eng GCC} je {\eng GNU}-ov set kompajlera koji je korish\/c1en za
+kompajlovanje ovog operativnog sistema.
 
 \subsection{Pre dodavanja {\eng C} biblioteke}
 \smallskip
@@ -620,7 +620,7 @@ Izvorni kod softvera se mozhe nac1i na stranici
 kompajlovanje i korish\/c1enje.\\
 
 {\eng GRUB (GRand Unified Bootloader)} je {\eng bootloader} koji je
-korish\/c1en na ovom projektu. Trenutno korishc1ena verzija ovog softvera je
+korish\/c1en na ovom projektu. Trenutno korish\/c1ena verzija ovog softvera je
 {\eng GRUB 2}.
 
 Konfiguracioni fajl {\eng grub.cfg} definishe odakle ovaj {\eng bootloader} 
@@ -694,7 +694,7 @@ zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.\\
 
 {\eng GDB} je {\eng GNU}-ov {\eng debugger} koji sluzhi za pronalazhenje
 greshaka u kodu, kao i aktivno prac1enje izvrshavanja programa (u ovom sluchaju
-jezgra). Uz pomoc1 ovog programa ustanovljeno je shta svako dugme na tastaturi
+jezgra). Uz pomoc1 ovog programa ustanovljeno je shta svaki taster na tastaturi
 vrac1a nakon pritiska, shto je znachajno ubzalo proces mapiranja tastature.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -876,7 +876,7 @@ jeziku\cite{book:441007}\cite{book:690930}.
 {\eng as/boot.s}:\\
 
 U prvom delu postavljamo promenljive na vrednosti koje su odredjene {\eng
-Multiboot} standardom da bi {\eng bootloader} prepoznao nashe jezgro.
+multiboot} standardom da bi {\eng bootloader} prepoznao nashe jezgro.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot1.s}\srb\end{minipage}\smallskip
 
@@ -972,8 +972,8 @@ Funkcija koja ispisuje niz karaktera na ekran.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga11.c}\srb\end{minipage}\smallskip
 
-Funkcija koja ispisuje celobrojnu vrednost na ekran tako shto je prvo pretvori u
-niz karaktera a zatim iskoristi prethodnu funkciju.
+Funkcija koja ispisuje celobrojnu vrednost na ekran tako shto je prvo pretvori
+u niz karaktera a zatim iskoristi prethodnu funkciju.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga12.c}\srb\end{minipage}\smallskip
 
@@ -1108,12 +1108,13 @@ Struktura u kojoj rachunar prihvata globalnu tabelu prekida.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt6.h}\srb\end{minipage}\smallskip
 
-Pokazivach na tabelu prekida koja se prosledjuje funkciji napisanoj u \text{{\eng
-Assembler}-u}, a koja uchitava tabelu prekida u odgovarajuc1i registar.
+Pokazivach na tabelu prekida koja se prosledjuje funkciji napisanoj u
+\text{{\eng Assembler}-u}, a koja uchitava tabelu prekida u odgovarajuc1i
+registar.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt7.h}\srb\end{minipage}\smallskip
 
-Prototipi funkcija koji su korishc1eni u sledec1em poglavlju. 
+Prototipi funkcija koji su korish\/c1eni u sledec1em poglavlju. 
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt8.h}\srb\end{minipage}\smallskip
 
@@ -1184,21 +1185,21 @@ Korish\/c1ene biblioteke:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard1.c}\srb\end{minipage}\smallskip
 
-Bafer koji chuva prethodno pozvane funkcije radi implementacije istorije
+Bafer koji chuva prethodno pozvane komande radi implementacije istorije
 komanda, kao i brojach bafera na trenutnu komandu.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard2.c}\srb\end{minipage}\smallskip
 
-Tabela koja prevodi kodove koje vrac1a prekid u karaktere koje funkcija
+Tabela koja prevodi kodove koje vrac1a prekid, u karaktere koje funkcija
 ispisuje. Takodje, chuva se i informacija da li je dati karakter trenutno
-pritisnut shto nam mozhe posluzhiti prilikom mapiranja pritiska vishe karaktera
-odjednom.
+pritisnut, shto nam mozhe posluzhiti prilikom mapiranja pritiska vishe
+karaktera od\/jednom.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard3.c}\srb\end{minipage}\smallskip
 
 Funkcija za inicijalizaciju tastature. Ova funkcija postavlja jezik tastature i
 mapira kodove koje vrac1a {\eng handler} {\eng interrupt request}-a, na
-karatkere koji se ispisuju na ekranu.
+karaktere koji se ispisuju na ekranu.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard4.c}\srb\end{minipage}\smallskip
 
@@ -1208,32 +1209,32 @@ unazad.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard5.c}\srb\end{minipage}\smallskip
 
-Funkcija koja brishe poslednji ispisan karakter pritiskom na {\eng backspace}
+Funkcija koja brishe poslednji ispisan karakter pritiskom na {\eng backspace},
 pritom pazec1i da ne ispadne van okvira koji je moguc1e obrisati.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard6.c}\srb\end{minipage}\smallskip
 
-Takodje funkcija azhurira bafer koji chuva do sada pozivane komande.
+Takodje, funkcija azhurira bafer koji chuva do sada pozivane komande.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard7.c}\srb\end{minipage}\smallskip
 
-Funkcija koja definishe ponashanje jezgra nakon pritiska {\eng enter} dugmeta
+Funkcija koja definishe ponashanje jezgra nakon pritiska {\eng enter} tastera
 na tastaturi. Primetimo da se izvrshava komanda koja je u tom trenutku u
 baferu, a nakon toga se dati bafer chuva u istoriji bafera.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard8.c}\srb\end{minipage}\smallskip
 
-Funkcija koja odredjuje ponashanje jezgra nakon pritiska {\eng space} dugmeta
+Funkcija koja odredjuje ponashanje jezgra nakon pritiska {\eng space} tastera
 na tastaturi.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard9.c}\srb\end{minipage}\smallskip
 
-Funkcija koja odredjuje ponashanje jezgra nakon pritiska dugmeta sa strelicom
+Funkcija koja odredjuje ponashanje jezgra nakon pritiska tastera sa strelicom
 okrenutom ka gore, na tastaturi.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard10.c}\srb\end{minipage}\smallskip
 
-Funkcija koja odredjuje ponashanje jezgra nakon pritiska dugmeta sa strelicom
+Funkcija koja odredjuje ponashanje jezgra nakon pritiska tastera sa strelicom
 okrenutom ka dole, na tastaturi.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard11.c}\srb\end{minipage}\smallskip
@@ -1248,7 +1249,7 @@ prekide, kao i primamo informacije od istih.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard14.c}\srb\end{minipage}\smallskip
 
-Ukoliko je prekid izazvan pritiskom nekog dugmeta na tastaturi on se uchitava
+Ukoliko je prekid izazvan pritiskom nekog tastera na tastaturi on se uchitava
 pomoc1u {\eng PIC} kontrolera, a zatim se uz pomoc1 prehodno postavljenog niza
 odredjuje koji je karakter pritisnut na tastaturi.
 
@@ -1263,10 +1264,11 @@ pritisnut na tastaturi.\\
 U kodu kojie sledi se mozhe videti kako se na primer neka kombinacija karaktera
 mozhe iskoristiti za definisanje prechica na tastaturi.\\
 
-Na primer ukoliko korisnik drzhi {\eng shift} dugme na tastaturi, ispisivac1e
-se velika slova, ili sekundarni karakteri, koji su predvidjeni za to dugme.
-Isto tako, ukoliko korisnik drzi {\eng ctrl} dugme i pritisne {\eng L} na
-tastaturi, "ochistic1e" se ekran.
+Na primer ukoliko korisnik drzhi {\eng shift} taster na tastaturi dok pritiska
+druge tastere, ispisivac1e se velika slova, ili sekundarni karakteri, koji su
+predvidjeni za taj taster. Isto tako, ukoliko korisnik drzhi {\eng ctrl}
+taster i pritisne {\eng L} na tastaturi, pozvac1e se funkcija koja "ochisti"
+ekran.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard17.c}\srb\end{minipage}\smallskip
 
@@ -1276,7 +1278,7 @@ tastaturi, "ochistic1e" se ekran.
 \medskip
 
 {\eng PIT (Programmable Interval Timer)} je programabilni tajmer koji se mozhe
-isprogramirati tako da na tachno definisani period vremena salje zahtev za
+isprogramirati tako da na tachno definisani period vremena shalje zahtev za
 prekidom. Na taj nachin mozhe se meriti koliko vremena je proteklo od pochetka
 paljenja rachunara ili koliko se tachno vremena utroshilo na izvrshavanje nekog
 programa.\\
@@ -1302,7 +1304,7 @@ funckija ima zadatak da azhurira vreme proteklo od paljenja rachunara.
 Nashe jezgro inicijalizuje tajmer tako da ima 20 otkucaja u sekundi. {\eng PIT}
 chip sastoji se od oscilatora koji radi na frekvenciji od {\eng 1.193182 MHz}.
 Ukoliko tu vredonost podelimo sa brojem zheljenih otkucaja u sekundi, dobic1emo
-frekvenciju na kojoj chip treba da radi da bi generisao prekide u odredjenom
+frekvenciju na kojoj chip treba da radi da bi generisao prekide u zheljenom
 vremenskom intervalu.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer5.c}\srb\end{minipage}
@@ -1358,12 +1360,14 @@ dugotrajniji od funkcije u kojoj je ta promenljiva nastala.\\
 \medskip
 
 Stranichenje je sistem koji dozvoljava svakom procesu da koristi ceo prostor
-virtuelne memorije, bez da je ceo opseg dosupan. 32-bitni procesori podrzhavaju
-32-bitne virutelne adrese i {\eng 4GB} virtuelne memorije.\\
+virtuelne memorije, bez da je toliko memorije za svaki proces fizichki
+dostupno. 32-bitni procesori podrzhavaju 32-bitne virutelne adrese i {\eng 4GB}
+virtuelne memorije.\\
 
 Pored ovoga, stranichenje ima i prednost zashtite na nivou stranice. U ovom
 sistemu, korisnichki procesi mogu da vide i izmene samo podatke koji se nalaze
-na sopstvenom prostoru adrese, obezbedjujuc1i izolaciju na hardverskom nivou.\\
+na sopstvenom prostoru adrese, obezbedjujuc1i izolaciju na hardverskom nivou
+izmedju procesa.\\
 
 {\eng c/paging.c}:\\
 
@@ -1371,7 +1375,7 @@ Korish\/c1ene biblioteke:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging1.c}\srb\end{minipage}\smallskip
 
-Asemblerske funkcije koje uchitavaju tabelu koja odredjjuje koja virtuelna
+Asemblerske funkcije koje uchitavaju tabelu koja odredjuje koja virtuelna
 adresa se odnosi na koju fizichku, a zatim ukljuchuju stranichenje.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging2.c}\srb\end{minipage}\smallskip
@@ -1382,8 +1386,8 @@ sadrzhi 1024 tabele stranica.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging3.c}\srb\end{minipage}\smallskip
 
 Funkcija koja postavlja vrednosti svih direktorijuma stranica koji se ne
-koriste na konstantu koja odredjuje da li je direktorijum uopshte sadrzhi
-tabele stranica.
+koriste na konstantu koja odredjuje da li je direktorijum u upotrebi i da li
+uopshte sadrzhi tabele stranica.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging4.c}\srb\end{minipage}\smallskip
 
@@ -1392,7 +1396,7 @@ Niz u kome se chuvaju tabele stranica.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging5.c}\srb\end{minipage}\smallskip
 
 Funkcija koja postavlja vrednosti jedne tabele stranica na odredjeni opseg u
-fizichkoj memoriji dodeljen nekom procesu.
+fizichkoj memoriji dodeljen datom procesu.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging6.c}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging7.c}\srb\end{minipage}
