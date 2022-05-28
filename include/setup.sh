@@ -1,8 +1,8 @@
 #!/bin/sh
 
-rm -rf "00.build" "01.pocetak" "02.vga" "03.gdt" "04.idt" "05.irq" "06.keyboard" "07.pit" "08.heap" "09.paging" "10.libc"
+rm -rf "00.build" "01.pocetak" "02.vga" "03.gdt" "04.idt" "05.irq" "06.keyboard" "07.pit" "08.heap" "09.paging" "10.libc" "12.kernel"
 
-mkdir "00.build" "01.pocetak" "02.vga" "03.gdt" "04.idt" "05.irq" "06.keyboard" "07.pit" "08.heap" "09.paging" "10.libc"
+mkdir "00.build" "01.pocetak" "02.vga" "03.gdt" "04.idt" "05.irq" "06.keyboard" "07.pit" "08.heap" "09.paging" "10.libc" "12.kernel"
 
 cp ../../aleksa-toolchain/setup.sh 00.build
 cp ../../mykernel/Makefile ./00.build/Makefile
@@ -57,3 +57,5 @@ awk -v RS= '{print > ("paging" NR ".c")}' paging.c
 cd ..
 
 cp -r ../../mykernel/src/include/* ./10.libc
+
+cp -r ../../mykernel/src/c/kernel.c ./12.kernel

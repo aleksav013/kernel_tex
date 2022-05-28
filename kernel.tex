@@ -945,7 +945,7 @@ jeziku\cite{book:441007}\cite{book:690930}.
 \medskip
 %{\eng\url{https://wiki.osdev.org/Bare_Bones}}
 
-{\eng as/boot.s}:\\
+{\eng src/as/boot.s}:\\
 
 U prvom delu postavljamo promenljive na vrednosti koje su odredjene {\eng
 multiboot} standardom da bi {\eng bootloader} prepoznao nashe jezgro.
@@ -989,7 +989,7 @@ korisno pri {\eng debug}-ovanju.
 \section{Ispis na ekran - {\eng VGA}}
 \medskip
 
-{\eng c/vga.c}:\\
+{\eng src/c/vga.c}:\\
 
 Korish\/c1ene biblioteke:
 
@@ -1066,7 +1066,7 @@ brojache kolone i reda na pochetnu poziciju.
 Globalna tabela deskriptora je struktura u kojoj se chuvaju informacije o
 segmentima memorije.\\
 
-{\eng include/source/gdt.h}:\\
+{\eng src/include/source/gdt.h}:\\
 
 Koristimo {\eng \#ifndef} i {\eng \#define} direktive da bi se osigurali da se
 ovaj fajl ukljuchuje ({\eng include}-uje) samo jednom u toku celog rada
@@ -1103,7 +1103,7 @@ segment koda predvidjen za deklaracije.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt6.h}\srb\end{minipage}\smallskip
 
-{\eng c/gdt.c}:\\
+{\eng src/c/gdt.c}:\\
 
 U {\eng source/} folderu se nalaze prototipi za funkcije istoimenog {\eng C}
 izvornog fajla.
@@ -1154,7 +1154,7 @@ handle}-ovati) taj prekid i ukoliko je prekid fatalan (deljenje nulom, {\eng
 triple fault},...) funkcija ima zadatak da ukloni novonastali problem i
 obezbedi operativnom sistemu oporavak od greshke.\\
 
-{\eng include/source/idt.h}:\\
+{\eng src/include/source/idt.h}:\\
 
 Direktive koje se dalje ponavljaju u svakom {\eng header} fajlu. Dalje
 pozivanje direktiva c1e biti izostavljeno, radi sushtine.
@@ -1199,7 +1199,7 @@ pozivanje direktiva c1e biti izostavljeno, radi sushtine.
 
 \section{{\eng IRQ} i {\eng PIC}}
 \medskip
-{\eng c/idt.c}:\\
+{\eng src/c/idt.c}:\\
 
 Korish\/c1ene biblioteke:
 
@@ -1251,7 +1251,7 @@ prekida.
 \section{Tastatura}
 \medskip
 
-{\eng c/keyboard.c}:\\
+{\eng src/c/keyboard.c}:\\
 
 Korish\/c1ene biblioteke:
 
@@ -1348,6 +1348,8 @@ ekran.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard18.c}\srb\end{minipage}\smallskip
 
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard19.c}\srb\end{minipage}\smallskip
+
 \section{{\eng PIT - Programmable Interval Timer}}
 \medskip
 
@@ -1357,7 +1359,7 @@ Na taj nachin mozhe se meriti koliko vremena je proteklo od pochetka paljenja
 rachunara ili koliko se tachno vremena utroshilo na izvrshavanje nekog
 programa.\\
 
-{\eng c/timer.c}:\\
+{\eng src/c/timer.c}:\\
 
 Korish\/c1ene biblioteke:
 
@@ -1396,7 +1398,7 @@ nam sluzhi da bismo dinamichki alocirali memoriju, tj. da bismo mogli da
 koristimo globalne promenljive, kao i promenljive chiji zhivotni vek mora biti
 dugotrajniji od funkcije u kojoj je ta promenljiva nastala.\\
 
-{\eng c/heap.c}:\\
+{\eng src/c/heap.c}:\\
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap1.c}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap2.c}\srb\end{minipage}
@@ -1443,7 +1445,7 @@ sistemu, korisnichki procesi mogu da vide i izmene samo podatke koji se nalaze
 na sopstvenom prostoru adrese, obezbedjujuc1i izolaciju na hardverskom nivou
 izmedju procesa.\\
 
-{\eng c/paging.c}:\\
+{\eng src/c/paging.c}:\\
 
 Korish\/c1ene biblioteke:
 
@@ -1477,7 +1479,7 @@ fizichkoj memoriji dodeljen datom procesu.
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging8.c}\srb\end{minipage}\smallskip
 
 Glavna funkcija koja mapira svih {\eng 4GB} fizichke memorije na virtuelnu
-meomoriju sa istom adresom, a zatim ukljuchuje stranichenje.
+memoriju sa istom adresom, a zatim ukljuchuje stranichenje.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging9.c}\srb\end{minipage}\smallskip
 
@@ -1493,34 +1495,56 @@ sistema. Primetimo da neki od fajlova moraju samo postojati, tj. mogu biti i
 prazni. Ova biblioteka osim postojanja odredjenih {\eng header} fajlova
 podrazumeva i prototipe funkcija i struktura bez kojih se nec1e kompajlovati.
 
-{\eng include/errno.h}:
+{\eng src/include/errno.h}:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/errno.h}\srb\end{minipage}\smallskip
 
-{\eng include/stdio.h}:
+{\eng src/include/stdio.h}:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/stdio.h}\srb\end{minipage}\smallskip
 
-{\eng include/stdlib.h}:
+{\eng src/include/stdlib.h}:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/stdlib.h}\srb\end{minipage}\smallskip
 
-{\eng include/string.h}:
+{\eng src/include/string.h}:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/string.h}\srb\end{minipage}\smallskip
 
-{\eng include/time.h}:
+{\eng src/include/time.h}:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/time.h}\srb\end{minipage}\smallskip
 
-{\eng include/unistd.h}:
+{\eng src/include/unistd.h}:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/unistd.h}\srb\end{minipage}\smallskip
 
-{\eng include/sys/types.h}:
+{\eng src/include/sys/types.h}:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/sys/types.h}\srb\end{minipage}\smallskip
 
+\section{Pomoc1na \eng{C} biblioteka}
+\medskip
+
+{\eng src/include/types.h}:
+
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/types.h}\srb\end{minipage}\smallskip
+
+{\eng src/include/asm.h}:
+
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/asm.h}\srb\end{minipage}\smallskip
+
+
+\section{Glavna funkcija}
+\medskip
+
+Glavna funkcija kojoj se predaje upravljanje u {\eng src/as/boot.s}
+asemblerskom fajlu koji smo imali prilike da vidimo na pochetku. Funkcija
+objedinjuje sve funkconalnosti koje smo do sada implementirali.
+
+{\eng src/c/kernel.c}:
+
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/12.kernel/kernel.c}\srb\end{minipage}\smallskip
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1546,7 +1570,7 @@ open source} shto znachi da kod mozhe posluzhiti svakome ko zheli da sazna
 neshto vishe.\\
 
 U toku izrade suochio sam se sa mnogobrojnim problemima. Najtezhi deo je bio
-ispolovljavanje i zapochinjanje ove ekspedicije. More informacija i standarda
+isplovljavanje i zapochinjanje ove ekspedicije. More informacija i standarda
 koji su morali biti zadovoljeni samo da bi se sistem pokrenuo, a zatim i
 ispisao neku korisnu informaciju, a kamoli neshto vishe. Najtezhe je bilo to
 shto nije bilo moguc1e dodati bilo kakvu funkcionalnost bez da se u potpunosti
