@@ -337,34 +337,46 @@ Specifichna uloga segmentnih registara:
 \end{itemize}
 
 
-\section{{\eng Real mode}}
+\section{Operativni rezhimi procesora}
 \medskip
 
-Realni mod je stanje procesora koje karakterishe 20-tobitna segmentirana
+Operativni rezhimi procesora u {\eng X86} arhitekturi su:
+\begin{itemize}
+\item \eng{Real mode}
+\item \eng{Protected mode (16-bit)}
+\item \eng{Protected mode (32-bit)}
+\item \eng{Compatibility mode (x86-64 only)}
+\item \eng{Long mode (x86-64 only)}
+\end{itemize}
+
+\subsection{{\eng Real mode}}
+\smallskip
+
+Realni rezhim je stanje procesora koje karakterishe 20-tobitna segmentirana
 memorija shto znachi da se mozhe adresirati samo malo vishe od jednog
-megabajta. Svi procesori pochev od 80286 zapochinju u ovom modu nakon paljenja
-rachunara zbog kompatibilnosti. Da bismo mogli da adresiramo vishe memorije,
-potrebno je da koristimo segmentne registre.\\
+megabajta. Svi procesori pochev od 80286 zapochinju u ovom rezhimu nakon
+paljenja rachunara zbog kompatibilnosti. Da bismo mogli da adresiramo vishe
+memorije, potrebno je da koristimo segmentne registre.\\
 
-Postupak kojim iz realnog moda prelazimo u zashtic1eni mod naziva se daleki
-skok {\eng (far jump)} gde pri postavljanju segmentnih registara "skachemo" iz
-jednog segmenta u drugi. Daleki skok najchesh\/c1e podrazumeva promenu
-selektora segmenta, koji se nalazi u segmentu koda, i koji pokazuje na segment
-koda u kome se nalaze instrukcije koje se trenutno izvrshavaju.
+Postupak kojim iz realnog rezhima prelazimo u zashtic1eni rezhim naziva se
+daleki skok {\eng (far jump)} gde pri postavljanju segmentnih registara
+"skachemo" iz jednog segmenta u drugi. Daleki skok najchesh\/c1e podrazumeva
+promenu selektora segmenta, koji se nalazi u segmentu koda, i koji pokazuje na
+segment koda u kome se nalaze instrukcije koje se trenutno izvrshavaju.
 
-\section{Segmentacija}
-\medskip
+\subsection{Segmentacija}
+\smallskip
 
 Segmentacija je reshenje kojim se omoguc1ava adresiranje vishe memorije nego
 shto je to hardverski predvidjeno. Segmentacija se postizhe korish\/c1enjem
-{\eng offset}-a. Upravo smo uz pomoc1 segmenatcije u realnom modu adresirali
+{\eng offset}-a. Upravo smo uz pomoc1 segmenatcije u realnom rezhimu adresirali
 memoriju sa 20, umesto predvidjenih 16 bitova.
 
-\section{{\eng Protected mode}}
-\medskip
+\subsection{{\eng Protected mode}}
+\smallskip
 
-Zashtic1eni mod je stanje procesora u kojem procesor ima pun pristup celom
-opsegu memorije za razliku od realnog moda. Maksimalna velichina {\eng RAM}
+Zashtic1eni rezhim je stanje procesora u kojem procesor ima pun pristup celom
+opsegu memorije za razliku od realnog rezhima. Maksimalna velichina {\eng RAM}
 memorije koju arhitektura {\eng i386} podrzhava je {\eng 4GB} upravo zbog
 velichine registra od 32 bita ($2^{32}B = 4GB$). Neki procesori koji
 podrzhavaju {\eng PAE - Physical Address Extension} podrzhavaju i adresiranje
@@ -382,12 +394,20 @@ prve instrukcije.\\
 
 Ovo je stanje procesora koji nashe jezgro trenutno koristi.
 
-\section{{\eng Long mode}}
-\medskip
+\subsection{{\eng Compatibility mode}}
+\smallskip
+
+Rezhim kompatibilnosti se pokrec1e tokom prelaska iz zashtic1enog rezhima u
+dugachki rezhim. Rezhim kompatibilnosti radi slichno zashtic1enom rezhimu i
+koristi se za omoguc1avanje uchitavanja 64-bitnih struktura pre ulaska u
+odgovarajuc1i dugachki rezhim.
+
+\subsection{{\eng Long mode}}
+\smallskip
 
 Sa vremenom, postalo je jasno da {\eng 4GB} adresibilne memorije koju nam
 pruzha 32-bitna {\eng X86} arhitektura nije dovoljno. Iz tog razloga nastao je
-{\eng long mode}. Dugachki mod je zapravo samo ekstenzija 32-bitnog seta
+{\eng long mode}. Dugachki rezhim je zapravo samo ekstenzija 32-bitnog seta
 instrukcija, ali za razliku od tranzicije sa 16-bitnog na 32-bitni set
 instrukcija, sada je uklonjen veliki deo instrukcija. Ovo ne utiche na
 kompatibilnost sa starijim verzijama izvrshnih fajlova, ali menja nachin na
@@ -399,6 +419,58 @@ specifikaciju. To je bio prvi put u istoriji da je vrlo vazhna odluka koja se
 tiche {\eng X86} arhitekture donesena od neke druge kompanije, a ne samog {\eng
 Intel}-a, ali i da je {\eng Intel} odluchio da prihvati tehnologiju od stranog
 izvora.
+
+\newpage
+
+\section{Ekstenzije procesora}
+\medskip
+
+Ekstenzije procesora u {\eng X86} arhitekturi su:
+
+\begin{itemize}
+\item \eng{x86-64}
+\item \eng{PAE/NX}
+\item \eng{x87}
+\item \eng{SSE}
+\item \eng{AVX}
+\end{itemize}
+
+
+\subsection{{\eng x86-64}}
+\small
+
+Proshirenje {\eng x86-64} je prilichno ekspanzivno, primena {\eng 64-bitnog}
+operativnog rezhima i 64-bitno adresiranje. Danas je gotovo nemoguc1e pronac1i
+rachunar koji ne podrzhava {\eng x86-64}.
+
+\subsection{{\eng PAE/NX}}
+\small
+
+{\eng PAE/NX} primenjuje stranichne poruke na 4 nivoa i dodaje pregrsht
+svojstava stranicama da bi se primenila opsezhna zashtita memorije,
+ukljuchujuc1i {\eng NX}, zastavicu za onemoguc1avanje izvrshavanja na
+odredjenoj stranici. Vec1ina operativnih rachunara danas podrzhava {\eng
+PAE/NX}.
+
+\subsection{{\eng x87}}
+\small
+{\eng 87} je proshirenje za {\eng floating point} izrachunavanja. Iako je
+tehnichki ekstenzija, podrzhana je na vec1ini {\eng x86} procesora.
+
+\subsection{{\eng SSE}}
+\small
+
+{\eng SSE} je 128-bitno proshirenje za podatke. Dodaje 8-16 128-bitnih {\eng XMM}
+registra opshte namene i instrukcija za izvodjenje matematike {\eng SIMD}
+vektora. {\eng SSE} ima nekoliko verzija. {\eng x86-64} procesori su obavezni da
+podrzhavaju najmanje {\eng SSE2}.
+
+\subsection{{\eng AVX}}
+\small
+
+{\eng AVX} je 256-bitno proshirenje za podatke. Obavlja svrhu slichnu {\eng
+SSE} i implementira nekoliko 256-bitnih {\eng YMM} registara.
+
 
 %{\eng\url{https://wiki.osdev.org/Protected_Mode}}
 
@@ -431,7 +503,7 @@ Taj program se naziva {\eng Bootloader}.
 {\eng RAM} memoriju i preda mu dalje upravljanje. Zbog kompleksnosti danashnjeg
 softvera, 512 bajtova je vrlo malo za uchitavanje celog {\eng bootloader}-a. Iz
 tog razloga neki {\eng bootloader}-i razdvojeni su u vishe delova,
-najchesh\/c1e 2. Prvi deo je vrlo mali, staje u 512 bajtova {\eng MBR}-a i on
+najchesh\/c1e dva. Prvi deo je vrlo mali, staje u 512 bajtova {\eng MBR}-a i on
 sluzhi samo da bi uchitao drugi deo u kome se nalazi glavni kod koji dalje
 predaje upravljanje jezgru operativnog sistema.\\
 
@@ -807,7 +879,7 @@ koristi {\eng Makefile} za izgradnju jezgra.
 {\eng Makefile} je fajl koji kontrolishe ponashanje {\eng make} komande u
 terminalu. Svaki {\eng Makefile} sadrzhi neki set pravila koji definishe proces
 koji se pokrec1e ukucavanjem komande {\eng make $<$ime\_pravila$>$}. U tekstu
-koji sledi mozhe se videti koji je to set pravila koje su definisani za ovaj
+koji sledi mozhe se videti koji je to set pravila koja su definisana za ovaj
 projekat.\\
 
 {\eng Makefile}:
@@ -1230,7 +1302,9 @@ na tastaturi.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard9.c}\srb\end{minipage}\smallskip
 
 Funkcija koja odredjuje ponashanje jezgra nakon pritiska tastera sa strelicom
-okrenutom ka gore, na tastaturi.
+okrenutom ka gore, na tastaturi. Nakon pritiska tastera, u trenutni bafer se
+uchitava prethodno izvrshena komanda. Na taj nachin korisnik mozhe dopuniti
+ili izmeniti prethodnu komandu.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard10.c}\srb\end{minipage}\smallskip
 
@@ -1261,7 +1335,7 @@ pritisnut na tastaturi.\\
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard16.c}\srb\end{minipage}\smallskip
 
-U kodu kojie sledi se mozhe videti kako se na primer neka kombinacija karaktera
+U kodu koji sledi se mozhe videti kako se na primer neka kombinacija karaktera
 mozhe iskoristiti za definisanje prechica na tastaturi.\\
 
 Na primer ukoliko korisnik drzhi {\eng shift} taster na tastaturi dok pritiska
@@ -1278,9 +1352,9 @@ ekran.
 \medskip
 
 {\eng PIT (Programmable Interval Timer)} je programabilni tajmer koji se mozhe
-isprogramirati tako da na tachno definisani period vremena shalje zahtev za
-prekidom. Na taj nachin mozhe se meriti koliko vremena je proteklo od pochetka
-paljenja rachunara ili koliko se tachno vremena utroshilo na izvrshavanje nekog
+podesiti tako da na tachno definisani period vremena shalje zahtev za prekidom.
+Na taj nachin mozhe se meriti koliko vremena je proteklo od pochetka paljenja
+rachunara ili koliko se tachno vremena utroshilo na izvrshavanje nekog
 programa.\\
 
 {\eng c/timer.c}:\\
@@ -1290,7 +1364,7 @@ Korish\/c1ene biblioteke:
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer1.c}\srb\end{minipage}\smallskip
 
 Promenljive koje chuvaju broj otkucaja tajmera kao i vreme proteklo od paljenja
-rachunara. Primetimo konstantu koja definishe koliko je zapravo uchestalost
+rachunara. Primetimo konstantu koja definishe kolika je zapravo uchestalost
 ovog tajmera.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer2.c}\srb\end{minipage}\smallskip
@@ -1416,7 +1490,8 @@ meomoriju sa istom adresom, a zatim ukljuchuje stranichenje.
 Zbog vec1 do sada velike opshirnosti rada, ovde c1e biti prikazana samo
 minimalna {\eng C} biblioteka potrebna za kompajlovanje jezgra operativnog
 sistema. Primetimo da neki od fajlova moraju samo postojati, tj. mogu biti i
-prazni.\\
+prazni. Ova biblioteka osim postojanja odredjenih {\eng header} fajlova
+podrazumeva i prototipe funkcija i struktura bez kojih se nec1e kompajlovati.
 
 {\eng include/errno.h}:
 
