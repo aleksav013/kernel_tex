@@ -340,11 +340,11 @@ Specifichna uloga segmentnih registara:
 \section{{\eng Real mode}}
 \medskip
 
-Realni mod karakterishe 20-tobitna segmentirana memorija shto znachi da se
-mozhe adresirati samo malo vishe od jednog megabajta. Svi procesori pochev od
-80286 zapochinju u ovom modu nakon paljenja rachunara zbog kompatibilnosti. Da
-bismo mogli da adresiramo vishe memorije, potrebno je da koristimo segmentne
-registre.\\
+Realni mod je stanje procesora koje karakterishe 20-tobitna segmentirana
+memorija shto znachi da se mozhe adresirati samo malo vishe od jednog
+megabajta. Svi procesori pochev od 80286 zapochinju u ovom modu nakon paljenja
+rachunara zbog kompatibilnosti. Da bismo mogli da adresiramo vishe memorije,
+potrebno je da koristimo segmentne registre.\\
 
 Postupak kojim iz realnog moda prelazimo u zashtic1eni mod naziva se daleki
 skok {\eng (far jump)} gde pri postavljanju segmentnih registara "skachemo" iz
@@ -371,14 +371,34 @@ podrzhavaju {\eng PAE - Physical Address Extension} podrzhavaju i adresiranje
 memorija preko 64 bita. Kasnije je na ovom starndardu utemeljeno i adresiranje
 memorija na {\eng X86\_64}.\\
 
-Adresiranje svih 32 bita memorije postizhe se  korish\/c1enjem stranichenja
+Adresiranje svih 32 bita memorije postizhe se korish\/c1enjem stranichenja
 ({\eng paging}), koje nam dozvoljava da mapiramo fizichku memoriju na
 virtuelnu. Na taj nachin prilikom izvrshavanja svakog programa mozhe se
 zavarati program tako da misli da njegovo izvrshavanje krec1e od pocheka
 memorije. Iz tog razloga znachajno nam je olakshano izvrshavanje programa jer
 nam svi programi postaju nezavisni od adrese fizichke memorije gde se oni
 zapravo nalaze, dok prilikom kreiranja programa mozhemo fiksno postaviti adresu
-prve instrukcije.
+prve instrukcije.\\
+
+Ovo je stanje procesora koji nashe jezgro trenutno koristi.
+
+\section{{\eng Long mode}}
+\medskip
+
+Sa vremenom postalo je jasno da {\eng 4GB} adresibilne memorije koju nam pruzha
+32-bitna {\eng X86} arhitektura nije dovoljno. Iz tog razloga nastao je {\eng
+long mode}. Dugacki mod je zapravo samo ekstenzija 32-bitnog seta instrukcija,
+ali za razliku od tranzicije sa 16-bitnog na 32-bitni set instrukcija,
+uklonjen je veliki deo instrukcija. Ovo ne utiche na kompatibilnost sa starijim
+verzijama izvrshnih fajlova, ali menja nachin na koji asembler i kompajleri za
+novi kod moraju da funkcionishu.\\
+
+Kreiranjem ove ekstenzije procesora nastala je i nova {\eng AMD64} arhitektura,
+koja je dobila ime upravo po {\eng AMD} kompaniji koja je dizajnirala ovu
+specifikaciju. To je bio prvi put u istoriji da je vrlo vazhna odluka koja se
+tiche {\eng X86} arhitekture donesena od neke druge kompanije, a ne samog {\eng
+Intel}-a, ali i da je {\eng Intel} odluchio da prihvati tehnologiju od stranog
+izvora.
 
 %{\eng\url{https://wiki.osdev.org/Protected_Mode}}
 
@@ -700,7 +720,7 @@ Zanimljiva chinjenica je da je {\eng Minix} najpopularniji operativni sistem
 chije jezgro koristi mikrokernelsku arhitekturu.\\
 
 Spekulishe se da svi Intelovi procesori nakon {\eng Core2Duo} serije koji imaju
-chip pod nazivom {\eng Intem ME (Intel Managment Engine)}, zapravo pokrec1u
+chip pod nazivom {\eng Intel ME (Intel Managment Engine)}, zapravo pokrec1u
 {\eng Minix} operativni sistem. Ovo bi {\eng Minix} uchinilo
 najkorish\/c1enijim operativnim sistemom ikada.
 
@@ -897,7 +917,9 @@ korisno pri {\eng debug}-ovanju.
 \section{Ispis na ekran - {\eng VGA}}
 \medskip
 
-{\eng c/vga.c}:
+{\eng c/vga.c}:\\
+
+Korish\/c1ene biblioteke:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga1.c}\srb\end{minipage}\smallskip
 
@@ -1106,6 +1128,8 @@ pozivanje direktiva c1e biti izostavljeno, radi sushtine.
 \medskip
 {\eng c/idt.c}:\\
 
+Korish\/c1ene biblioteke:
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt1.c}\srb\end{minipage}\smallskip
 
 Asemblerska funkcija koja uchitava pokazivach na tabelu prekida u
@@ -1215,61 +1239,75 @@ okrenutom ka dole, na tastaturi.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard11.c}\srb\end{minipage}\smallskip
 
 Funkcija koja je postavljena u tabeli prekida da odgovori na prekide koji se
-tichu tastature.
+tichu tastature. Primetimo {\eng ioport\_in} i {\eng ioport\_out} funckije.
+Pomoc1u njih mi komuniciramo sa {\eng PIC} kontrolerom i odgovaramo na date
+prekide, kao i primamo informacije od istih.
 
 %\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard12.c}\srb\end{minipage}\smallskip
 %\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard13.c}\srb\end{minipage}\smallskip
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard14.c}\srb\end{minipage}\smallskip
 
-Ona uzima kod koji vrac1a prekid i pretvara ga u karakter ili izvrshava neku od
-prethodno navedenih funkcija u zavisnosti od toga koji karakter je pritisnut na
-tastaturi.
+Ukoliko je prekid izazvan pritiskom nekog dugmeta na tastaturi on se uchitava
+pomoc1u {\eng PIC} kontrolera, a zatim se uz pomoc1 prehodno postavljenog niza
+odredjuje koji je karakter pritisnut na tastaturi.
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard15.c}\srb\end{minipage}
-\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard16.c}\srb\end{minipage}\smallskip
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard15.c}\srb\end{minipage}\smallskip
 
-Ovde se mozhe videti kako se na primer neka kombinacija karaktera mozhe
-iskoristiti za definisanje prechica na tastaturi.
+Funkcija uzima kod koji vrac1a prekid i pretvara ga u karakter ili izvrshava
+neku od prethodno navedenih funkcija u zavisnosti od toga koji karakter je
+pritisnut na tastaturi.\\
+
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard16.c}\srb\end{minipage}\smallskip
+
+U kodu kojie sledi se mozhe videti kako se na primer neka kombinacija karaktera
+mozhe iskoristiti za definisanje prechica na tastaturi.\\
+
+Na primer ukoliko korisnik drzhi {\eng shift} dugme na tastaturi, ispisivac1e
+se velika slova, ili sekundarni karakteri, koji su predvidjeni za to dugme.
+Isto tako, ukoliko korisnik drzi {\eng ctrl} dugme i pritisne {\eng L} na
+tastaturi, "ochistic1e" se ekran.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard17.c}\srb\end{minipage}\smallskip
-
-
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard18.c}\srb\end{minipage}\smallskip
 
 \section{{\eng PIT - Programmable Interval Timer}}
 \medskip
 
+{\eng PIT (Programmable Interval Timer)} je programabilni tajmer koji se mozhe
+isprogramirati tako da na tachno definisani period vremena salje zahtev za
+prekidom. Na taj nachin mozhe se meriti koliko vremena je proteklo od pochetka
+paljenja rachunara ili koliko se tachno vremena utroshilo na izvrshavanje nekog
+programa.\\
+
 {\eng c/timer.c}:\\
 
-
+Korish\/c1ene biblioteke:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer1.c}\srb\end{minipage}\smallskip
 
-
+Promenljive koje chuvaju broj otkucaja tajmera kao i vreme proteklo od paljenja
+rachunara. Primetimo konstantu koja definishe koliko je zapravo uchestalost
+ovog tajmera.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer2.c}\srb\end{minipage}\smallskip
 
+Funkcija koja {\eng handle}-uje prekid koji tajmer upuc1uje jezgru. Ova
+funckija ima zadatak da azhurira vreme proteklo od paljenja rachunara.
 
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer3.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer4.c}\srb\end{minipage}\smallskip
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer3.c}\srb\end{minipage}\smallskip
+Nashe jezgro inicijalizuje tajmer tako da ima 20 otkucaja u sekundi. {\eng PIT}
+chip sastoji se od oscilatora koji radi na frekvenciji od {\eng 1.193182 MHz}.
+Ukoliko tu vredonost podelimo sa brojem zheljenih otkucaja u sekundi, dobic1emo
+frekvenciju na kojoj chip treba da radi da bi generisao prekide u odredjenom
+vremenskom intervalu.
 
-
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer4.c}\srb\end{minipage}\smallskip
-
-
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer5.c}\srb\end{minipage}\smallskip
-
-
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer6.c}\srb\end{minipage}\smallskip
-
-
-
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer7.c}\srb\end{minipage}\smallskip
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer5.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer6.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer7.c}\srb\end{minipage}\smallskip
 
 %{\eng\url{https://wiki.osdev.org/PIT}}
 
@@ -1283,7 +1321,6 @@ koristimo globalne promenljive, kao i promenljive chiji zhivotni vek mora biti
 dugotrajniji od funkcije u kojoj je ta promenljiva nastala.\\
 
 {\eng c/heap.c}:\\
-
 
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap1.c}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap2.c}\srb\end{minipage}
@@ -1320,23 +1357,49 @@ dugotrajniji od funkcije u kojoj je ta promenljiva nastala.\\
 \section{{\eng Paging}}
 \medskip
 
+Stranichenje je sistem koji dozvoljava svakom procesu da koristi ceo prostor
+virtuelne memorije, bez da je ceo opseg dosupan. 32-bitni procesori podrzhavaju
+32-bitne virutelne adrese i {\eng 4GB} virtuelne memorije.\\
+
+Pored ovoga, stranichenje ima i prednost zashtite na nivou stranice. U ovom
+sistemu, korisnichki procesi mogu da vide i izmene samo podatke koji se nalaze
+na sopstvenom prostoru adrese, obezbedjujuc1i izolaciju na hardverskom nivou.\\
+
 {\eng c/paging.c}:\\
+
+Korish\/c1ene biblioteke:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging1.c}\srb\end{minipage}\smallskip
 
+Asemblerske funkcije koje uchitavaju tabelu koja odredjjuje koja virtuelna
+adresa se odnosi na koju fizichku, a zatim ukljuchuju stranichenje.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging2.c}\srb\end{minipage}\smallskip
+
+Niz u kome se chuvaju direktorijumi stranica. Svaki direktorijum mozhe da
+sadrzhi 1024 tabele stranica.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging3.c}\srb\end{minipage}\smallskip
 
+Funkcija koja postavlja vrednosti svih direktorijuma stranica koji se ne
+koriste na konstantu koja odredjuje da li je direktorijum uopshte sadrzhi
+tabele stranica.
+
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging4.c}\srb\end{minipage}\smallskip
+
+Niz u kome se chuvaju tabele stranica.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging5.c}\srb\end{minipage}\smallskip
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging6.c}\srb\end{minipage}\smallskip
+Funkcija koja postavlja vrednosti jedne tabele stranica na odredjeni opseg u
+fizichkoj memoriji dodeljen nekom procesu.
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging7.c}\srb\end{minipage}\smallskip
+\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging6.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging7.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging8.c}\srb\end{minipage}\smallskip
 
-\medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging8.c}\srb\end{minipage}\smallskip
+Glavna funkcija koja mapira svih {\eng 4GB} fizichke memorije na virtuelnu
+meomoriju sa istom adresom, a zatim ukljuchuje stranichenje.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging9.c}\srb\end{minipage}\smallskip
 
