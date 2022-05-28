@@ -495,6 +495,22 @@ Taj program se naziva {\eng Bootloader}.
 
 %{\eng\url{https://wiki.osdev.org/Boot_Sequence}}
 
+\section{{\eng MBR}}
+\medskip
+
+{\eng MBR (Master Boot Record)} je prvi sektor na hard disku. Sadrzhi {\eng
+bootloader} i tabelu particija. Od 512 bajtova koje chini sektor hard diska,
+440-446 bajtova je predvidjeno za {\eng bootloader}, 64 bajta za 4 primarne
+particije dok poslednja dva bajta sadrzhe konstante {\eng 0x55, 0xAA} koje
+identifikuju ovaj sektor kao validan {\eng boot} sektor.\\
+
+Noviji {\eng UEFI (Unified Extensible Firmware Interface)} sistemi umesto {\eng
+MBR} sadrzhe {\eng GPT (GUID partition table)} tabelu particija. {\eng UEFI}
+omoguc1ava particionisanje hard diskova vec1ih od {\eng 2TB}, kao i posedovanje
+vishe od 4 primarne particije.
+
+\newpage
+
 \section{{\eng Bootloader}}
 \medskip
 
