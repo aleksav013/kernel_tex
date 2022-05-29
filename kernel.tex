@@ -18,6 +18,7 @@
 % \usepackage[serbian,english]{babel}
 
 \renewcommand{\baselinestretch}{1}
+\usepackage[none]{hyphenat}
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage{amsmath}
@@ -120,7 +121,7 @@
 \bigskip
 
 Ideja za ovaj rad proizishla je iz ekstenzivnog korish\/c1enja {\eng GNU/Linux}
-sistema, kao i zhelja za razumevanjem rada rachunara na najnizhem nivou.\\
+sistema, kao i iz zhelje za razumevanjem rada rachunara na najnizhem nivou.\\
 
 Ceo kod je pisan u {\eng GNU Assembler}-u i {\eng C}-u i mozhe se nac1i na
 {\eng GitHub}-u na stranici {\eng\url{https://github.com/aleksav013/mykernel}}.
@@ -133,25 +134,24 @@ istovremeno pominju u ovom radu. Iz tog razloga, rad c1e biti napisan za
 verziju operativnog sistema 1.0.0. Na stranici {\eng GitHub}-a ova verzija se
 mozhe nac1i pod {\eng tag/s} sekcijom na stranici projekta.\\
 
-Radi laksheg kompajlovanja koda od strane chitaoca, kreiran je {\eng toolchain}
-- set alata, specifichno za kompajlovanje ovog operativnog sistema, koji se
-mozhe nac1i na stranici
-{\eng\url{https://github.com/aleksav013/aleksa-toolchain}},
-takodje dostupan pod {\eng GPLv3} licencom otvorenog koda. Set alata {\eng
+Radi laksheg prevodjenja koda od strane chitaoca, kreiran je {\eng toolchain} -
+skup alata, specifichno za prevodjenje ovog operativnog sistema, koji se mozhe
+nac1i na stranici {\eng\url{https://github.com/aleksav013/aleksa-toolchain}},
+takodje dostupan pod {\eng GPLv3} licencom otvorenog koda. Skup alata {\eng
 aleksa-toolchain} kreiran je takodje i iz razloga shto je zapravo neizbezhan
-proces kreiranja \text{{\eng cross-compiler}-a} - kompajlera koji kompajluje
-kod za drugi sistem/arhitekturu na trenutnom sistemu/arhitekturi. Na taj nachin
-i drugi ljudi osim autora mogu doprineti izradi i poboljshanju ovog operativnog
-sistema u buduc1nosti.\\
+proces kreiranja \text{{\eng cross-compiler}-a} - prevodioca koji prevodi kod
+za drugi sistem/arhitekturu na trenutnom sistemu/arhitekturi. Na taj nachin i
+drugi ljudi osim autora mogu da doprinesu izradi i poboljshanju ovog
+operativnog sistema u buduc1nosti.\\
 
-Ovaj projekat ima za cilj da prikazhe postupak kreiranja jednog za sada
-vrlo jednostavnog operativnog sistema, kao i da potkrepi chitaoce teorijom
-potrebnom za njegovo razumevanje.\\
+Ovaj projekat ima za cilj da prikazhe postupak izrade jednog za sada vrlo
+jednostavnog operativnog sistema, kao i da potkrepi chitaoce teorijom potrebnom
+za njegovo razumevanje.\\
 
 \newpage
 
 \begin{multicols}{2}
-Trenutno radi:
+Do sada uradjeno:
 \begin{itemize}
 \item {\eng Boot}
 \item {\eng VGA} izlaz
@@ -177,10 +177,7 @@ Planirano u blizhoj buduc1nosti:
 \end{multicols}
 
 O funkcionalnostima koje su implementirane, moc1i c1ete da saznate vishe u ovom
-radu. Autorov plan je da predstojec1e slobodno vreme nakon maturiranja i tokom
-studija, iskoristi na unapredjenje ovog malog operativnog sistema, i da u mu
-ovaj rad kao takav bude osnova za naredni.
-
+radu.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -188,7 +185,7 @@ ovaj rad kao takav bude osnova za naredni.
 \chapter{{\eng X86} arhitektura}
 \bigskip
 
-{\eng X86} je familija arhitektura {\eng CISC} seta instrukcija razvijena od
+{\eng X86} je familija arhitektura {\eng CISC} skupa instrukcija razvijena od
 strane Intel-a koja je bazirana na 8086 mikroprocesoru. 8086 je nastao 1978.
 kao shesnaestobitna ekstenzija 8080 osmobitnog mikroprocesora, da bi 1985.
 godine nastao 80386 sa velichinom registra od chak 32 bita. Svi procesori iz
@@ -279,11 +276,11 @@ arhitekturi, do nje mozhemo doc1i na sledec1a 4 nachina:
 \section{Registri opshte namene}
 \medskip
 
-Registri opshte namene imaju ulogu u chuvanju operandi i pokazivacha:
+Registri opshte namene imaju ulogu da chuvanju operande i pokazivache:
 \begin{itemize}
-\item Operandi za logichke i aritmetichke operacije
-\item Operandi za adresne kalkulacije
-\item Pokazivacha na memorijsku lokaciju
+\item Operande za logichke i aritmetichke operacije
+\item Operande za adresne kalkulacije
+\item Pokazivache na memorijsku lokaciju
 \end{itemize}
 
 Registri opshte namene se mogu koristiti proizvoljno prema potrebi. Medjutim,
@@ -291,7 +288,7 @@ dizajneri hardvera su uvideli da postoji moguc1nost daljih optimizacija ukoliko
 se svakom od ovih registara dodeli neka specifichna uloga u kojoj je malo bolji
 od ostalih registara opshte namene.\\
 
-Na taj nachin kompajleri vec1inu vremena kreiraju bolji asemblerski kod nego
+Na taj nachin prevodioci vec1inu vremena kreiraju bolji asemblerski kod nego
 ljudi, prosto iz razloga shto svaki od registara opshte namene takodje koriste
 i za njihovu specifichnu funkciju svaki put gde je to moguc1e.\\
 
@@ -302,9 +299,9 @@ Specifichna uloga registara opshte namene:
 \item {\eng ecx} - brojach za petlje i operacije nad stringovima
 \item {\eng edx} - pokazivach na U/I
 \item {\eng esi} - pokazivach na podatke na koji pokazuje {\eng ds} registar;
-    pochetni pokazivach za operacije nad stringovima
+pochetni pokazivach za operacije nad stringovima
 \item {\eng edi} - pokazivach na podatke u segmentu na koji pokazuje {\eng es}
-    registar; krajnji pokazivach za operacije nad stringovima
+registar; krajnji pokazivach za operacije nad stringovima
 \item {\eng esp} - pokazivach na pochetak steka
 \item {\eng ebp} - pokazivach na podatke u steku
 
@@ -314,22 +311,24 @@ Specifichna uloga registara opshte namene:
 \medskip
 
 Segmentni registri sadrzhe shesnaestobitne selektore segmenta. Selektor
-segmenta je specijalan pokazivach koji identifikuje segment u memoriji. Da bi
-pristupili odredjenom segmentu u memoriji, selektor segmenta koji pokazuje na
-taj segment mora biti dostupan u odgovarajuc1em segmentnom registru.
+segmenta je specijalan pokazivach koji identifikuje segment u memoriji. Da
+bismo pristupili odredjenom segmentu u memoriji, selektor segmenta koji
+pokazuje na taj segment mora biti dostupan u odgovarajuc1em segmentnom
+registru.
 
 Specifichna uloga segmentnih registara:
 \begin{itemize}
+
 \item {\eng cs - code segment}. {\eng cs} registar sadrzhi selektor segmenta
-    koji pokazuje na segment koda u kome se nalaze instrukcije koje se
-    izvrshavaju.
+koji pokazuje na segment koda u kome se nalaze instrukcije koje se izvrshavaju.
 \item {\eng ds - data segment}. Osim {\eng ds}, segmentni registri za segmente
-    podataka su i {\eng es, fs}, kao i {\eng gs}.
+podataka su i {\eng es, fs}, kao i {\eng gs}.
 \item {\eng ss - stack segment}. {\eng ss} registar sadrzhi selektor segmenta
-    koji pokazuje na segment steka gde se chuva stek programa koji se trenutno
-    izvrshava. Za razliku od registra za segment koda, {\eng ss} registar
-    se mozhe eksplicitno postaviti shto dozvoljava aplikacijama da postave
-    vishe stekova i da alterniraju izmedju njih.
+koji pokazuje na segment steka gde se chuva stek programa koji se trenutno
+izvrshava. Za razliku od registra za segment koda, {\eng ss} registar se mozhe
+eksplicitno postaviti shto dozvoljava aplikacijama da postave vishe stekova i
+da alterniraju izmedju njih.
+
 \end{itemize}
 
 
@@ -351,8 +350,8 @@ Operativni rezhimi procesora u {\eng X86} arhitekturi su:
 Realni rezhim je stanje procesora koje karakterishe 20-tobitna segmentirana
 memorija shto znachi da se mozhe adresirati samo malo vishe od jednog
 megabajta. Svi procesori pochev od 80286 zapochinju u ovom rezhimu nakon
-paljenja rachunara zbog kompatibilnosti. Da bismo mogli da adresiramo vishe
-memorije, potrebno je da koristimo segmentne registre.\\
+ukljuchivanja rachunara zbog kompatibilnosti. Da bismo mogli da adresiramo
+vishe memorije, potrebno je da koristimo segmentne registre.\\
 
 Postupak kojim iz realnog rezhima prelazimo u zashtic1eni rezhim naziva se
 daleki skok {\eng (far jump)} gde pri postavljanju segmentnih registara
@@ -365,8 +364,9 @@ segment koda u kome se nalaze instrukcije koje se trenutno izvrshavaju.
 
 Segmentacija je reshenje kojim se omoguc1ava adresiranje vishe memorije nego
 shto je to hardverski predvidjeno. Segmentacija se postizhe korish\/c1enjem
-{\eng offset}-a. Upravo smo uz pomoc1 segmenatcije u realnom rezhimu adresirali
-memoriju sa 20, umesto predvidjenih 16 bitova.
+{\eng offset}-a. {\eng Offset} je razlika trenutne i pochetne adrese. Upravo
+smo uz pomoc1 segmenatcije u realnom rezhimu adresirali memoriju sa 20, umesto
+predvidjenih 16 bitova.
 
 \subsection{{\eng Protected mode}}
 \smallskip
@@ -401,13 +401,13 @@ odgovarajuc1i dugachki rezhim.
 \subsection{{\eng Long mode}}
 \smallskip
 
-Sa vremenom, postalo je jasno da {\eng 4GB} adresibilne memorije koju nam
-pruzha 32-bitna {\eng X86} arhitektura nije dovoljno. Iz tog razloga nastao je
-{\eng long mode}. Dugachki rezhim je zapravo samo ekstenzija 32-bitnog seta
-instrukcija, ali za razliku od tranzicije sa 16-bitnog na 32-bitni set
+Vremenom je postalo jasno da {\eng 4GB} adresibilne memorije koju nam pruzha
+32-bitna {\eng X86} arhitektura nije dovoljno. Iz tog razloga nastao je {\eng
+long mode}. Dugachki rezhim je zapravo samo ekstenzija 32-bitnog skupa
+instrukcija, ali za razliku od tranzicije sa 16-bitnog na 32-bitni skupa
 instrukcija, sada je uklonjen veliki deo instrukcija. Ovo ne utiche na
 kompatibilnost sa starijim verzijama izvrshnih fajlova, ali menja nachin na
-koji asembler i kompajleri za novi kod moraju da funkcionishu.\\
+koji asembler i prevodioci za novi kod moraju da funkcionishu.\\
 
 Kreiranjem ove ekstenzije procesora nastala je i nova {\eng AMD64} arhitektura,
 koja je dobila ime upravo po {\eng AMD} kompaniji koja je dizajnirala ovu
@@ -450,16 +450,17 @@ PAE/NX}.
 
 \subsection{{\eng x87}}
 \small
+
 {\eng 87} je proshirenje za {\eng floating point} izrachunavanja. Iako je
 tehnichki ekstenzija, podrzhana je na vec1ini {\eng x86} procesora.
 
 \subsection{{\eng SSE}}
 \small
 
-{\eng SSE} je 128-bitno proshirenje za podatke. Dodaje 8-16 128-bitnih {\eng XMM}
-registra opshte namene i instrukcija za izvodjenje matematike {\eng SIMD}
-vektora. {\eng SSE} ima nekoliko verzija. {\eng x86-64} procesori su obavezni da
-podrzhavaju najmanje {\eng SSE2}.
+{\eng SSE} je 128-bitno proshirenje za podatke. Dodaje 8-16 128-bitnih {\eng
+XMM} registra opshte namene i instrukcija za izvodjenje matematike {\eng SIMD}
+vektora. {\eng SSE} ima nekoliko verzija. {\eng x86-64} procesori su obavezni
+da podrzhavaju najmanje {\eng SSE2}.
 
 \subsection{{\eng AVX}}
 \small
@@ -478,7 +479,7 @@ SSE} i implementira nekoliko 256-bitnih {\eng YMM} registara.
 \section{Redosled pokretanja}
 \medskip
 
-Od pritiska tastera za paljenje rachunara, pa do uchitavanja operativnog
+Od pritiska tastera za ukljuchivanje rachunara, pa do uchitavanja operativnog
 sistema postoji ceo jedan proces. Nakon pritiska tastera, rachunar prvo
 izvrshava {\eng POST (Power On Self Test)} rutinu, koja je jedna od pochetnih
 faza {\eng BIOS}-a {\eng (Basic Input Output System)}. U {\eng POST}-u,
@@ -486,8 +487,8 @@ rachunar pokushava da inicijalizuje komponente rachunarskog sistema jednu po
 jednu, i proverava da li one ispunjavaju sve uslove za startovanje rachunara.
 Ukoliko je ceo proces proshao bez greshaka, nastavlja se dalje izvrshavanje
 {\eng BIOS}-a. {\eng BIOS} sada ima ulogu da pronadje medijum koji sadrzhi
-program koji c1e uchitati jezgro operativnog sistema u ram memoriju rachunara.
-Taj program se naziva {\eng Bootloader}.
+program koji c1e uchitati jezgro operativnog sistema u {\eng RAM} memoriju
+rachunara. Taj program se naziva {\eng Bootloader}.
 
 %{\eng\url{https://wiki.osdev.org/Boot_Sequence}}
 
@@ -531,7 +532,7 @@ odeljku Korish\/c1eni alati.
 
 {\eng Multiboot} specifikacija je otvoreni standard koji jezgrima obezbedjuje
 ujednachen nachin pokretanja od strane {\eng bootloader}-a usaglashenih sa ovom
-specifikacijom. Jedna od prvih stvari koji svako jezgro uradi je postavljanje
+specifikacijom. Jedna od prvih stvari koju svako jezgro uradi je postavljanje
 konstanti definisanih {\eng multiboot} standardom da bi bilo prepoznato od
 strane {\eng bootloader}-a i da bi mu bilo predato dalje upravljanje.
 
@@ -539,22 +540,22 @@ strane {\eng bootloader}-a i da bi mu bilo predato dalje upravljanje.
 \medskip
 
 {\eng ELF} je format za skladishtenje programa ili fragmenata programa na
-disku, kreiran kao rezultat kompajlovanja i linkovanja. {\eng ELF} fajl je
+disku, kreiran kao rezultat prevodjenja i linkovanja. {\eng ELF} fajl je
 podeljen na odeljke. Za program koji mozhe da se izvrshi, postoje sledec1i
 odeljci: odeljak sa tekstom za kod, odeljak sa podacima za globalne promenljive
 i odeljak {\eng ".rodata" (read only data)} koji obichno sadrzhi konstantne
-niske. {\eng ELF} fajl sadrzhi zaglavlja koja opisuju kako ovi odeljci treba
-da budu uskladishteni u memoriji.\\
+niske. {\eng ELF} fajl sadrzhi zaglavlja koja opisuju kako ovi odeljci treba da
+budu uskladishteni u memoriji.\\
 
 Ovaj format definisan je u {\eng System V ABI} ({\eng System V Application
-Binary Interface})\cite{misc:3}, koji je set specifikacija koji definishe
-pozivanje funkcija, format objektnih fajlova, format fajlova koji mogu da se
-izvrshe, dinamichno linkovanje kao i mnoge druge.\\
+Binary Interface})\cite{misc:3}, koji predstavlja skup specifikacija koji
+definishe pozivanje funkcija, format objektnih fajlova, format fajlova koji
+mogu da se izvrshe, dinamichno linkovanje kao i mnoge druge.\\
 
 Funkcije arhitekture {\eng i386}, po konvenciji, povratne vrednosti celobrojnog
-tipa chuvaju u {\eng eax} registru, dok se vrednosti koje ne staju u 32
-bita {\eng eax} registra "prelivaju" u {\eng edx} registar. Ova informacija c1e
-nam biti kljuchna kada budemo pozivali funkcija napisane u {\eng C}-u iz {\eng
+tipa chuvaju u {\eng eax} registru, dok se vrednosti koje ne staju u 32 bita
+{\eng eax} registra "prelivaju" u {\eng edx} registar. Ova informacija c1e nam
+biti kljuchna kada budemo pozivali funkcije napisane u {\eng C}-u iz {\eng
 Assembler}-a.
 
 %{\eng\url{https://wiki.osdev.org/ELF}}
@@ -565,34 +566,32 @@ Assembler}-a.
 \chapter{Korish\/c1eni alati}
 \bigskip
 
-U daljem tekstu se mogu videti neki od alata korish\/c1enih pri kreiranju ovog
-rada. Vec1ina korish\/c1enih alata poseduje {\eng GPLv3} licencu.
-{\eng GNU Public Licence} je licenca otvorenog koda koja dozvoljava
-modifikovanje i distribuiranje koda sve dok je taj kod javno dostupan.
-Jedini programi sa ove liste koji nije kreirao {\eng GNU} su: {\eng QEMU}
-virtuelna mashina, {\eng git} i {\eng NeoVim} koji koriste {\eng GPLv2}
-licencu.\\
+U daljem tekstu se mogu videti neki od alata korish\/c1enih tokom izrade
+ovograda. Vec1ina korish\/c1enih alata poseduje {\eng GPLv3} licencu. {\eng GNU
+Public Licence} je licenca otvorenog koda koja dozvoljava modifikovanje i
+distribuiranje koda sve dok je taj kod javno dostupan. Jedini programi sa ove
+liste koje nije kreirao {\eng GNU} su: {\eng QEMU} virtuelna mashina, {\eng
+git} i {\eng NeoVim} koji koriste {\eng GPLv2} licencu.\\
 
 Operativni sistem korish\/c1en u izradi ovog projekta je {\eng Artix Linux}.
 {\eng Artix Linux} je {\eng GNU/Linux} distribucija bazirana na {\eng Arch
-Linux}-u.
-Vec1ina korish\/c1enih programa je vec1 kompajlovana i spremna za upotrebu i
-nalazi se u oficijalnim repozitorijima.\\
+Linux}-u. Vec1ina korish\/c1enih programa je vec1 prevedena i spremna za
+upotrebu i nalazi se na zvanichnim javno dostupnim lokacijama.\\
 
-Za programe koji su morali biti manuelno kompajlovani date su instrukcije u
-njihovoj podsekciji. {\eng Binutils} i {\eng GCC} su morali biti naknadno
-kompajlovani i to da ne bi koristili standardnu biblioteku koju
-nam je obezbedio operativni sistem domac1in (onaj na kome se kompajluje ovaj
-projekat), vec1 posebnu bibloteku kreiranu za ovo jezgro. Za ostale programe
-koji su korish\/c1eni preporuka je koristiti one koji su dostupni kao spremni
-paketi u izvorima odabrane distrubucije {\eng GNU/Linux}-a.
+Za programe koji su morali biti prevedeni date su instrukcije u njihovoj
+podsekciji. {\eng Binutils} i {\eng GCC} su morali da budu naknadno prevedeni i
+to da ne bi koristili standardnu biblioteku koju nam je obezbedio operativni
+sistem domac1in (onaj na kome se prevodi ovaj projekat), vec1 posebnu bibloteku
+kreiranu za ovo jezgro. Za ostale programe koji su korish\/c1eni preporuchena
+je upotreba onih koji su dostupni kao spremni paketi u izvorima odabrane
+distrubucije {\eng GNU/Linux}-a.
 
 \section{{\eng Binutils}}
 \medskip
 
 Izvorni kod softvera se mozhe nac1i na stranici
-{\eng\url{https://www.gnu.org/software/binutils/}},
-zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.\\
+{\eng\url{https://www.gnu.org/software/binutils/}}, zajedno sa uput\/stvom za
+prevodjenje i korish\/c1enje.\\
 
 Ovaj softverski paket sadrzhi programe neophodne za izradu programa od kojih su
 najkorish\/c1eniji asembler ({\eng as}), linker ({\eng ld}), kao i program za
@@ -601,27 +600,27 @@ kreiranje biblioteka ({\eng ar}).
 \subsection{Pre dodavanja {\eng C} biblioteke}
 \smallskip
 
-Iz razloga shto se ne koristi standardna biblioteka vec1 samostalno napisana
-specifichno za ovaj projekat, potrebno je manuelno kompajlovati {\eng GNU
+Kako se ne koristi standardna biblioteka, vec1 biblioteka koja je samostalno
+napisana specifichno za ovaj projekat, potrebno je prevesti {\eng GNU
 Binutils}. Medjutim, postoji moguc1nost korish\/c1enja vec1 spremnog paketa
 koji se za distribucije bazirane na {\eng Arch Linux}-u mozhe nac1i na stanici
 {\eng\url{https://aur.archlinux.org/packages/i686-elf-binutils/}}. Pojedine
-distribucije vec1 imaju ovaj paket kompajlovan, ali je preporuka manuelno
-kompajlovati da bi se izbegla nekompatibilnost, a i prosto iz razloga shto c1e
-nakon formiranja nashe {\eng C} biblioteke biti neophodno kompajlovati ovaj
-program za svaki sistem posebno.\\
+distribucije vec1 imaju ovaj paket preveden, ali je preporuka dodatno
+prevodjenje da bi se izbegla nekompatibilnost, a i zato shto c1e nakon
+formiranja nashe {\eng C} biblioteke biti neophodno prevesti ovaj program za
+svaki sistem posebno.\\
 
-Za one koje zhele sami da kompajluju {\eng binutils}, dat je deo instrukcija
-koji se razlikuje od uput\/stva datog na zvanichnom sajtu a tiche se
-konfigurisanja pre kompilacije.\\
+Za one koje zhele sami da prevedu {\eng binutils}, dat je deo instrukcija koji
+se razlikuje od uput\/stva datog na zvanichnom sajtu, a tiche se podeshavanja
+pre prevodjenja.\\
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/binutils/binutils1}\srb\end{minipage}\smallskip
 
 \subsection{Nakon dodavanja  {\eng C} biblioteke}
 \smallskip
 
-Nakon dodavanja nashe {\eng C} biblioteke potrebno je kompajlovati {\eng GNU
-Binutils} tako da tu biblioteku i koristi prilikom kompajlovanja nasheg
+Nakon dodavanja nashe {\eng C} biblioteke potrebno je prevesti {\eng GNU
+Binutils} tako da tu biblioteku i koristi prilikom prevodjenja nasheg
 operativnog sistema.
 
 \textbf{Napomena:} Potrebno je postaviti {\eng \$SYSROOT} na lokaciju koja
@@ -629,7 +628,7 @@ sadrzhi biblioteku. To je moguc1e uraditi na sledec1i nachin:\\
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/binutils/exportsysroot}\srb\end{minipage}\smallskip
 
-Instrukcije za kompajlovanje date su u nastavku.
+Instrukcije za prevodjenje date su u nastavku.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/binutils/binutils2}\srb\end{minipage}\smallskip
 
@@ -639,7 +638,7 @@ Instrukcije za kompajlovanje date su u nastavku.
 Iako trenutno postoje mnogo popularnije alternative poput {\eng NASM (Netwide
 Assembler)} i {\eng MASM (Microsoft Assembler)} koji koriste noviju Intelovu
 sintaksu, autor se ipak odluchio za {\eng GASM} zbog kompatibilnosti sa {\eng
-GCC} kompajlerom. {\eng GASM} koristi stariju {\eng AT\&T} sintaksu koju
+GCC} prevodiocem. {\eng GASM} koristi stariju {\eng AT\&T} sintaksu koju
 karakterishe: obrnut poredak parametara, prefiks pre imena registara i
 vrednosti konstanti, a i velichina parametara mora biti eksplicitno definisana.
 Zbog toga c1e mozhda nekim chitaocima biti koristan program {\eng intel2gas}
@@ -647,17 +646,17 @@ koji se za {\eng Arch Linux} mozhe nac1i na stanici
 {\eng\url{https://aur.archlinux.org/packages/intel2gas/}}, a koji prevodi
 rasprostranjeniju Intelovu sintaksu u {\eng AT\&T} sintaksu.\\
 
-{\eng GNU Assembler} je korish\/c1en za kompajlovanje dela koda
-napisanog u asembleru.
+{\eng GNU Assembler} je korish\/c1en za prevodjenja dela koda napisanog u
+asembleru.
 
 \subsection{{\eng GNU Linker}}
 \smallskip
 
-{\eng GNU Linker} je korish\/c1en za linkovanje, tj. "spajanje" svog
-kompajlovanog koda u jednu binarnu datoteku tipa {\eng ELF} koja predstavlja
-jezgro (kernel). Linker koristi {\eng src/linker.ld} skriptu koja definishe na
-koji nachin se pakuju sekcije objektnih fajlova, od koje memorijske lokacije
-pochinje uchitavanje jezgra, kao i koja je pochetna funkcija od koje krec1e
+{\eng GNU Linker} je korish\/c1en za linkovanje, tj. "spajanje" svog prevedenog
+koda u jednu binarnu datoteku tipa {\eng ELF} koja predstavlja jezgro (kernel).
+Linker koristi {\eng src/linker.ld} skriptu koja definishe na koji nachin se
+pakuju sekcije objektnih fajlova, od koje memorijske lokacije pochinje
+uchitavanje jezgra, kao i koja je pochetna funkcija od koje krec1e
 izvrshavanje. Ova skripta u stvari predstavlja recept za kreiranje navedene
 {\eng ELF} datoteke koja u nashem sluchaju chini operativni sistem.
 
@@ -665,22 +664,22 @@ izvrshavanje. Ova skripta u stvari predstavlja recept za kreiranje navedene
 \medskip
 
 Izvorni kod softvera se mozhe nac1i na stranici
-{\eng\url{https://gcc.gnu.org/}}, zajedno sa uput\/stvom za kompajlovanje i
+{\eng\url{https://gcc.gnu.org/}}, zajedno sa uput\/stvom za prevodjenje i
 korish\/c1enje.\\
 
 Isto kao i za {\eng GNU Binutils}, moguc1e je pronac1i vec1 spreman paket u
-pojedinim distribucijama, ali je preporuka manuelno kompajlovati iz
-prethodno navedenih razloga. Za {\eng Arch Linux} ovaj paket se mozhe nac1i na
-stanici {\eng\url{https://aur.archlinux.org/packages/i686-elf-gcc/}}.\\
+pojedinim distribucijama, ali je preporuka manuelno prevesti iz prethodno
+navedenih razloga. Za {\eng Arch Linux} ovaj paket se mozhe nac1i na stanici
+{\eng\url{https://aur.archlinux.org/packages/i686-elf-gcc/}}.\\
 
-{\eng GCC} je {\eng GNU}-ov set kompajlera koji je korish\/c1en za
-kompajlovanje ovog operativnog sistema.
+{\eng GCC} je {\eng GNU}-ov skup prevodioca koji je korish\/c1en za
+prevodjenje ovog operativnog sistema.
 
 \subsection{Pre dodavanja {\eng C} biblioteke}
 \smallskip
 
-Za one koje zhele sami da kompajluju {\eng GCC}, dat je deo instrukcija koji se
-razlikuje od uput\/stva datog na zvanichnom sajtu a tiche se konfigurisanja pre
+Za one koje zhele sami da prevedu {\eng GCC}, dat je deo instrukcija koji se
+razlikuje od uput\/stva datog na zvanichnom sajtu, a tiche se podeshavanja pre
 kompilacije.\\
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/gcc/gcc1}\srb\end{minipage}\smallskip
@@ -688,26 +687,25 @@ kompilacije.\\
 \subsection{Nakon dodavanja {\eng C} biblioteke}
 \smallskip
 
-Instrukcije za kompajlovanje nakon dodavanja biblioteke date su u nastavku.
+Instrukcije za prevodjenje nakon dodavanja biblioteke date su u nastavku.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/gcc/gcc2}\srb\end{minipage}\smallskip
 
-Kompajlovanje {\eng GCC}-a sa datim opcijama obezbedjuje nam korish\/c1enje
-date biblioteke umesto standardne koju nam je obezbedio operativni sistem
-domac1in.
+Prevodjenje {\eng GCC}-a sa datim opcijama obezbedjuje nam korish\/c1enje date
+biblioteke umesto standardne koju nam je obezbedio operativni sistem domac1in.
 
 \section{{\eng GRUB}}
 \medskip
 
 Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://www.gnu.org/software/grub/}}, zajedno sa uput\/stvom za
-kompajlovanje i korish\/c1enje.\\
+prevodjenje i korish\/c1enje.\\
 
 {\eng GRUB (GRand Unified Bootloader)} je {\eng bootloader} koji je
 korish\/c1en na ovom projektu. Trenutno korish\/c1ena verzija ovog softvera je
 {\eng GRUB 2}.
 
-Konfiguracioni fajl {\eng grub.cfg} definishe odakle ovaj {\eng bootloader} 
+Konfiguracioni fajl {\eng grub.cfg} definishe odakle ovaj {\eng bootloader}
 uchitava jezgro i koliki je vremenski okvir izmedju izbora jezgara odnosno
 operativnih sistema.
 
@@ -717,9 +715,9 @@ operativnih sistema.
 Vishe informacija o softveru se mozhe nac1i na stranici
 {\eng\url{https://www.qemu.org/}}, zajedno sa uput\/stvom za korish\/c1enje.\\
 
-{\eng QEMU} je virtuelna mashina u kojoj c1e jezgro biti testirano i
-prikazano zarad praktichnih razloga. {\eng QEMU} je odabran za ovaj projekat
-jer za razliku od drugih virtuelnih mashina poseduje {\eng cli (command line
+{\eng QEMU} je virtuelna mashina u kojoj c1e jezgro biti testirano i prikazano
+zarad praktichnih razloga. {\eng QEMU} je odabran za ovaj projekat jer za
+razliku od drugih virtuelnih mashina poseduje {\eng cli (command line
 interface)} iz koga se lako mozhe pozivati pomoc1u skripti kao shto su {\eng
 Makefile}-ovi.
 
@@ -727,32 +725,35 @@ Makefile}-ovi.
 \medskip
 
 Izvorni kod softvera se mozhe nac1i na stranici
-{\eng\url{https://www.gnu.org/software/make/}},
-zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.\\
+{\eng\url{https://www.gnu.org/software/make/}}, zajedno sa uput\/stvom za
+prevodjenje i korish\/c1enje.\\
 
 {\eng Make}\cite{book:78575} nam omoguc1ava da sa lakoc1om odrzhavamo i
-manipulishemo izvornim fajlovima. Moguc1e je sve kompajlovati, obrisati,
-kreirati {\eng iso} fajl kao i pokrenuti {\eng QEMU} virtuelnu mashinu sa samo
-jednom kljuchnom rechi u terminalu. Kreirani {\eng Makefile} za potrebe ovog
-projekta bic1e detaljno objashnjen u sekciji {\eng Build system}.
+manipulishemo izvornim fajlovima. Moguc1e je sve prevesti, obrisati, kreirati
+{\eng iso} fajl kao i pokrenuti {\eng QEMU} virtuelnu mashinu sa samo jednom
+kljuchnom rechi u terminalu. Napisani {\eng Makefile} za potrebe ovog projekta
+bic1e detaljno objashnjen u sekciji {\eng Build system}.
 
 \section{Manje bitni alati}
 \medskip
 
 \subsection{{\eng NeoVim}}
+\smallskip
+
 {\eng NeoVim} je uredjivach teksta nastao od {\eng Vim}-a ({\eng Vi improved})
 \cite{book:78583}. Konfiguracijski fajlovi autora, mogu se nac1i na
 {\eng\url{https://github.com/aleksav013/nvim}}, i imaju za cilj da stvore
 okruzhenje pogodno za rad na ovom projektu.
 
+
 \subsection{{\eng git}}
 \smallskip
 
-Kreator ovog programa je {\eng Linus Torvalds}, chovek koji je kreirao {\eng
-Linux} kernel. Izvorni kod softvera se mozhe nac1i na stranici
+Kreator ovog programa je {\eng Linus Torvalds}, koji je kreirao {\eng Linux}
+jezgro. Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://git.kernel.org/pub/scm/git/git.git}}.\\
 
-{\eng Git} je program koji nam pomazhe da odrzhavamo izvodne fajlove
+{\eng Git} je program koji nam pomazhe da odrzhavamo izvorne fajlove
 sinhronizovanim sa repozitorijumom. Osim toga znachajan je i njegov sistem
 kontrole verzija - moguc1nost da se za svaku promenu ({\eng commit}) vidi
 tachno koji su se fajlovi izmenili i koja je razlika izmedju neke dve verzije
@@ -762,8 +763,8 @@ projekta.
 \smallskip
 
 Izvorni kod softvera se mozhe nac1i na stranici
-{\eng\url{https://www.gnu.org/software/xorriso/}},
-zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.\\
+{\eng\url{https://www.gnu.org/software/xorriso/}}, zajedno sa uput\/stvom za
+prevodjenje i korish\/c1enje.\\
 
 Sluzhi za kreiranje {\eng ISO} fajlova koji se mogu "narezati" na {\eng CD}
 disk ili {\eng USB} flesh i koji se kasnije mogu koristiti kao optichki disk
@@ -773,8 +774,8 @@ koji sadrzhi sve shto je neophodno za uspeshno podizanje sistema.
 \smallskip
 
 Izvorni kod softvera se mozhe nac1i na stranici
-{\eng\url{https://www.sourceware.org/gdb/}},
-zajedno sa uput\/stvom za kompajlovanje i korish\/c1enje.\\
+{\eng\url{https://www.sourceware.org/gdb/}}, zajedno sa uput\/stvom za
+prevodjenje i korish\/c1enje.\\
 
 {\eng GDB} je {\eng GNU}-ov {\eng debugger} koji sluzhi za pronalazhenje
 greshaka u kodu, kao i aktivno prac1enje izvrshavanja programa (u ovom sluchaju
@@ -799,9 +800,9 @@ primer principa koji su prikazani u njegovoj knjizi "Operativni sistemi: Dizajn
 i Implementacija" ({\eng Operating Systems: Design and
 Implementation})\cite{book:1400099}. Osim ove knjige, Tanenbaum napisao je i
 mnoge druge koje mogu biti od koristi svima koji zhele da se bave dizajnom
-operativnih sistema\cite{book:821745}\cite{book:915673}.
-Zanimljiva chinjenica je da je {\eng Minix} najpopularniji operativni sistem
-chije jezgro koristi mikrokernelsku arhitekturu.\\
+operativnih sistema\cite{book:821745}\cite{book:915673}. Zanimljiva chinjenica
+je da je {\eng Minix} najpopularniji operativni sistem chije jezgro koristi
+mikrokernelsku arhitekturu.\\
 
 Spekulishe se da svi Intelovi procesori nakon {\eng Core2Duo} serije koji imaju
 chip pod nazivom {\eng Intel ME (Intel Managment Engine)}, zapravo pokrec1u
@@ -812,28 +813,29 @@ najkorish\/c1enijim operativnim sistemom ikada.
 \section{{\eng Linux}}
 \medskip
 
-Vec1 duzhe od dve godine koristim operativni sistem sa {\eng Linux} jezgrom
-shto je bio i glavni razlog zashto sam izabrao rad na ovu temu.
-U toku izrade ovog projekta, pozheleo sam da bolje razumem kako funkcionishe
-izrada {\eng Linux} kernela i kako je to "zajednica" ona koja ga pokrec1e i
-odrzhava, a ne neka velika korporacija. Stoga sam odluchio da dam svoj doprinos 
-i poslao sam nekoliko zakrpa ({\eng patch}-eva) koji su primljeni i
-implemetirani u novoj 5.17 verziji {\eng Linux} kernela. Ovo iskustvo pokazalo
-mi je koliko je ozbiljna organizacija koja stoji iza celog tog projekta i
-koliko je bitno raditi na svim sferama nekog projekta kao shto su i izrada
-dokumentacije i spremnost da se edukuju i zainteresuju mladi ljudi kojima c1e
-ovakvo iskustvo znachiti u daljem profesionalnom usavrshavanju. Drago mi je
-shto me je ovaj projekat odvazhio da nachinim taj korak i doprinesem mozhda
-najvec1em softverskom projektu ikada.
+Autor rada vec1 duzhe od dve godine koristi operativni sistem sa {\eng Linux}
+jezgrom shto je bio i glavni razlog zashto je izabrao rad na ovu temu. U toku
+izrade ovog projekta, autor je pozheleo da bolje razume kako funkcionishe
+izrada {\eng Linux} jezgra i kako je to "zajednica" ona koja ga pokrec1e i
+odrzhava, a ne neka velika korporacija. Stoga je odluchio da da svoj doprinos i
+poslao je nekoliko zakrpa ({\eng patch}-eva) koji su primljeni i implemetirani
+u novoj 5.17 verziji {\eng Linux} jezgra. Ovo iskustvo pokazalo mu je koliko je
+ozbiljna organizacija koja stoji iza celog tog projekta i koliko je bitno
+raditi na svim sferama nekog projekta kao shto su i izrada dokumentacije i
+spremnost da se edukuju i zainteresuju mladi ljudi kojima c1e ovakvo iskustvo
+znachiti u daljem profesionalnom usavrshavanju. Autoru je drago shto ga je ovaj
+projekat odvazhio da nachini taj korak i doprinesem mozhda najvec1em
+softverskom projektu ikada.
 
 \section{{\eng BSD}}
 \medskip
+
 Najpopularniji {\eng BSD} operativni sistemi su redom {\eng
 FreeBSD\cite{book:1310096}, OpenBSD} i {\eng NetBSD}. Svaki od njih ima
-razlichite ciljeve, ali se svi slazhu u jednom: softver mora ostati minimalan.
-Svi ovi operativni sistemi svoje sistemske programe i biblioteke imaju napisano
-u duplo, ako ne i nekoliko puta manje linija koda nego {\eng GNU/Linux}. To ih
-chini mnogo lakshim za odrzhavanje, ali i mnogo sigurnijim.\\
+razlichite ciljeve, ali su svi saglasni u jednom: softver mora ostati
+minimalan. Svi ovi operativni sistemi svoje sistemske programe i biblioteke
+imaju napisano u duplo, ako ne i nekoliko puta manje linija koda nego {\eng
+GNU/Linux}. To ih chini mnogo lakshim za odrzhavanje, ali i mnogo sigurnijim.\\
 
 {\eng BSD} operativni sistemi razlikuju se od {\eng GNU/Linux}-a po tome shto
 su kod {\eng BSD}-a jezgro i korisnichki programi celina koja je nastala od
@@ -847,12 +849,12 @@ uskladi, a potom i implementira datu promenu. \\
 Takodje osim gore navedenih razlika, josh jedna veoma bitna razlika je to shto
 {\eng BSD} koristi {\eng MIT} licencu dok {\eng GNU/Linux} koristi {\eng
 GPLv2/GPLv3} licencu. To znachi da za {\eng BSD} sisteme nakon modifikacije ne
-moramo uchiniti kod javno dostupnim. Ta chinjenica chini {\eng BSD}
-vrlo primamljivim za velike korporacije koje na taj nachin svoja softverska
-reshenja mogu bazirati na vec1 postojec1im. Tako na primer mnoge konzole
-pokrec1u upravo izmenjenu verziju {\eng FreeBSD}-a, dok sa druge strane imamo i
-kompanije poput {\eng Apple}-a koja takodje koristi {\eng FreeBSD}, ali kao
-podlogu za svoje operativne sisteme za rachunare i mobilne telefone.
+moramo uchiniti kod javno dostupnim. Ta chinjenica chini {\eng BSD} vrlo
+primamljivim za velike korporacije koje na taj nachin svoja softverska reshenja
+mogu bazirati na vec1 postojec1im. Tako na primer mnoge konzole pokrec1u upravo
+izmenjenu verziju {\eng FreeBSD}-a, dok sa druge strane imamo i kompanije poput
+{\eng Apple}-a koja takodje koristi {\eng FreeBSD}, ali kao podlogu za svoje
+operativne sisteme za rachunare i mobilne telefone.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -861,17 +863,17 @@ podlogu za svoje operativne sisteme za rachunare i mobilne telefone.
 \chapter{{\eng Build system}}
 \bigskip
 
-Sistem koji kreira {\eng toolchain} koji se koristi za kompajlovanje,
-linkovanje i kreiranje upotrebljivog operativnog sistema u {\eng ISO} formatu.
-Osim seta alata mozhe se videti i {\eng Makefile} koji pamti na koji se tachno
-nachin koristi taj set alata da bi se izgradilo jezgro.
+Sistem koji kreira {\eng toolchain} koji se koristi za prevodjenje, linkovanje
+i izradu upotrebljivog operativnog sistema u {\eng ISO} formatu. Osim skupa
+alata mozhe se videti i {\eng Makefile} koji pamti na koji se tachno nachin
+koristi taj skup alata da bi se izgradilo jezgro.
 
 \section{{\eng aleksa-toolchain}}
 \medskip
 
 U sklopu ovog projekta nastao je i {\eng aleksa-toolchain}, kao i {\eng
-shell}\cite{book:2751214} skripta koja kreira taj {\eng toolchain} (set alata)
-koji se dalje koristi za kompajlovanje jezgra.
+shell}\cite{book:2751214} skripta koja kreira taj {\eng toolchain} (skup alata)
+koji se dalje koristi za prevodjenje jezgra.\\
 
 U tekstu koji sledi mozhe se videti koje sve funkcije skripta sadrzhi.
 
@@ -879,20 +881,20 @@ U tekstu koji sledi mozhe se videti koje sve funkcije skripta sadrzhi.
 
 Skripta prvo skida izvorni kod {\eng binutils}-a i {\eng GCC}-a, ekstraktuje iz
 arhive, a zatim je {\eng patch}-uje (primenjuje skup izmena). Nakon toga
-korish\/c1enjem {\eng GCC} kompajlera na {\eng host} sistemu, kompajluje se
-poseban {\eng GCC} kompajler koji sluzhi za kompajlovanje izvornog koda
-namenjenog jezgru ovog operativnog sistema. Nakon toga on se instalira na
-put {\eng /opt/aleksa/usr/bin/}, gde se nalazi novi {\eng \$SYSROOT} koji
-koristi {\eng Makefile} za izgradnju jezgra.
+korish\/c1enjem {\eng GCC} prevodioca na {\eng host} sistemu, prevodi se
+poseban {\eng GCC} prevodioc koji sluzhi za prevodjenja izvornog koda
+namenjenog jezgru ovog operativnog sistema. Nakon toga on se instalira na put
+{\eng /opt/aleksa/usr/bin/}, gde se nalazi novi {\eng \$SYSROOT} koji koristi
+{\eng Makefile} za izgradnju jezgra.
 
 \section{{\eng Makefile}}
 \medskip
 
 {\eng Makefile} je fajl koji kontrolishe ponashanje {\eng make} komande u
-terminalu. Svaki {\eng Makefile} sadrzhi neki set pravila koji definishe proces
-koji se pokrec1e ukucavanjem komande {\eng make $<$ime\_pravila$>$}. U tekstu
-koji sledi mozhe se videti koji je to set pravila koja su definisana za ovaj
-projekat.\\
+terminalu. Svaki {\eng Makefile} sadrzhi neki skup pravila koji definishu
+proces koji se pokrec1e ukucavanjem komande {\eng make $<$ime\_pravila$>$}. U
+tekstu koji sledi mozhemo da vidimo koji je to skup pravila koja su definisana
+za ovaj projekat.\\
 
 {\eng Makefile}:
 
@@ -900,7 +902,7 @@ projekat.\\
 
 \newpage
 
-Osim navedenog seta pravila, u {\eng Makefile}-u mozhemo definisati neke
+Osim navedenog skupa pravila, u {\eng Makefile}-u mozhemo definisati neke
 promenljive koje bi nam omoguc1ile krac1i zapis, izbegavanje ponavljanja
 konstanti, kao i znachajno lakshe menjanje istih. One funkcionishu na slichan
 nachin kao i pretprocesorske direktive u {\eng C}-u. Primetimo da ispred nekih
@@ -911,7 +913,7 @@ poziv {\eng Makefile}-a.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make,linerange={0-22}]{include/00.build/Makefile}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=make,linerange={25-40}]{include/00.build/Makefile}\srb\end{minipage}\smallskip
 
-Mozhemo videti da je ovo kompleksnija forma {\eng Makefile}-a jer sadrzhi
+Mozhemo da vidimo da je ovo kompleksnija forma {\eng Makefile}-a jer sadrzhi
 proces rekurzivnog pozivanja {\eng \$(MAKE)} komande. To znachi da ovaj
 projekat sadrzhi vishe razlichitih {\eng Makefile}-ova za svaki deo projekta,
 shto je i standardna procedura pri velikim projektima kao shto je ovaj.
@@ -949,9 +951,9 @@ LaTeX}-u ima svoj {\eng Makefile}:
 
 Rad je prvobitno bio zamishljen kao postupno izlaganje nastajanja ovog
 operativnog sistema, ali se kasnije autor odluchio da ipak izlozhi samo
-trenutnu verziju rada, s obrzirom na to da bi rad bio nepotrebno duzhi.
-Jezgro je, kao shto je vec1 recheno napisano u asembleru i {\eng C} programskom
-jeziku\cite{book:441007}\cite{book:690930}.
+trenutnu verziju rada, s obrzirom na to da bi rad bio nepotrebno duzhi. Jezgro
+je, kao shto je vec1 recheno napisano u asembleru i programskom jeziku {\eng C}
+\cite{book:441007}\cite{book:690930}.
 
 \section{Pochetak}
 \medskip
@@ -1013,8 +1015,8 @@ zauzimaju promenljive.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga2.c}\srb\end{minipage}\smallskip
 
-4 znachajnija bita oznachavaju boju pozadine, dok ostala 4 bita oznachavaju
-boju karaktera.
+Chetiri znachajnija bita oznachavaju boju pozadine, dok ostala chetiri bita
+oznachavaju boju karaktera.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga3.c}\srb\end{minipage}\smallskip
 
@@ -1022,8 +1024,8 @@ boju karaktera.
 
 Na {\eng VGA} izlaz ispisujemo karaktere tako shto pochev od adrese {\eng
 0xB80000} pishemo shesnaestobitne vrednosti koje se prevode u karaktere i
-njihovu boju. 8 znachajnijih bitova odredjuju boju karaktera dok preostalih 8
-bitova oznachavaju karakter.
+njihovu boju. osam znachajnijih bitova odredjuju boju karaktera dok preostalih
+osam bitova oznachavaju karakter.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga5.c}\srb\end{minipage}\smallskip
 
@@ -1080,18 +1082,18 @@ segmentima memorije.\\
 
 {\eng src/include/source/gdt.h}:\\
 
-Koristimo {\eng \#ifndef} i {\eng \#define} direktive da bi se osigurali da se
-ovaj fajl ukljuchuje ({\eng include}-uje) samo jednom u toku celog rada
+Koristimo {\eng \#ifndef} i {\eng \#define} direktive kako bismo osigurali da
+se ovaj fajl ukljuchuje ({\eng include}-uje) samo jednom u toku celog rada
 operativnog sistema. Ove direktive deluju kao osigurach koji preskache sve
 deklaracije ukoliko su one vec1 definisane pod tim imenom.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt1.h}\srb\end{minipage}\smallskip
 
 Autor je kreirao biblioteku {\eng types.h} da bi od\/jednom dodao sve
-kompajlerske biblioteke koje definishu vrste promenljivih kao shto su
-{\eng int, uint16\_t, bool,...}, kao i konstante kao shto su {\eng true, false,
-UINT16\_MAX...}. Na taj nachin u jednom redu se dodaju sve biblioteke zaduzhene
-za to, dok se chitljivost rada povec1ava.
+biblioteke koje definishu vrste promenljivih kao shto su {\eng int, uint16\_t,
+bool,...}, kao i konstante kao shto su {\eng true, false, UINT16\_MAX...}. Na
+taj nachin u jednom redu se dodaju sve biblioteke zaduzhene za to, dok se
+chitljivost rada povec1ava.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt2.h}\srb\end{minipage}\smallskip
 
@@ -1123,11 +1125,11 @@ izvornog fajla.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt1.c}\srb\end{minipage}\smallskip
 
 Funkcija napisana u {\eng Assembler}-u koja uchitava tabelu deskriptora u
-\text predvidjeni registar.
+predvidjeni registar.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt2.c}\srb\end{minipage}\smallskip
 
-Tabela segmenata i pokazivach na nju koji se prosledjuje prethodno pomenutoj 
+Tabela segmenata i pokazivach na nju koji se prosledjuje prethodno pomenutoj
 funkciji.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt3.c}\srb\end{minipage}\smallskip
@@ -1169,7 +1171,7 @@ obezbedi operativnom sistemu oporavak od greshke.\\
 {\eng src/include/source/idt.h}:\\
 
 Direktive koje se dalje ponavljaju u svakom {\eng header} fajlu. Dalje
-pozivanje direktiva c1e biti izostavljeno, radi sushtine.
+pozivanje direktiva c1e biti izostavljeno, zbog obima rada.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt1.h}\srb\end{minipage}\smallskip
 
@@ -1203,7 +1205,7 @@ Prototipi funkcija koji su korish\/c1eni u sledec1em poglavlju.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt8.h}\srb\end{minipage}\smallskip
 
 Direktive koje se dalje ponavljaju u svakom {\eng header} fajlu. Dalje
-pozivanje direktiva c1e biti izostavljeno, radi sushtine.
+pozivanje direktiva c1e biti izostavljeno, zbog obima rada.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/04.idt/idt9.h}\srb\end{minipage}\smallskip
 
@@ -1217,8 +1219,8 @@ Korish\/c1ene biblioteke:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt1.c}\srb\end{minipage}\smallskip
 
-Asemblerska funkcija koja uchitava pokazivach na tabelu prekida u
-predvidjeni registar.
+Asemblerska funkcija koja uchitava pokazivach na tabelu prekida u predvidjeni
+registar.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt2.c}\srb\end{minipage}\smallskip
 
@@ -1315,8 +1317,8 @@ na tastaturi.
 
 Funkcija koja odredjuje ponashanje jezgra nakon pritiska tastera sa strelicom
 okrenutom ka gore, na tastaturi. Nakon pritiska tastera, u trenutni bafer se
-uchitava prethodno izvrshena komanda. Na taj nachin korisnik mozhe dopuniti
-ili izmeniti prethodnu komandu.
+uchitava prethodno izvrshena komanda. Na taj nachin korisnik mozhe dopuniti ili
+izmeniti prethodnu komandu.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard10.c}\srb\end{minipage}\smallskip
 
@@ -1347,14 +1349,13 @@ pritisnut na tastaturi.\\
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard16.c}\srb\end{minipage}\smallskip
 
-U kodu koji sledi se mozhe videti kako se na primer neka kombinacija karaktera
+U kodu koji sledi mozhe da se vidi kako se na primer neka kombinacija karaktera
 mozhe iskoristiti za definisanje prechica na tastaturi.\\
 
 Na primer ukoliko korisnik drzhi {\eng shift} taster na tastaturi dok pritiska
 druge tastere, ispisivac1e se velika slova, ili sekundarni karakteri, koji su
-predvidjeni za taj taster. Isto tako, ukoliko korisnik drzhi {\eng ctrl}
-taster i pritisne {\eng L} na tastaturi, pozvac1e se funkcija koja "ochisti"
-ekran.
+predvidjeni za taj taster. Isto tako, ukoliko korisnik drzhi {\eng ctrl} taster
+i pritisne {\eng L} na tastaturi, pozvac1e se funkcija koja "ochisti" ekran.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard17.c}\srb\end{minipage}\smallskip
 
@@ -1367,9 +1368,9 @@ ekran.
 
 {\eng PIT (Programmable Interval Timer)} je programabilni tajmer koji se mozhe
 podesiti tako da na tachno definisani period vremena shalje zahtev za prekidom.
-Na taj nachin mozhe se meriti koliko vremena je proteklo od pochetka paljenja
-rachunara ili koliko se tachno vremena utroshilo na izvrshavanje nekog
-programa.\\
+Na taj nachin mozhe se meriti koliko vremena je proteklo od pochetka
+ukljuchivanja rachunara ili koliko se tachno vremena utroshilo na izvrshavanje
+nekog programa.\\
 
 {\eng src/c/timer.c}:\\
 
@@ -1377,14 +1378,14 @@ Korish\/c1ene biblioteke:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer1.c}\srb\end{minipage}\smallskip
 
-Promenljive koje chuvaju broj otkucaja tajmera kao i vreme proteklo od paljenja
-rachunara. Primetimo konstantu koja definishe kolika je zapravo uchestalost
-ovog tajmera.
+Promenljive koje chuvaju broj otkucaja tajmera kao i vreme proteklo od
+ukljuchivanja rachunara. Primetimo konstantu koja definishe kolika je zapravo
+uchestalost ovog tajmera.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer2.c}\srb\end{minipage}\smallskip
 
 Funkcija koja {\eng handle}-uje prekid koji tajmer upuc1uje jezgru. Ova
-funckija ima zadatak da azhurira vreme proteklo od paljenja rachunara.
+funckija ima zadatak da azhurira vreme proteklo od ukljuchivanja rachunara.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer3.c}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/07.pit/timer4.c}\srb\end{minipage}\smallskip
@@ -1401,10 +1402,10 @@ vremenskom intervalu.
 
 %{\eng\url{https://wiki.osdev.org/PIT}}
 
-\section{{\eng Heap}}
+\section{Hip}
 \medskip
 
-{\eng Heap} za ovo jezgro koristi algoritam\cite{book:1412} bitmape da bi na
+Hip za ovo jezgro koristi algoritam\cite{book:1412} bitmape da bi na
 najefikasniji nachin sachuvalo podatke o trenutno korish\/c1enim blokovima. Hip
 nam sluzhi da bismo dinamichki alocirali memoriju, tj. da bismo mogli da
 koristimo globalne promenljive, kao i promenljive chiji zhivotni vek mora biti
@@ -1502,10 +1503,10 @@ memoriju sa istom adresom, a zatim ukljuchuje stranichenje.
 %{\eng\url{https://wiki.osdev.org/Creating_a_C_Library}}
 
 Zbog vec1 do sada velike opshirnosti rada, ovde c1e biti prikazana samo
-minimalna {\eng C} biblioteka potrebna za kompajlovanje jezgra operativnog
+minimalna {\eng C} biblioteka potrebna za prevodjenje jezgra operativnog
 sistema. Primetimo da neki od fajlova moraju samo postojati, tj. mogu biti i
 prazni. Ova biblioteka osim postojanja odredjenih {\eng header} fajlova
-podrazumeva i prototipe funkcija i struktura bez kojih se nec1e kompajlovati.
+podrazumeva i prototipe funkcija i struktura bez kojih se nec1e prevoditi.
 
 {\eng src/include/errno.h}:
 
@@ -1565,23 +1566,23 @@ objedinjuje sve funkconalnosti koje smo do sada implementirali.
 \chapter{Zakljuchak}
 
 Danas, kada postoje mnogobrojni vishi programski jezici, kreiranje operativnog
-sistema je vrlo tezhak izazov za koji se vrlo malo ljudi opredeljuje. Medjutim,
-za mene, ovo je jedno vrlo ohrabrujuc1e iskustvo sa kojim tek nekolicina mozhe
-da se pohvali. Zheleo bih da u buduc1nosti primarno programiram u nizhim
-programskim jezicima kao shto su {\eng Assembler} i {\eng C}, prosto iz razloga
-shto smatram da je to jedini nachin da se na duzhe staze izvojeva pobeda po
-pitanju performansi u odnosu na neke apstraktnije programske jezike. Osec1aj
-koji donosi chinjenica da se moj kod izvrshava direktno na hardveru bez bilo
-kakvog posrednika je meni od neprocenljivog znachaja.\\
+sistema je vrlo tezhak izazov za koji se vrlo malo ljudi opredeljuje.
+Medjutim, za mene, ovo je jedno vrlo ohrabrujuc1e iskustvo sa kojim tek
+nekolicina mozhe da se pohvali. Author bi zheleo da u buduc1nosti primarno
+programira u nizhim programskim jezicima kao shto su {\eng Assembler} i {\eng
+C}, prosto iz razloga shto smatra da je to jedini nachin da se na duzhe staze
+izvojeva pobeda po pitanju performansi u odnosu na neke apstraktnije programske
+jezike. Osec1aj koji donosi chinjenica da se autorov kod izvrshava direktno na
+hardveru bez bilo kakvog posrednika autoru je od neprocenljivog znachaja.\\
 
 Da bih odvazhio chitaoce, kao i sve druge koje ova tema zanima, da se i sami
-oprobaju u izradi operativnog sistema, sve izvorne fajlove ovog projekta
-objavio sam pod {\eng GPLv3} licencom, kao i sve svoje dosadashnje projekte, na
-stranici {\eng\url{https://github.com/aleksav013}}. Svi moji projekti su {\eng
-open source} shto znachi da kod mozhe posluzhiti svakome ko zheli da sazna
-neshto vishe.\\
+oprobaju u izradi operativnog sistema, autor je sve izvorne fajlove ovog
+projekta objavio pod {\eng GPLv3} licencom, kao i sve svoje dosadashnje
+projekte, na stranici {\eng\url{https://github.com/aleksav013}}. Svi autorovi
+projekti su {\eng open source} shto znachi da kod mozhe posluzhiti svakome ko
+zheli da sazna neshto vishe.\\
 
-U toku izrade suochio sam se sa mnogobrojnim problemima. Najtezhi deo je bio
+U toku izrade autor se suochio sa mnogobrojnim problemima. Najtezhi deo je bio
 isplovljavanje i zapochinjanje ove ekspedicije. More informacija i standarda
 koji su morali biti zadovoljeni samo da bi se sistem pokrenuo, a zatim i
 ispisao neku korisnu informaciju, a kamoli neshto vishe. Najtezhe je bilo to
@@ -1598,6 +1599,10 @@ softvera. Drago mi je shto sam odabrao ovako tezhak projekat za maturski rad iz
 razloga shto mi je to pomoglo da probijem barijeru i ulozhim puno truda da bih
 zapravo razumeo kako rade operativni sistemi i koliko je sofisticiran njihov
 dizajn.\\
+
+Autorov plan je da predstojec1e slobodno vreme nakon maturiranja i tokom
+studija, iskoristi na unapredjenje ovog malog operativnog sistema, i da u mu
+ovaj rad kao takav bude osnova za naredni.
 
 Izabrao sam ovu temu iz razloga shto istovremeno povezuje {\eng Linux} i
 programiranje u {\eng C} programskom jeziku, moje trenutno dve omiljene stvari,
