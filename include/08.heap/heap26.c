@@ -1,4 +1,1 @@
-void kheapinit()
-{
-    k_heapBMInit(&kheap);
-}
+KHEAPBM kheap;

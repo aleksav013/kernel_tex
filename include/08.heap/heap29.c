@@ -1,4 +1,4 @@
-void kfree(void *ptr)
+void *kmalloc(uint32_t size)
 {
-    k_heapBMFree(&kheap,ptr);
+    return k_heapBMAlloc(&kheap,size);
 }

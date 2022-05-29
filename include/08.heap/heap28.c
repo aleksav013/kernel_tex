@@ -1,4 +1,4 @@
-void *kmalloc(uint32_t size)
+int kheapaddblock(uintptr_t addr,uint32_t size,uint32_t bsize)
 {
-    return k_heapBMAlloc(&kheap,size);
+    return k_heapBMAddBlock(&kheap,addr,size,bsize);
 }

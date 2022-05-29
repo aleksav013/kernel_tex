@@ -133,13 +133,13 @@ istovremeno pominju u ovom radu. Iz tog razloga, rad c1e biti napisan za
 verziju operativnog sistema 1.0.0. Na stranici {\eng GitHub}-a ova verzija se
 mozhe nac1i pod {\eng tag/s} sekcijom na stranici projekta.\\
 
-Radi laksheg prevodjenja koda od strane chitaoca, kreiran je {\eng toolchain} -
-skup alata, specifichno za prevodjenje ovog operativnog sistema, koji se mozhe
-nac1i na stranici {\eng\url{https://github.com/aleksav013/aleksa-toolchain}},
-takodje dostupan pod {\eng GPLv3} licencom otvorenog koda. Skup alata {\eng
+Radi laksheg prevodjenja koda, kreiran je {\eng toolchain} - skup alata,
+specifichno za prevodjenje ovog operativnog sistema, koji se mozhe nac1i na
+stranici {\eng\url{https://github.com/aleksav013/aleksa-toolchain}}, takodje
+dostupan pod {\eng GPLv3} licencom otvorenog koda. Skup alata {\eng
 aleksa-toolchain} kreiran je takodje i iz razloga shto je zapravo neizbezhan
-proces kreiranja \text{{\eng cross-compiler}-a} - prevodioca koji prevodi kod
-za drugi sistem/arhitekturu na trenutnom sistemu/arhitekturi. Na taj nachin i
+proces izrade \text{{\eng cross-compiler}-a} - prevodioca koji prevodi kod za
+drugi sistem/arhitekturu na trenutnom sistemu/arhitekturi. Na taj nachin i
 drugi ljudi osim autora mogu da doprinesu izradi i poboljshanju ovog
 operativnog sistema u buduc1nosti.\\
 
@@ -207,7 +207,7 @@ imenom 80386 shto oznachava trec1u generaciju {\eng X86} arhitekture.
 
 Postoji vishe vrsta registara procesora\cite[75]{misc:1}. Neki od osnovnih
 registara koje je potrebno pomenuti dati su u tekstu koji sledi. Razlog zbog
-kojeg su navedena i imena registara prethodnih verzija {\eng X86} arhitekture
+kojeg su navedena i imena registara prethodnih verzija {\eng X86} arhitekture,
 je zbog toga shto je moguc1e adresirati prvih {\eng x} bitova, ako se koristi
 ime registra za {\eng x}-tobitnu verziju {\eng X86} arhitekture. Naravno, ovo
 vazhi samo ukoliko je duzhina registra nasheg sistema (32 bita), vec1a ili
@@ -381,7 +381,7 @@ memorija na {\eng X86\_64}.\\
 Adresiranje svih 32 bita memorije postizhe se korish\/c1enjem stranichenja
 ({\eng paging}), koje nam dozvoljava da mapiramo fizichku memoriju na
 virtuelnu. Na taj nachin, prilikom izvrshavanja svakog programa mozhe se
-zavarati program tako da misli da njegovo izvrshavanje krec1e od pocheka
+zavarati program, tako da misli da njegovo izvrshavanje krec1e od pocheka
 memorije. Iz tog razloga, znachajno nam je olakshano izvrshavanje programa jer
 nam svi programi postaju nezavisni od adrese fizichke memorije gde se oni
 zapravo nalaze, dok prilikom kreiranja programa mozhemo fiksno postaviti adresu
@@ -432,14 +432,14 @@ Ekstenzije procesora u {\eng X86} arhitekturi su:
 
 
 \subsection{{\eng x86-64}}
-\small
+\smallskip
 
 Proshirenje {\eng x86-64} je prilichno ekspanzivno, primena 64-bitnog
 operativnog rezhima i 64-bitno adresiranje. Danas je gotovo nemoguc1e pronac1i
 rachunar koji ne podrzhava {\eng x86-64}.
 
 \subsection{{\eng PAE/NX}}
-\small
+\smallskip
 
 {\eng PAE/NX} primenjuje stranichne poruke na chetiri nivoa i dodaje pregrsht
 svojstava stranicama da bi se primenila opsezhna zashtita memorije,
@@ -448,13 +448,13 @@ odredjenoj stranici. Vec1ina operativnih rachunara danas podrzhava {\eng
 PAE/NX}.
 
 \subsection{{\eng x87}}
-\small
+\smallskip
 
-{\eng 87} je proshirenje za {\eng floating point} izrachunavanja. Iako je
+{\eng x87} je proshirenje za {\eng floating point} izrachunavanja. Iako je
 tehnichki ekstenzija, podrzhana je na vec1ini {\eng x86} procesora.
 
 \subsection{{\eng SSE}}
-\small
+\smallskip
 
 {\eng SSE} je 128-bitno proshirenje za podatke. Dodaje 8-16 128-bitnih {\eng
 XMM} registra opshte namene i instrukcija za izvodjenje matematike {\eng SIMD}
@@ -462,7 +462,7 @@ vektora. {\eng SSE} ima nekoliko verzija. {\eng x86-64} procesori su obavezni
 da podrzhavaju najmanje {\eng SSE2}.
 
 \subsection{{\eng AVX}}
-\small
+\smallskip
 
 {\eng AVX} je 256-bitno proshirenje za podatke. Obavlja svrhu slichnu {\eng
 SSE} i implementira nekoliko 256-bitnih {\eng YMM} registara.
@@ -474,6 +474,7 @@ SSE} i implementira nekoliko 256-bitnih {\eng YMM} registara.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{{\eng Boot}}
+\bigskip
 
 \section{Redosled pokretanja}
 \medskip
@@ -504,8 +505,6 @@ Noviji {\eng UEFI (Unified Extensible Firmware Interface)} sistemi umesto {\eng
 MBR} sadrzhe {\eng GPT (GUID partition table)} tabelu particija. {\eng GPT}
 omoguc1ava particionisanje hard diskova vec1ih od {\eng 2TB}, kao i posedovanje
 vishe od chetiri primarne particije.
-
-\newpage
 
 \section{{\eng Bootloader}}
 \medskip
@@ -549,7 +548,7 @@ budu uskladishteni u memoriji.\\
 Ovaj format definisan je u {\eng System V ABI} ({\eng System V Application
 Binary Interface})\cite{misc:3}, koji predstavlja skup specifikacija koji
 definishe pozivanje funkcija, format objektnih fajlova, format fajlova koji
-mogu da se izvrshe, dinamichno linkovanje kao i mnoge druge.\\
+mogu da se izvrshe, dinamichno linkovanje kao i mnoge druge.
 
 Funkcije arhitekture {\eng i386}, po konvenciji, povratne vrednosti celobrojnog
 tipa chuvaju u {\eng eax} registru, dok se vrednosti koje ne staju u 32 bita
@@ -601,10 +600,10 @@ kreiranje biblioteka ({\eng ar}).
 
 Kako se ne koristi standardna biblioteka, vec1 biblioteka koja je samostalno
 napisana specifichno za ovaj projekat, potrebno je prevesti {\eng GNU
-Binutils}. Medjutim, postoji moguc1nost korish\/c1enja vec1 spremnog paketa
-koji se za distribucije bazirane na {\eng Arch Linux}-u mozhe nac1i na stanici
-{\eng\url{https://aur.archlinux.org/packages/i686-elf-binutils/}}. Pojedine
-distribucije vec1 imaju ovaj paket preveden, ali je preporuka dodatno
+Binutils}. \text Medjutim, postoji moguc1nost korish\/c1enja vec1 spremnog
+paketa koji se za distribucije bazirane na {\eng Arch Linux}-u mozhe nac1i na
+stanici {\eng\url{https://aur.archlinux.org/packages/i686-elf-binutils/}}.
+Pojedine distribucije vec1 imaju ovaj paket preveden, ali je preporuka dodatno
 prevodjenje da bi se izbegla nekompatibilnost, a i zato shto c1e nakon
 formiranja nashe {\eng C} biblioteke biti neophodno prevesti ovaj program za
 svaki sistem posebno.\\
@@ -715,7 +714,7 @@ Vishe informacija o softveru se mozhe nac1i na stranici
 {\eng\url{https://www.qemu.org/}}, zajedno sa uput\/stvom za korish\/c1enje.\\
 
 {\eng QEMU} je virtuelna mashina u kojoj c1e jezgro biti testirano i prikazano
-zarad praktichnih razloga. {\eng QEMU} je odabran za ovaj projekat jer za
+zarad praktichnih razloga. {\eng QEMU} je odabran za ovaj projekat, jer za
 razliku od drugih virtuelnih mashina poseduje {\eng cli (command line
 interface)}, iz koga se lako mozhe pozivati pomoc1u skripti kao shto su {\eng
 Makefile}-ovi.
@@ -754,7 +753,7 @@ jezgro. Izvorni kod softvera se mozhe nac1i na stranici
 
 {\eng Git} je program koji nam pomazhe da odrzhavamo izvorne fajlove
 sinhronizovanim sa repozitorijumom. Osim toga znachajan je i njegov sistem
-kontrole verzija - moguc1nost da se za svaku promenu ({\eng commit}) vidi
+kontrole verzija - moguc1nost da se za svaku promenu ({\eng commit}), vidi
 tachno koji su se fajlovi izmenili i koja je razlika izmedju neke dve verzije
 projekta.
 
@@ -878,8 +877,8 @@ U tekstu koji sledi mozhe se videti koje sve funkcije skripta sadrzhi.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=sh,linerange={131-140}]{include/00.build/setup.sh}\srb\end{minipage}\smallskip
 
-Skripta prvo skida izvorni kod {\eng binutils}-a i {\eng GCC}-a, ekstraktuje iz
-arhive, a zatim je {\eng patch}-uje (primenjuje skup izmena). Nakon toga
+Skripta prvo skida izvorni kod {\eng binutils}-a i {\eng GCC}-a, raspakuje ga
+iz arhive, a zatim je {\eng patch}-uje (primenjuje skup izmena). Nakon toga
 korish\/c1enjem {\eng GCC} prevodioca na {\eng host} sistemu, prevodi se
 poseban {\eng GCC} prevodioc koji sluzhi za prevodjenje izvornog koda
 namenjenog jezgru ovog operativnog sistema. Nakon toga on se instalira na put
@@ -1124,7 +1123,7 @@ izvornog fajla.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt1.c}\srb\end{minipage}\smallskip
 
 Funkcija napisana u {\eng Assembler}-u koja uchitava tabelu deskriptora u
-predvidjeni registar.
+\text predvidjeni registar.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt2.c}\srb\end{minipage}\smallskip
 
@@ -1162,7 +1161,7 @@ reaguje kada procesor dobije zahtev za prekid ({\eng interrupt request}). Tada
 procesor pauzira ono shto trenutno radi i predaje upravljanje odredjenoj
 funkciji.\\
 
-Funkcija je duzhna da dojavi procesoru da je c1e ona preuzeti ({\eng
+Funkcija je duzhna da dojavi procesoru da c1e ona preuzeti ({\eng
 handle}-ovati) taj prekid i ukoliko je prekid fatalan (deljenje nulom, {\eng
 triple fault},...) funkcija ima zadatak da ukloni novonastali problem i
 obezbedi operativnom sistemu oporavak od greshke.\\
@@ -1212,6 +1211,7 @@ pozivanje direktiva c1e biti izostavljeno, zbog obima rada.
 
 \section{{\eng IRQ} i {\eng PIC}}
 \medskip
+
 {\eng src/c/idt.c}:\\
 
 Korish\/c1ene biblioteke:
@@ -1348,8 +1348,8 @@ pritisnut na tastaturi.\\
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard16.c}\srb\end{minipage}\smallskip
 
-U kodu koji sledi mozhe da se vidi kako se na primer neka kombinacija karaktera
-mozhe iskoristiti za definisanje prechica na tastaturi.\\
+U kodu koji sledi mozhe da se vidi kako se neka kombinacija karaktera mozhe
+iskoristiti za definisanje prechica na tastaturi.\\
 
 Na primer ukoliko korisnik drzhi {\eng shift} taster na tastaturi dok pritiska
 druge tastere, ispisivac1e se velika slova, ili sekundarni karakteri, koji su
@@ -1441,6 +1441,7 @@ dugotrajniji od funkcije u kojoj je ta promenljiva nastala.\\
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap27.c}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap28.c}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap29.c}\srb\end{minipage}
+\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/08.heap/heap30.c}\srb\end{minipage}
 
 %{\eng\url{https://wiki.osdev.org/Heap}}
 
@@ -1552,7 +1553,7 @@ podrazumeva i prototipe funkcija i struktura bez kojih se nec1e prevoditi.
 
 Glavna funkcija kojoj se predaje upravljanje u {\eng src/as/boot.s}
 asemblerskom fajlu, koji smo imali prilike da vidimo na pochetku. Funkcija
-objedinjuje sve funkconalnosti koje smo do sada implementirali.
+objedinjuje sve funkconalnosti koje smo do sada implementirali.\\
 
 {\eng src/c/kernel.c}:
 
@@ -1563,8 +1564,9 @@ objedinjuje sve funkconalnosti koje smo do sada implementirali.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Zakljuchak}
+\bigskip
 
-Danas, kada postoje mnogobrojni vishi programski jezici, kreiranje operativnog
+Danas, kada postoje mnogobrojni vishi programski jezici, izrada operativnog
 sistema je vrlo tezhak izazov za koji se vrlo malo ljudi opredeljuje. Medjutim,
 ovo je jedno vrlo ohrabrujuc1e iskustvo sa kojim tek nekolicina mozhe da se
 pohvali. Autor bi zheleo da u buduc1nosti primarno programira u nizhim
@@ -1581,14 +1583,14 @@ projekte, na stranici {\eng\url{https://github.com/aleksav013}}. Svi autorovi
 projekti su {\eng open source} shto znachi da kod mozhe posluzhiti svakome ko
 zheli da sazna neshto vishe.\\
 
-U toku izrade autor se suochio sa mnogobrojnim problemima. Najtezhi deo je bio
-mu je isplovljavanje, i zapochinjanje ove ekspedicije. More informacija i
+U toku izrade autor se suochio sa mnogobrojnim problemima. Najtezhi deo bio mu
+je isplovljavanje, i zapochinjanje ove ekspedicije. More informacija i
 standarda koji su morali biti zadovoljeni samo da bi se sistem pokrenuo, a
-zatim i ispisao neku korisnu informaciju, a kamoli neshto vishe. Najtezhe je
-bilo to shto nije bilo moguc1e dodati bilo kakvu funkcionalnost bez da se u
-potpunosti razume svaka linija koda. Preduslov za svaku, makar i najsitniju
-izmenu, bio je iscrpno i do detalja ish\/chitati dokumentaciju za predvidjenu
-oblast, ako ta dokumentacija uopshte i postoji.\\
+zatim i ispisao neku korisnu informaciju, a kamoli neshto vishe. Najvec1i
+problem je predstavljalo to shto nije bilo moguc1e dodati bilo kakvu
+funkcionalnost bez da se u potpunosti razume svaka linija koda. Preduslov za
+svaku, makar i najsitniju izmenu, bilo je detaljno i iscrpno ish\/chitavanje
+dokumentacije za predvidjenu oblast, ako ta dokumentacija uopshte i postoji.\\
 
 \newpage
 
