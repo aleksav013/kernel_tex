@@ -18,7 +18,6 @@
 % \usepackage[serbian,english]{babel}
 
 \renewcommand{\baselinestretch}{1}
-\usepackage[none]{hyphenat}
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage{amsmath}
@@ -144,7 +143,7 @@ za drugi sistem/arhitekturu na trenutnom sistemu/arhitekturi. Na taj nachin i
 drugi ljudi osim autora mogu da doprinesu izradi i poboljshanju ovog
 operativnog sistema u buduc1nosti.\\
 
-Ovaj projekat ima za cilj da prikazhe postupak izrade jednog za sada vrlo
+Ovaj projekat ima za cilj da prikazhe postupak izrade jednog, za sada vrlo
 jednostavnog operativnog sistema, kao i da potkrepi chitaoce teorijom potrebnom
 za njegovo razumevanje.\\
 
@@ -268,7 +267,7 @@ prikaz i na to od kog do kog bita registra se odnosi data notacija.\\
 \hline
 \end{tabular}}\\
 
-Primetimo da ukoliko nas interesuje vrednost drugog bajta u {\eng X86\_64}
+Primetimo da, ukoliko nas interesuje vrednost drugog bajta u {\eng X86\_64}
 arhitekturi, do nje mozhemo doc1i na sledec1a 4 nachina:
 {\eng ah, ax\&0xFF00, eax\&0x0000FF00} ili {\eng rax\&0x000000000000FF00}.
 
@@ -276,7 +275,7 @@ arhitekturi, do nje mozhemo doc1i na sledec1a 4 nachina:
 \section{Registri opshte namene}
 \medskip
 
-Registri opshte namene imaju ulogu da chuvanju operande i pokazivache:
+Registri opshte namene imaju ulogu da chuvaju operande i pokazivache:
 \begin{itemize}
 \item Operande za logichke i aritmetichke operacije
 \item Operande za adresne kalkulacije
@@ -337,24 +336,24 @@ da alterniraju izmedju njih.
 
 Operativni rezhimi procesora u {\eng X86} arhitekturi su:
 \begin{itemize}
-\item \eng{Real mode}
-\item \eng{Protected mode (16-bit)}
-\item \eng{Protected mode (32-bit)}
-\item \eng{Compatibility mode (x86-64 only)}
-\item \eng{Long mode (x86-64 only)}
+\item {\eng Real mode}
+\item {\eng Protected mode (16-bit)}
+\item {\eng Protected mode (32-bit)}
+\item {\eng Compatibility mode} (samo {\eng x86-64})
+\item {\eng Long mode} (samo {\eng x86-64}) 
 \end{itemize}
 
 \subsection{{\eng Real mode}}
 \smallskip
 
 Realni rezhim je stanje procesora koje karakterishe 20-tobitna segmentirana
-memorija shto znachi da se mozhe adresirati samo malo vishe od jednog
+memorija, shto znachi da se mozhe adresirati samo malo vishe od jednog
 megabajta. Svi procesori pochev od 80286 zapochinju u ovom rezhimu nakon
-ukljuchivanja rachunara zbog kompatibilnosti. Da bismo mogli da adresiramo
+ukljuchivanja rachunara, zbog kompatibilnosti. Da bismo mogli da adresiramo
 vishe memorije, potrebno je da koristimo segmentne registre.\\
 
-Postupak kojim iz realnog rezhima prelazimo u zashtic1eni rezhim naziva se
-daleki skok {\eng (far jump)} gde pri postavljanju segmentnih registara
+Postupak kojim iz realnog rezhima prelazimo u zashtic1eni rezhim, naziva se
+daleki skok {\eng (far jump)}, gde pri postavljanju segmentnih registara
 "skachemo" iz jednog segmenta u drugi. Daleki skok najchesh\/c1e podrazumeva
 promenu selektora segmenta, koji se nalazi u segmentu koda, i koji pokazuje na
 segment koda u kome se nalaze instrukcije koje se trenutno izvrshavaju.
@@ -364,26 +363,26 @@ segment koda u kome se nalaze instrukcije koje se trenutno izvrshavaju.
 
 Segmentacija je reshenje kojim se omoguc1ava adresiranje vishe memorije nego
 shto je to hardverski predvidjeno. Segmentacija se postizhe korish\/c1enjem
-{\eng offset}-a. {\eng Offset} je razlika trenutne i pochetne adrese. Upravo
-smo uz pomoc1 segmenatcije u realnom rezhimu adresirali memoriju sa 20, umesto
-predvidjenih 16 bitova.
+{\eng offset}-a. {\eng Offset} je razlika (udaljenost) trenutne i pochetne
+adrese. Upravo smo uz pomoc1 segmenatcije u realnom rezhimu adresirali memoriju
+sa 20, umesto predvidjenih 16 bitova.
 
 \subsection{{\eng Protected mode}}
 \smallskip
 
 Zashtic1eni rezhim je stanje procesora u kojem procesor ima pun pristup celom
-opsegu memorije za razliku od realnog rezhima. Maksimalna velichina {\eng RAM}
-memorije koju arhitektura {\eng i386} podrzhava je {\eng 4GB} upravo zbog
+opsegu memorije, za razliku od realnog rezhima. Maksimalna velichina {\eng RAM}
+memorije koju arhitektura {\eng i386} podrzhava je {\eng 4GB}, upravo zbog
 velichine registra od 32 bita ($2^{32}B = 4GB$). Neki procesori koji
-podrzhavaju {\eng PAE - Physical Address Extension} podrzhavaju i adresiranje
+podrzhavaju {\eng PAE - Physical Address Extension}, podrzhavaju i adresiranje
 memorija preko 64 bita. Kasnije je na ovom starndardu utemeljeno i adresiranje
 memorija na {\eng X86\_64}.\\
 
 Adresiranje svih 32 bita memorije postizhe se korish\/c1enjem stranichenja
 ({\eng paging}), koje nam dozvoljava da mapiramo fizichku memoriju na
-virtuelnu. Na taj nachin prilikom izvrshavanja svakog programa mozhe se
+virtuelnu. Na taj nachin, prilikom izvrshavanja svakog programa mozhe se
 zavarati program tako da misli da njegovo izvrshavanje krec1e od pocheka
-memorije. Iz tog razloga znachajno nam je olakshano izvrshavanje programa jer
+memorije. Iz tog razloga, znachajno nam je olakshano izvrshavanje programa jer
 nam svi programi postaju nezavisni od adrese fizichke memorije gde se oni
 zapravo nalaze, dok prilikom kreiranja programa mozhemo fiksno postaviti adresu
 prve instrukcije.\\
@@ -395,7 +394,7 @@ Ovo je stanje procesora koji nashe jezgro trenutno koristi.
 
 Rezhim kompatibilnosti se pokrec1e tokom prelaska iz zashtic1enog rezhima u
 dugachki rezhim. Rezhim kompatibilnosti radi slichno zashtic1enom rezhimu i
-koristi se za omoguc1avanje uchitavanja 64-bitnih struktura pre ulaska u
+koristi se za omoguc1avanje uchitavanja 64-bitnih struktura, pre ulaska u
 odgovarajuc1i dugachki rezhim.
 
 \subsection{{\eng Long mode}}
@@ -404,16 +403,16 @@ odgovarajuc1i dugachki rezhim.
 Vremenom je postalo jasno da {\eng 4GB} adresibilne memorije koju nam pruzha
 32-bitna {\eng X86} arhitektura nije dovoljno. Iz tog razloga nastao je {\eng
 long mode}. Dugachki rezhim je zapravo samo ekstenzija 32-bitnog skupa
-instrukcija, ali za razliku od tranzicije sa 16-bitnog na 32-bitni skupa
+instrukcija, ali za razliku od tranzicije sa 16-bitnog na 32-bitni skup
 instrukcija, sada je uklonjen veliki deo instrukcija. Ovo ne utiche na
 kompatibilnost sa starijim verzijama izvrshnih fajlova, ali menja nachin na
 koji asembler i prevodioci za novi kod moraju da funkcionishu.\\
 
-Kreiranjem ove ekstenzije procesora nastala je i nova {\eng AMD64} arhitektura,
-koja je dobila ime upravo po {\eng AMD} kompaniji koja je dizajnirala ovu
-specifikaciju. To je bio prvi put u istoriji da je vrlo vazhna odluka koja se
-tiche {\eng X86} arhitekture donesena od neke druge kompanije, a ne samog {\eng
-Intel}-a, ali i da je {\eng Intel} odluchio da prihvati tehnologiju od stranog
+Kreiranjem ove ekstenzije procesora, nastala je i nova {\eng AMD64}
+arhitektura, koja je dobila ime upravo po {\eng AMD} kompaniji koja je
+dizajnirala ovu specifikaciju. To je bio prvi put u istoriji da je vrlo vazhna
+odluka koja se tiche {\eng X86} arhitekture donesena od neke druge kompanije, a
+ne samog Intel-a, ali i da je Intel odluchio da prihvati tehnologiju od stranog
 izvora.
 
 \newpage
@@ -424,25 +423,25 @@ izvora.
 Ekstenzije procesora u {\eng X86} arhitekturi su:
 
 \begin{itemize}
-\item \eng{x86-64}
-\item \eng{PAE/NX}
-\item \eng{x87}
-\item \eng{SSE}
-\item \eng{AVX}
+\item {\eng 86-64}
+\item {\eng PAE/NX}
+\item {\eng x87}
+\item {\eng SSE}
+\item {\eng AVX}
 \end{itemize}
 
 
 \subsection{{\eng x86-64}}
 \small
 
-Proshirenje {\eng x86-64} je prilichno ekspanzivno, primena {\eng 64-bitnog}
+Proshirenje {\eng x86-64} je prilichno ekspanzivno, primena 64-bitnog
 operativnog rezhima i 64-bitno adresiranje. Danas je gotovo nemoguc1e pronac1i
 rachunar koji ne podrzhava {\eng x86-64}.
 
 \subsection{{\eng PAE/NX}}
 \small
 
-{\eng PAE/NX} primenjuje stranichne poruke na 4 nivoa i dodaje pregrsht
+{\eng PAE/NX} primenjuje stranichne poruke na chetiri nivoa i dodaje pregrsht
 svojstava stranicama da bi se primenila opsezhna zashtita memorije,
 ukljuchujuc1i {\eng NX}, zastavicu za onemoguc1avanje izvrshavanja na
 odredjenoj stranici. Vec1ina operativnih rachunara danas podrzhava {\eng
@@ -497,28 +496,28 @@ rachunara. Taj program se naziva {\eng Bootloader}.
 
 {\eng MBR (Master Boot Record)} je prvi sektor na hard disku. Sadrzhi {\eng
 bootloader} i tabelu particija. Od 512 bajtova koje chini sektor hard diska,
-440-446 bajtova je predvidjeno za {\eng bootloader}, 64 bajta za 4 primarne
-particije dok poslednja dva bajta sadrzhe konstante {\eng 0x55, 0xAA} koje
-identifikuju ovaj sektor kao validan {\eng boot} sektor.\\
+440-446 bajtova je \text predvidjeno za {\eng bootloader}, 64 bajta za chetiri
+primarne particije dok poslednja dva bajta sadrzhe konstante {\eng 0x55, 0xAA}
+koje identifikuju ovaj sektor kao validan {\eng boot} sektor.\\
 
 Noviji {\eng UEFI (Unified Extensible Firmware Interface)} sistemi umesto {\eng
-MBR} sadrzhe {\eng GPT (GUID partition table)} tabelu particija. {\eng UEFI}
+MBR} sadrzhe {\eng GPT (GUID partition table)} tabelu particija. {\eng GPT}
 omoguc1ava particionisanje hard diskova vec1ih od {\eng 2TB}, kao i posedovanje
-vishe od 4 primarne particije.
+vishe od chetiri primarne particije.
 
 \newpage
 
 \section{{\eng Bootloader}}
 \medskip
 
-{\eng Bootloader} je program koji se nalazi u prvih 512 bajtova medijuma u
+{\eng Bootloader} je program koji se nalazi u prvih 440-446 bajtova medijuma u
 {\eng MBR} odeljku, i njegov zadatak je da uchita jezgro operativnog sistema u
-{\eng RAM} memoriju i preda mu dalje upravljanje. Zbog kompleksnosti danashnjeg
-softvera, 512 bajtova je vrlo malo za uchitavanje celog {\eng bootloader}-a. Iz
-tog razloga neki {\eng bootloader}-i razdvojeni su u vishe delova,
-najchesh\/c1e dva. Prvi deo je vrlo mali, staje u 512 bajtova {\eng MBR}-a i on
-sluzhi samo da bi uchitao drugi deo u kome se nalazi glavni kod koji dalje
-predaje upravljanje jezgru operativnog sistema.\\
+{\eng RAM} memoriju, i preda mu dalje upravljanje. Zbog kompleksnosti
+danashnjeg softvera, 440 bajtova je vrlo malo za uchitavanje celog {\eng
+bootloader}-a. Iz tog razloga neki {\eng bootloader}-i razdvojeni su u vishe
+delova, najchesh\/c1e dva. Prvi deo je vrlo mali, staje u 440 bajtova {\eng
+MBR}-a i on sluzhi samo da bi uchitao drugi deo, u kome se nalazi glavni kod
+koji dalje predaje upravljanje jezgru operativnog sistema.\\
 
 Neki od najpopularnijih {\eng bootloader}-a jesu: {\eng GRUB, LILO,
 systemd-boot, rEFInd}, kao i {\eng Windows Boot Manager}. Za potrebe ovog
@@ -567,8 +566,8 @@ Assembler}-a.
 \bigskip
 
 U daljem tekstu se mogu videti neki od alata korish\/c1enih tokom izrade
-ovograda. Vec1ina korish\/c1enih alata poseduje {\eng GPLv3} licencu. {\eng GNU
-Public Licence} je licenca otvorenog koda koja dozvoljava modifikovanje i
+ovog rada. Vec1ina korish\/c1enih alata poseduje {\eng GPLv3} licencu. {\eng
+GNU Public Licence} je licenca otvorenog koda koja dozvoljava modifikovanje i
 distribuiranje koda sve dok je taj kod javno dostupan. Jedini programi sa ove
 liste koje nije kreirao {\eng GNU} su: {\eng QEMU} virtuelna mashina, {\eng
 git} i {\eng NeoVim} koji koriste {\eng GPLv2} licencu.\\
@@ -646,7 +645,7 @@ koji se za {\eng Arch Linux} mozhe nac1i na stanici
 {\eng\url{https://aur.archlinux.org/packages/intel2gas/}}, a koji prevodi
 rasprostranjeniju Intelovu sintaksu u {\eng AT\&T} sintaksu.\\
 
-{\eng GNU Assembler} je korish\/c1en za prevodjenja dela koda napisanog u
+{\eng GNU Assembler} je korish\/c1en za prevodjenje dela koda napisanog u
 asembleru.
 
 \subsection{{\eng GNU Linker}}
@@ -680,7 +679,7 @@ prevodjenje ovog operativnog sistema.
 
 Za one koje zhele sami da prevedu {\eng GCC}, dat je deo instrukcija koji se
 razlikuje od uput\/stva datog na zvanichnom sajtu, a tiche se podeshavanja pre
-kompilacije.\\
+prevodjenja.\\
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/gcc/gcc1}\srb\end{minipage}\smallskip
 
@@ -692,7 +691,7 @@ Instrukcije za prevodjenje nakon dodavanja biblioteke date su u nastavku.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{include/00.alati/gcc/gcc2}\srb\end{minipage}\smallskip
 
 Prevodjenje {\eng GCC}-a sa datim opcijama obezbedjuje nam korish\/c1enje date
-biblioteke umesto standardne koju nam je obezbedio operativni sistem domac1in.
+biblioteke, umesto standardne koju nam je obezbedio operativni sistem domac1in.
 
 \section{{\eng GRUB}}
 \medskip
@@ -703,11 +702,11 @@ prevodjenje i korish\/c1enje.\\
 
 {\eng GRUB (GRand Unified Bootloader)} je {\eng bootloader} koji je
 korish\/c1en na ovom projektu. Trenutno korish\/c1ena verzija ovog softvera je
-{\eng GRUB 2}.
+{\eng GRUB 2}.\\
 
 Konfiguracioni fajl {\eng grub.cfg} definishe odakle ovaj {\eng bootloader}
-uchitava jezgro i koliki je vremenski okvir izmedju izbora jezgara odnosno
-operativnih sistema.
+uchitava jezgro, kao i koliki je vremenski okvir izmedju izbora jezgara,
+odnosno operativnih sistema.
 
 \section{{\eng QEMU}}
 \medskip
@@ -718,7 +717,7 @@ Vishe informacija o softveru se mozhe nac1i na stranici
 {\eng QEMU} je virtuelna mashina u kojoj c1e jezgro biti testirano i prikazano
 zarad praktichnih razloga. {\eng QEMU} je odabran za ovaj projekat jer za
 razliku od drugih virtuelnih mashina poseduje {\eng cli (command line
-interface)} iz koga se lako mozhe pozivati pomoc1u skripti kao shto su {\eng
+interface)}, iz koga se lako mozhe pozivati pomoc1u skripti kao shto su {\eng
 Makefile}-ovi.
 
 \section{{\eng Make}}
@@ -767,7 +766,7 @@ Izvorni kod softvera se mozhe nac1i na stranici
 prevodjenje i korish\/c1enje.\\
 
 Sluzhi za kreiranje {\eng ISO} fajlova koji se mogu "narezati" na {\eng CD}
-disk ili {\eng USB} flesh i koji se kasnije mogu koristiti kao optichki disk
+disk ili {\eng USB} flesh, i koji se kasnije mogu koristiti kao optichki disk
 koji sadrzhi sve shto je neophodno za uspeshno podizanje sistema.
 
 \subsection{{\eng GDB}}
@@ -777,7 +776,7 @@ Izvorni kod softvera se mozhe nac1i na stranici
 {\eng\url{https://www.sourceware.org/gdb/}}, zajedno sa uput\/stvom za
 prevodjenje i korish\/c1enje.\\
 
-{\eng GDB} je {\eng GNU}-ov {\eng debugger} koji sluzhi za pronalazhenje
+{\eng GDB} je {\eng GNU}-ov {\eng debugger}, koji sluzhi za pronalazhenje
 greshaka u kodu, kao i aktivno prac1enje izvrshavanja programa (u ovom sluchaju
 jezgra). Uz pomoc1 ovog programa ustanovljeno je shta svaki taster na tastaturi
 vrac1a nakon pritiska, shto je znachajno ubzalo proces mapiranja tastature.
@@ -794,7 +793,7 @@ vrac1a nakon pritiska, shto je znachajno ubzalo proces mapiranja tastature.
 {\eng Minix} je operativni sistem baziran na {\eng UNIX}-u koji koristi
 mikrokernelsku arhitekturu. Pochev od verzije 2.0 zadovoljava {\eng POSIX
 (Portable Operating System Interface)} standard. Pochetne verzije {\eng Minix}
-operativnog sistema kreirao je Endrju S. Tanenbaum kao profesor Vrije
+operativnog sistema, kreirao je Endrju S. Tanenbaum kao profesor Vrije
 univerziteta u Amsterdamu. Profesor Tanenbaum kreirao je operativni sistem kao
 primer principa koji su prikazani u njegovoj knjizi "Operativni sistemi: Dizajn
 i Implementacija" ({\eng Operating Systems: Design and
@@ -814,18 +813,18 @@ najkorish\/c1enijim operativnim sistemom ikada.
 \medskip
 
 Autor rada vec1 duzhe od dve godine koristi operativni sistem sa {\eng Linux}
-jezgrom shto je bio i glavni razlog zashto je izabrao rad na ovu temu. U toku
+jezgrom, shto je bio i glavni razlog zashto je izabrao rad na ovu temu. U toku
 izrade ovog projekta, autor je pozheleo da bolje razume kako funkcionishe
 izrada {\eng Linux} jezgra i kako je to "zajednica" ona koja ga pokrec1e i
-odrzhava, a ne neka velika korporacija. Stoga je odluchio da da svoj doprinos i
-poslao je nekoliko zakrpa ({\eng patch}-eva) koji su primljeni i implemetirani
-u novoj 5.17 verziji {\eng Linux} jezgra. Ovo iskustvo pokazalo mu je koliko je
-ozbiljna organizacija koja stoji iza celog tog projekta i koliko je bitno
-raditi na svim sferama nekog projekta kao shto su i izrada dokumentacije i
-spremnost da se edukuju i zainteresuju mladi ljudi kojima c1e ovakvo iskustvo
-znachiti u daljem profesionalnom usavrshavanju. Autoru je drago shto ga je ovaj
-projekat odvazhio da nachini taj korak i doprinesem mozhda najvec1em
-softverskom projektu ikada.
+odrzhava, a ne neka velika korporacija. Stoga je odluchio da doprinese tom
+projektu, i poslao je nekoliko zakrpa ({\eng patch}-eva) koji su primljeni i
+implemetirani u novoj 5.17 verziji {\eng Linux} jezgra. Ovo iskustvo pokazalo
+mu je koliko je ozbiljna organizacija koja stoji iza celog tog projekta i
+koliko je bitno raditi na svim sferama nekog projekta kao shto su i izrada
+dokumentacije i spremnost da se edukuju i zainteresuju mladi ljudi kojima c1e
+ovakvo iskustvo znachiti u daljem profesionalnom usavrshavanju. Autor je
+srec1an shto ga je ovaj projekat odvazhio da nachini taj korak i doprinese
+mozhda najvec1em softverskom projektu ikada.
 
 \section{{\eng BSD}}
 \medskip
@@ -837,7 +836,7 @@ minimalan. Svi ovi operativni sistemi svoje sistemske programe i biblioteke
 imaju napisano u duplo, ako ne i nekoliko puta manje linija koda nego {\eng
 GNU/Linux}. To ih chini mnogo lakshim za odrzhavanje, ali i mnogo sigurnijim.\\
 
-{\eng BSD} operativni sistemi razlikuju se od {\eng GNU/Linux}-a po tome shto
+{\eng BSD} operativni sistemi razlikuju se od {\eng GNU/Linux}-a, po tome shto
 su kod {\eng BSD}-a jezgro i korisnichki programi celina koja je nastala od
 strane jednog tima ljudi i odrzhavaju se uporedo, dok je kod {\eng GNU/Linux}-a
 jezgro {\eng Linux}, a {\eng GNU Coreutils} chini korisnichke programe {\eng
@@ -853,7 +852,7 @@ moramo uchiniti kod javno dostupnim. Ta chinjenica chini {\eng BSD} vrlo
 primamljivim za velike korporacije koje na taj nachin svoja softverska reshenja
 mogu bazirati na vec1 postojec1im. Tako na primer mnoge konzole pokrec1u upravo
 izmenjenu verziju {\eng FreeBSD}-a, dok sa druge strane imamo i kompanije poput
-{\eng Apple}-a koja takodje koristi {\eng FreeBSD}, ali kao podlogu za svoje
+{\eng Apple}-a, koja takodje koristi {\eng FreeBSD}, ali kao podlogu za svoje
 operativne sisteme za rachunare i mobilne telefone.
 
 
@@ -882,7 +881,7 @@ U tekstu koji sledi mozhe se videti koje sve funkcije skripta sadrzhi.
 Skripta prvo skida izvorni kod {\eng binutils}-a i {\eng GCC}-a, ekstraktuje iz
 arhive, a zatim je {\eng patch}-uje (primenjuje skup izmena). Nakon toga
 korish\/c1enjem {\eng GCC} prevodioca na {\eng host} sistemu, prevodi se
-poseban {\eng GCC} prevodioc koji sluzhi za prevodjenja izvornog koda
+poseban {\eng GCC} prevodioc koji sluzhi za prevodjenje izvornog koda
 namenjenog jezgru ovog operativnog sistema. Nakon toga on se instalira na put
 {\eng /opt/aleksa/usr/bin/}, gde se nalazi novi {\eng \$SYSROOT} koji koristi
 {\eng Makefile} za izgradnju jezgra.
@@ -906,14 +905,14 @@ Osim navedenog skupa pravila, u {\eng Makefile}-u mozhemo definisati neke
 promenljive koje bi nam omoguc1ile krac1i zapis, izbegavanje ponavljanja
 konstanti, kao i znachajno lakshe menjanje istih. One funkcionishu na slichan
 nachin kao i pretprocesorske direktive u {\eng C}-u. Primetimo da ispred nekih
-linija u kojima dodeljujemo vrednosti promenljivima imamo i kljuchnu rech {\eng
-export}. To znachi da c1e se vrednost date promenljive, preneti i u rekurzivni
-poziv {\eng Makefile}-a.
+linija u kojima dodeljujemo vrednosti promenljivima, imamo i kljuchnu rech
+{\eng export}. To znachi da c1e se vrednost date promenljive, preneti i u
+rekurzivni poziv {\eng Makefile}-a.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make,linerange={0-22}]{include/00.build/Makefile}\srb\end{minipage}
 \begin{minipage}{\textwidth}\eng\lstinputlisting[language=make,linerange={25-40}]{include/00.build/Makefile}\srb\end{minipage}\smallskip
 
-Mozhemo da vidimo da je ovo kompleksnija forma {\eng Makefile}-a jer sadrzhi
+Mozhemo da vidimo da je ovo kompleksnija forma {\eng Makefile}-a, jer sadrzhi
 proces rekurzivnog pozivanja {\eng \$(MAKE)} komande. To znachi da ovaj
 projekat sadrzhi vishe razlichitih {\eng Makefile}-ova za svaki deo projekta,
 shto je i standardna procedura pri velikim projektima kao shto je ovaj.
@@ -937,7 +936,7 @@ komponente zaduzhene za pochetnu inicijalizaciju i kontolisanje hardvera na
 najnizhem nivou.\\
 
 Za svaki projekat moguc1e je automatizovati deo posla kreiranjem {\eng
-Makefile}, pa tako na primer i ovaj maturski rad koji je iskucan u {\eng
+Makefile}-a, pa tako na primer i ovaj maturski rad koji je iskucan u {\eng
 LaTeX}-u ima svoj {\eng Makefile}:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=make]{Makefile}\srb\end{minipage}\smallskip
@@ -962,11 +961,11 @@ je, kao shto je vec1 recheno napisano u asembleru i programskom jeziku {\eng C}
 {\eng src/as/boot.s}:\\
 
 U prvom delu postavljamo promenljive na vrednosti koje su odredjene {\eng
-multiboot} standardom da bi {\eng bootloader} prepoznao nashe jezgro.
+multiboot} standardom, da bi {\eng bootloader} prepoznao nashe jezgro.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot1.s}\srb\end{minipage}\smallskip
 
-Nakon toga postavljamo prvih 512 bajtova na prethodno pomenute vrednosti, ali
+Nakon toga postavljamo prvih par bitova na prethodno pomenute vrednosti, ali
 tako da za svaku promenljivu ostavljamo 32 bita prostora.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=Assembler]{include/01.pocetak/boot2.s}\srb\end{minipage}\smallskip
@@ -1015,7 +1014,7 @@ zauzimaju promenljive.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga2.c}\srb\end{minipage}\smallskip
 
-Chetiri znachajnija bita oznachavaju boju pozadine, dok ostala chetiri bita
+Chetiri znachajnija bita oznachavaju boju pozadine, dok preostala chetiri bita
 oznachavaju boju karaktera.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga3.c}\srb\end{minipage}\smallskip
@@ -1024,7 +1023,7 @@ oznachavaju boju karaktera.
 
 Na {\eng VGA} izlaz ispisujemo karaktere tako shto pochev od adrese {\eng
 0xB80000} pishemo shesnaestobitne vrednosti koje se prevode u karaktere i
-njihovu boju. osam znachajnijih bitova odredjuju boju karaktera dok preostalih
+njihovu boju. Osam znachajnijih bitova odredjuju boju karaktera, dok preostalih
 osam bitova oznachavaju karakter.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga5.c}\srb\end{minipage}\smallskip
@@ -1059,12 +1058,12 @@ Funkcija koja ispisuje niz karaktera na ekran.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga11.c}\srb\end{minipage}\smallskip
 
 Funkcija koja ispisuje celobrojnu vrednost na ekran tako shto je prvo pretvori
-u niz karaktera a zatim iskoristi prethodnu funkciju.
+u niz karaktera, a zatim iskoristi prethodnu funkciju.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga12.c}\srb\end{minipage}\smallskip
 
 Funkcija koja ispisuje realan broj na ekran tako shto je prvo pretvori u niz
-karaktera a zatim iskoristi funkciju za ispis niza karaktera.
+karaktera, a zatim iskoristi funkciju za ispis niza karaktera.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/02.vga/vga13.c}\srb\end{minipage}\smallskip
 
@@ -1107,12 +1106,12 @@ Format koji rachunar prihvata za tabelu svih definicija segmenata memorije.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt4.h}\srb\end{minipage}\smallskip
 
-Funkcije koje su definisane u {\eng c/gdt.c}, a tichu se inicijalizacije
+Funkcije koje su definisane u {\eng src/c/gdt.c}, a tichu se inicijalizacije
 globalne tabele deskriptora.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt5.h}\srb\end{minipage}\smallskip
 
-Direktiva za zatvaranje koja se nalazi na kraju fajla i kojom se zavrshava
+Direktiva za zatvaranje koja se nalazi na kraju fajla, i kojom se zavrshava
 segment koda predvidjen za deklaracije.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt6.h}\srb\end{minipage}\smallskip
@@ -1129,7 +1128,7 @@ predvidjeni registar.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt2.c}\srb\end{minipage}\smallskip
 
-Tabela segmenata i pokazivach na nju koji se prosledjuje prethodno pomenutoj
+Tabela segmenata i pokazivach na nju, koji se prosledjuje prethodno pomenutoj
 funkciji.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/03.gdt/gdt3.c}\srb\end{minipage}\smallskip
@@ -1224,7 +1223,7 @@ registar.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt2.c}\srb\end{minipage}\smallskip
 
-Tabela prekida i pokazivach na nju koji se prosledjuje prethodno pomenutoj
+Tabela prekida i pokazivach na nju, koji se prosledjuje prethodno pomenutoj
 funkciji.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt3.c}\srb\end{minipage}\smallskip
@@ -1233,7 +1232,7 @@ Funkcija koja na osnovu pruzhenih parametara definishe prekid u tabeli.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt4.c}\srb\end{minipage}\smallskip
 
-Funkcija koja dodaje prekid na tabeli u niz koji sadrzhi sve prekide.
+Funkcija koja dodaje prekid u tabelu koja sadrzhi sve prekide.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt5.c}\srb\end{minipage}\smallskip
 
@@ -1243,7 +1242,7 @@ bila vodjena principima prekida.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/05.irq/idt6.c}\srb\end{minipage}\smallskip
 
-Funkcija koja definishe sve prekide koje c1emo koristiti uz pomoc1 prethodno
+Funkcija koja definishe sve prekide koje c1emo koristiti, uz pomoc1 prethodno
 pomenutih funkcija.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C,linerange={1-6,34-37}]{include/05.irq/idt7.c}\srb\end{minipage}\smallskip
@@ -1272,7 +1271,7 @@ Korish\/c1ene biblioteke:
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard1.c}\srb\end{minipage}\smallskip
 
 Bafer koji chuva prethodno pozvane komande radi implementacije istorije
-komanda, kao i brojach bafera na trenutnu komandu.
+komanda, kao i brojach za bafer trenutne komande.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/06.keyboard/keyboard2.c}\srb\end{minipage}\smallskip
 
@@ -1368,9 +1367,9 @@ i pritisne {\eng L} na tastaturi, pozvac1e se funkcija koja "ochisti" ekran.
 
 {\eng PIT (Programmable Interval Timer)} je programabilni tajmer koji se mozhe
 podesiti tako da na tachno definisani period vremena shalje zahtev za prekidom.
-Na taj nachin mozhe se meriti koliko vremena je proteklo od pochetka
-ukljuchivanja rachunara ili koliko se tachno vremena utroshilo na izvrshavanje
-nekog programa.\\
+Na taj nachin mozhe se meriti koliko vremena je proteklo od ukljuchivanja
+rachunara ili koliko se tachno vremena utroshilo na izvrshavanje nekog
+programa.\\
 
 {\eng src/c/timer.c}:\\
 
@@ -1392,7 +1391,7 @@ funckija ima zadatak da azhurira vreme proteklo od ukljuchivanja rachunara.
 
 Nashe jezgro inicijalizuje tajmer tako da ima 20 otkucaja u sekundi. {\eng PIT}
 chip sastoji se od oscilatora koji radi na frekvenciji od {\eng 1.193182 MHz}.
-Ukoliko tu vredonost podelimo sa brojem zheljenih otkucaja u sekundi, dobic1emo
+Ukoliko tu vrednost podelimo sa brojem zheljenih otkucaja u sekundi, dobic1emo
 frekvenciju na kojoj chip treba da radi da bi generisao prekide u zheljenom
 vremenskom intervalu.
 
@@ -1406,7 +1405,7 @@ vremenskom intervalu.
 \medskip
 
 Hip za ovo jezgro koristi algoritam\cite{book:1412} bitmape da bi na
-najefikasniji nachin sachuvalo podatke o trenutno korish\/c1enim blokovima. Hip
+najefikasniji nachin sachuvao podatke o trenutno korish\/c1enim blokovima. Hip
 nam sluzhi da bismo dinamichki alocirali memoriju, tj. da bismo mogli da
 koristimo globalne promenljive, kao i promenljive chiji zhivotni vek mora biti
 dugotrajniji od funkcije u kojoj je ta promenljiva nastala.\\
@@ -1464,7 +1463,7 @@ Korish\/c1ene biblioteke:
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging1.c}\srb\end{minipage}\smallskip
 
-Asemblerske funkcije koje uchitavaju tabelu koja odredjuje koja virtuelna
+Asemblerske funkcije koje uchitavaju tabelu, koja odredjuje koja virtuelna
 adresa se odnosi na koju fizichku, a zatim ukljuchuju stranichenje.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging2.c}\srb\end{minipage}\smallskip
@@ -1475,7 +1474,7 @@ sadrzhi 1024 tabele stranica.
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging3.c}\srb\end{minipage}\smallskip
 
 Funkcija koja postavlja vrednosti svih direktorijuma stranica koji se ne
-koriste na konstantu koja odredjuje da li je direktorijum u upotrebi i da li
+koriste, na konstantu koja odredjuje da li je direktorijum u upotrebi i da li
 uopshte sadrzhi tabele stranica.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/09.paging/paging4.c}\srb\end{minipage}\smallskip
@@ -1498,7 +1497,7 @@ memoriju sa istom adresom, a zatim ukljuchuje stranichenje.
 
 %{\eng\url{https://wiki.osdev.org/Paging}}
 
-\section{Minimalna \eng{C} biblioteka}
+\section{Minimalna {\eng C} biblioteka}
 \medskip
 %{\eng\url{https://wiki.osdev.org/Creating_a_C_Library}}
 
@@ -1536,7 +1535,7 @@ podrazumeva i prototipe funkcija i struktura bez kojih se nec1e prevoditi.
 
 \medskip\begin{minipage}{\textwidth}\eng\lstinputlisting[language=C]{include/10.libc/sys/types.h}\srb\end{minipage}\smallskip
 
-\section{Pomoc1na \eng{C} biblioteka}
+\section{Pomoc1na {\eng C} biblioteka}
 \medskip
 
 {\eng src/include/types.h}:
@@ -1552,7 +1551,7 @@ podrazumeva i prototipe funkcija i struktura bez kojih se nec1e prevoditi.
 \medskip
 
 Glavna funkcija kojoj se predaje upravljanje u {\eng src/as/boot.s}
-asemblerskom fajlu koji smo imali prilike da vidimo na pochetku. Funkcija
+asemblerskom fajlu, koji smo imali prilike da vidimo na pochetku. Funkcija
 objedinjuje sve funkconalnosti koje smo do sada implementirali.
 
 {\eng src/c/kernel.c}:
@@ -1566,16 +1565,16 @@ objedinjuje sve funkconalnosti koje smo do sada implementirali.
 \chapter{Zakljuchak}
 
 Danas, kada postoje mnogobrojni vishi programski jezici, kreiranje operativnog
-sistema je vrlo tezhak izazov za koji se vrlo malo ljudi opredeljuje.
-Medjutim, za mene, ovo je jedno vrlo ohrabrujuc1e iskustvo sa kojim tek
-nekolicina mozhe da se pohvali. Author bi zheleo da u buduc1nosti primarno
-programira u nizhim programskim jezicima kao shto su {\eng Assembler} i {\eng
-C}, prosto iz razloga shto smatra da je to jedini nachin da se na duzhe staze
-izvojeva pobeda po pitanju performansi u odnosu na neke apstraktnije programske
-jezike. Osec1aj koji donosi chinjenica da se autorov kod izvrshava direktno na
-hardveru bez bilo kakvog posrednika autoru je od neprocenljivog znachaja.\\
+sistema je vrlo tezhak izazov za koji se vrlo malo ljudi opredeljuje. Medjutim,
+ovo je jedno vrlo ohrabrujuc1e iskustvo sa kojim tek nekolicina mozhe da se
+pohvali. Autor bi zheleo da u buduc1nosti primarno programira u nizhim
+programskim jezicima kao shto su {\eng Assembler} i {\eng C}, prosto iz razloga
+shto smatra da je to jedini nachin da se na duzhe staze izvojeva pobeda po
+pitanju performansi u odnosu na neke apstraktnije programske jezike. Osec1aj
+koji donosi chinjenica da se njegov kod izvrshava direktno na hardveru bez bilo
+kakvog posrednika, autoru je od neprocenljivog znachaja.\\
 
-Da bih odvazhio chitaoce, kao i sve druge koje ova tema zanima, da se i sami
+Da bi odvazhio chitaoce, kao i sve druge koje ova tema zanima, da se i sami
 oprobaju u izradi operativnog sistema, autor je sve izvorne fajlove ovog
 projekta objavio pod {\eng GPLv3} licencom, kao i sve svoje dosadashnje
 projekte, na stranici {\eng\url{https://github.com/aleksav013}}. Svi autorovi
@@ -1583,33 +1582,33 @@ projekti su {\eng open source} shto znachi da kod mozhe posluzhiti svakome ko
 zheli da sazna neshto vishe.\\
 
 U toku izrade autor se suochio sa mnogobrojnim problemima. Najtezhi deo je bio
-isplovljavanje i zapochinjanje ove ekspedicije. More informacija i standarda
-koji su morali biti zadovoljeni samo da bi se sistem pokrenuo, a zatim i
-ispisao neku korisnu informaciju, a kamoli neshto vishe. Najtezhe je bilo to
-shto nije bilo moguc1e dodati bilo kakvu funkcionalnost bez da se u potpunosti
-razume svaka linija koda. Preduslov za svaku, makar i najsitniju izmenu, bio je
-iscrpno i do detalja ish\/chitati dokumentaciju za predvidjenu oblast, ako ta
-dokumentacija uopshte i postoji.\\
+mu je isplovljavanje, i zapochinjanje ove ekspedicije. More informacija i
+standarda koji su morali biti zadovoljeni samo da bi se sistem pokrenuo, a
+zatim i ispisao neku korisnu informaciju, a kamoli neshto vishe. Najtezhe je
+bilo to shto nije bilo moguc1e dodati bilo kakvu funkcionalnost bez da se u
+potpunosti razume svaka linija koda. Preduslov za svaku, makar i najsitniju
+izmenu, bio je iscrpno i do detalja ish\/chitati dokumentaciju za predvidjenu
+oblast, ako ta dokumentacija uopshte i postoji.\\
 
 \newpage
 
 Ovaj projekat je bio sjajan pokazatelj koliko je zapravo kompleksna izrada
 jezgra operativnog sistema koji treba da predstavlja most izmedju hardvera i
-softvera. Drago mi je shto sam odabrao ovako tezhak projekat za maturski rad iz
-razloga shto mi je to pomoglo da probijem barijeru i ulozhim puno truda da bih
-zapravo razumeo kako rade operativni sistemi i koliko je sofisticiran njihov
-dizajn.\\
+softvera. Autor je srec1an shto je odabrao ovako tezhak projekat za maturski
+rad iz razloga shto mu je to pomoglo da probije barijeru i ulozhi puno truda da
+bi zapravo razumeo kako rade operativni sistemi i koliko je sofisticiran
+njihov dizajn.\\
 
 Autorov plan je da predstojec1e slobodno vreme nakon maturiranja i tokom
 studija, iskoristi na unapredjenje ovog malog operativnog sistema, i da u mu
-ovaj rad kao takav bude osnova za naredni.
+ovaj rad kao takav bude osnova za naredni.\\
 
-Izabrao sam ovu temu iz razloga shto istovremeno povezuje {\eng Linux} i
-programiranje u {\eng C} programskom jeziku, moje trenutno dve omiljene stvari,
-na predlog mog mentora. Iskoristio bih ovu priliku da se zahvalim profesoru
-Miloshu Arsic1u, kao i profesoru Filipu Had2ic1u na sjajnim idejama i
-usmeravanju prilikom izrade ovog maturskog rada, kao i svim drugarima,
-profesorima i porodici koji su me podrzhali.
+Autor je izabrao ovu temu iz razloga shto istovremeno povezuje {\eng Linux} i
+programiranje u {\eng C} programskom jeziku, njegove trenutno dve omiljene
+stvari, na predlog njegovog mentora. Autor bi voleo da iskoristi ovu priliku da
+se zahvali profesoru Miloshu Arsic1u, kao i profesoru Filipu Had2ic1u na
+sjajnim idejama i usmeravanju prilikom izrade ovog maturskog rada, kao i svim
+drugarima, profesorima i porodici koji su ga podrzhali.
 
 
 \thispagestyle{empty}
